@@ -1,0 +1,130 @@
+Let  
+
+P(x ,y) : f ( x f(x) + y ) = f (y) + x²    (∀ x ,y ∈ ℚ)        (1)
+
+be the assertion of the problem.  
+All variables below are rational unless something else is said.
+
+--------------------------------------------------------------------
+1.  f(0)=0
+--------------------------------------------------------------------
+Put x = 0 in (1):
+
+ f(y + f(0)) = f(y)    (∀ y)                                   (2)
+
+Thus f is periodic with period c := f(0).  
+Assume c ≠ 0.  
+Because of the periodicity, the set { f(t) ; 0 ≤ t < |c| } already contains the whole
+range of f, hence f is bounded.
+
+But from (1) with y = 0 we have
+
+ f(x f(x)) = c + x².                             (3)
+
+The right–hand side can be made arbitrarily large just by choosing x with large
+absolute value, contradicting the boundedness of f.  
+Therefore c = 0.
+
+So
+
+ f(0)=0 and f(y+0)=f(y) gives no other information.             (4)
+
+
+--------------------------------------------------------------------
+2.  A useful translation identity
+--------------------------------------------------------------------
+Because f(0)=0, (1) with y := 0 reads
+
+ f(x f(x)) = x²                                                  (5)
+
+Put y := −x f(x) in (1):
+
+ f(−x f(x)) = −x².                                              (6)
+
+Subtracting (6) from (5) yields
+
+ f(x f(x)) − f(−x f(x)) = 2x².                                  (7)
+
+Now note that (1) may be rewritten as
+
+ f(y + x f(x)) − f(y) = x²    (∀ x ,y).                      (8)
+
+Hence, for every rational s belonging to the set
+
+ T := { x f(x) ; x ∈ ℚ }                                        (9)
+
+the difference f(y+s) − f(y) is independent of y.  
+Define
+
+ h(s) := f(y+s) − f(y)    (any y, since the RHS is y–independent).     (10)
+
+For s = x f(x) we have h(s)=x² by (8).  
+Moreover, for any s₁,s₂ ∈ T,
+
+ h(s₁+s₂)=h(s₁)+h(s₂)                                          (11)
+
+because
+
+  f(y+s₁+s₂)−f(y) = [f(y+s₁+s₂)−f(y+s₂)]+[f(y+s₂)−f(y)]
+                   = h(s₁)+h(s₂).
+
+So h is additive on the subgroup T of ℚ.
+
+
+--------------------------------------------------------------------
+3.  The set T is all of ℚ
+--------------------------------------------------------------------
+Take an arbitrary rational q.  
+Because of (5) and (6) we have both
+
+  +q = ( √|q| ) f( √|q| ) and −q = ( −√|q| ) f( −√|q| ),
+
+so ±q ∈ T.  
+Consequently T = ℚ.
+
+Therefore h is an additive function on the whole field ℚ and still satisfies
+
+ h(x f(x)) = x²  (= h( (x f(x)) ) ).                          (12)
+
+--------------------------------------------------------------------
+4.  Determination of h
+--------------------------------------------------------------------
+Fix any rational t.  
+Because T = ℚ, there is an x with t = x f(x).  
+Then by (12),
+
+ h(t)=x².
+
+But t = x f(x) implies x = t / f(x).  
+Insert this into the last equation:
+
+ h(t) = (t / f(x))².                                            (13)
+
+Here the right–hand side depends on x only through the ratio t / f(x),
+hence f(x) must be a constant multiple of x; otherwise for a fixed
+t different choices of x (having the same product t) would give different
+values for h(t), contradicting (13).
+
+Thus there is a constant ε ∈ ℚ, ε ≠ 0, with
+
+ f(x) = ε x    (∀ x).                                         (14)
+
+--------------------------------------------------------------------
+5.  Identification of ε
+--------------------------------------------------------------------
+Insert (14) into the original equation (1):
+
+   ε( x·εx + y ) = ε y + x²
+   ε² x² + ε y   = ε y + x²
+             ε² = 1.                                             (15)
+
+Hence ε = 1 or ε = −1.
+
+--------------------------------------------------------------------
+6.  Solutions
+--------------------------------------------------------------------
+Therefore the only functions ℚ→ℚ satisfying (1) are
+
+ f(x) =  x  and f(x) = −x  for all x ∈ ℚ.
+
+Both indeed fulfil the given relation, so they are the complete list of solutions.

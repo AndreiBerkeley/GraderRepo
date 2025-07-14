@@ -1,0 +1,88 @@
+Put  
+
+s = 1-x ,        0<s≪1 ,      so      x = 1-s .
+
+Throughout we write  
+
+T_n(x)=n^{a}e^{2n}x^{n^{2}}\qquad(n\ge 1).
+
+1.  A convenient estimate for x^{n^{2} }  
+
+   0<x<1 ⇒ ln x = ln(1-s)= -s -O(s^{2}), hence
+
+   x^{n^{2}} = e^{n^{2}\ln x}=e^{-sn^{2}+O(sn^{2}s)} ≤ e^{-sn^{2}}
+   for all sufficiently small s.  
+   Consequently  
+
+   T_n(x) ≤ n^{a}e^{2n-sn^{2}}\qquad(\*)  
+
+2.  Completing the square.  
+   Write  
+
+       2n-sn^{2}= -s\Bigl(n-\frac1s\Bigr)^{2}+\frac1s.                    
+
+   Therefore (\*) becomes  
+
+       T_n(x) ≤ n^{a}\,e^{1/s}\,e^{-s\,(n-1/s)^{2}}.                     
+
+3.  A precise Gaussian window.  
+   Put m = n-\frac1s\;(m\in\mathbb Z).  Then n= m+\frac1s and, because
+   n≍1/s when the last exponential is not tiny, we may replace n^{a} by
+   (1/s)^{a} up to a bounded factor:
+
+       T_{m+\frac1s}(x)  ≤  C\,(1/s)^{a}\,e^{1/s}\,e^{-s m^{2}} ,
+       where C depends only on a.
+
+4.  Upper bound for F_a(x).  
+   Sum over m∈ℤ and use  ∑_{m∈ℤ}e^{-s m^{2}} = √\frac{\pi}{s}\,(1+o(1)):
+
+       F_a(x)=\sum_{n\ge 1}T_n(x)
+              ≤ C\,(1/s)^{a}\,e^{1/s}\sum_{m\in\mathbb Z}e^{-s m^{2}}
+              ≤ C'\,e^{1/s}\,s^{-a-\frac12}.                          (1)
+
+5.  A matching lower bound.  
+   Keep only those m with |m|≤M/√s (M fixed).  
+   For such m, e^{-s m^{2}} ≥ e^{-M^{2}}, and n=m+1/s ≍1/s, so again
+   n^{a}= (1/s)^{a}(1+o(1)).  Hence for small s,
+
+       T_{m+\frac1s}(x) ≥ c\,(1/s)^{a}\,e^{1/s}e^{-M^{2}} .
+
+   There are ≍ 2M/√s such integers m, so
+
+       F_a(x) ≥ c'\,e^{1/s}\,s^{-a-\frac12}.                           (2)
+
+6.  Exact growth of F_a(x).  
+   (1) and (2) together give
+
+       c'\,e^{1/s}\,s^{-a-\frac12}  ≤  F_a(x)  ≤  C'\,e^{1/s}\,s^{-a-\frac12}
+       as s→0^{+} .
+
+   Thus
+
+       F_a(x)\,e^{-1/(1-x)} = F_a(x)\,e^{-1/s}
+              = Θ\!\bigl(s^{-a-\frac12}\bigr),\qquad s\to 0^{+}.       (3)
+
+7.  The decisive exponent.  
+   From (3)
+
+          s^{-a-\frac12}  →  0     if and only if     -a-\frac12>0,
+          s^{-a-\frac12}  →  ∞    if and only if     -a-\frac12<0.
+
+   Hence
+
+          lim_{x→1^-} F_a(x)e^{-1/(1-x)} =
+          ⎧ 0   if a< -½,
+          ⎨
+          ⎩ ∞   if a> -½.
+
+(The borderline case a = -½ is not required in the problem statement.)
+
+8.  The requested constant.  
+   Therefore the critical value is  
+
+          c = -\dfrac12.
+
+That is,
+
+ • for every a < −1/2 one has lim_{x→1^-} F_a(x)e^{-1/(1-x)} = 0,  
+ • for every a > −1/2 one has lim_{x→1^-} F_a(x)e^{-1/(1-x)} = ∞.

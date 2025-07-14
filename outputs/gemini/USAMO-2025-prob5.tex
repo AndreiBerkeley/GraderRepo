@@ -1,0 +1,112 @@
+Here is a complete and rigorous step-by-step solution to the problem.
+
+Let $P(x,y)$ be the assertion $f(x-f(y)) = f(f(x)) - yf(x) + f(y)$.
+
+### Step 1: Check for constant solutions
+
+Let's test if a constant function $f(x) = c$ can be a solution.
+Substituting into the equation:
+$$c = f(x-c) = f(c) - y \cdot c + c$$
+$$c = c - yc + c$$
+$$0 = c(1-y)$$
+This equation must hold for all $y \in \mathbb{R}$. This is only possible if $c=0$.
+If $c=0$, we have $f(x) = 0$ for all $x$. Let's verify this solution:
+LHS: $f(x-f(y)) = f(x-0) = f(x) = 0$.
+RHS: $f(f(x)) - yf(x) + f(y) = f(0) - y \cdot 0 + 0 = 0 - 0 + 0 = 0$.
+Since LHS = RHS, $f(x)=0$ is a solution.
+
+### Step 2: Assume $f$ is not identically zero and prove injectivity
+
+Now, let's assume $f$ is not the zero function, so there exists at least one $x_0 \in \mathbb{R}$ such that $f(x_0) \neq 0$.
+
+Suppose $f(y_1) = f(y_2)$ for some $y_1, y_2 \in \mathbb{R}$.
+From $P(x, y_1)$, we have:
+$$f(x-f(y_1)) = f(f(x)) - y_1f(x) + f(y_1)$$
+From $P(x, y_2)$, we have:
+$$f(x-f(y_2)) = f(f(x)) - y_2f(x) + f(y_2)$$
+Since $f(y_1) = f(y_2)$, the left-hand sides are equal. Therefore, the right-hand sides must be equal:
+$$f(f(x)) - y_1f(x) + f(y_1) = f(f(x)) - y_2f(x) + f(y_2)$$
+Using $f(y_1)=f(y_2)$ again, we can simplify this to:
+$$-y_1f(x) = -y_2f(x)$$
+$$(y_2-y_1)f(x) = 0$$
+This equality must hold for all $x \in \mathbb{R}$. Since we assumed $f$ is not identically zero, there exists an $x_0$ such that $f(x_0) \neq 0$. For this $x_0$, the equation becomes:
+$$(y_2-y_1)f(x_0) = 0 \implies y_2-y_1=0 \implies y_1=y_2$$
+Thus, if $f(y_1)=f(y_2)$, then $y_1=y_2$. This shows that any non-zero solution must be an injective function.
+
+### Step 3: Analyze the consequences of having a root
+
+Let's consider the case where there exists some $y_0 \in \mathbb{R}$ such that $f(y_0)=0$.
+Substitute $y=y_0$ into the original equation $P(x, y_0)$:
+$$f(x-f(y_0)) = f(f(x)) - y_0f(x) + f(y_0)$$
+$$f(x-0) = f(f(x)) - y_0f(x) + 0$$
+$$f(x) = f(f(x)) - y_0f(x)$$
+This gives us a crucial relation for $f(f(x))$:
+$$f(f(x)) = (1+y_0)f(x) \quad (*)$$
+This holds for all $x \in \mathbb{R}$.
+Let's apply this equation for $x=y_0$:
+$$f(f(y_0)) = (1+y_0)f(y_0)$$
+$$f(0) = (1+y_0) \cdot 0$$
+$$f(0) = 0$$
+So, we have found that $f(0)=0$.
+Since we know $f(y_0)=0$ and $f(0)=0$, and $f$ is injective, we must have $y_0=0$.
+
+So, the only possible root for $f$ is at $x=0$.
+Substituting $y_0=0$ into equation $(*)$:
+$$f(f(x)) = (1+0)f(x) = f(x)$$
+Now we have $f(f(x))=f(x)$ for all $x \in \mathbb{R}$.
+Since $f$ is injective, $f(f(x))=f(x)$ implies $f(x)=x$ for any $x$ that is in the image of $f$. Let $z \in \text{Im}(f)$. Then $z=f(y)$ for some $y$. The relation $f(f(y))=f(y)$ becomes $f(z)=z$.
+
+Let's use our findings $f(0)=0$ and $f(f(x))=f(x)$ to simplify the original equation.
+The original equation is $f(x-f(y)) = f(f(x)) - yf(x) + f(y)$.
+This simplifies to $f(x-f(y)) = f(x) - yf(x) + f(y)$.
+
+Now, let's use the special value $x=0$.
+$P(0, y): f(0-f(y)) = f(0) - yf(0) + f(y)$.
+Since $f(0)=0$, this becomes:
+$$f(-f(y)) = 0 - y \cdot 0 + f(y)$$
+$$f(-f(y)) = f(y)$$
+Let $z$ be any element in the image of $f$, so $z=f(y)$ for some $y$. The equation above means $f(-z)=z$ for all $z \in \text{Im}(f)$.
+
+We now have two properties for any $z \in \text{Im}(f)$:
+1.  $f(z)=z$ (from $f(f(x))=f(x)$)
+2.  $f(-z)=z$ (from $f(-f(y))=f(y)$)
+
+Combining these, for any $z \in \text{Im}(f)$, we have $f(z) = f(-z)$.
+Since $f$ is injective, this implies $z = -z$, which means $2z=0$, so $z=0$.
+This means that the only element in the image of $f$ is 0. So, $\text{Im}(f) = \{0\}$.
+This implies that $f(x)=0$ for all $x \in \mathbb{R}$.
+
+This contradicts our initial assumption that $f$ is a non-zero function. Therefore, the assumption that a non-zero solution can have a root must be false. The only way out of the contradiction is if the function was the zero function to begin with.
+
+### Step 4: Analyze the case where there are no roots
+
+The argument in Step 3 shows that if a non-zero solution has a root, it must be the zero solution, a contradiction. So, if a non-zero solution exists, it cannot have any roots.
+Let's assume such a solution $f$ exists. So, $f(x) \neq 0$ for all $x \in \mathbb{R}$.
+As shown in Step 2, $f$ must be injective.
+
+Let's test the original equation at $y=0$:
+$P(x,0): f(x-f(0)) = f(f(x)) - 0 \cdot f(x) + f(0)$
+$$f(x-f(0)) = f(f(x)) + f(0)$$
+Let $c = f(0)$. By our assumption for this case, $c \neq 0$.
+The equation becomes:
+$$f(x-c) = f(f(x)) + c \quad (**)$$
+This must hold for all $x \in \mathbb{R}$. Let's substitute $x=c$ into this equation:
+$$f(c-c) = f(f(c)) + c$$
+$$f(0) = f(f(c)) + c$$
+By definition, $f(0)=c$, so:
+$$c = f(f(c)) + c$$
+$$f(f(c)) = 0$$
+This statement says that the value of the function $f$ at the point $f(c)$ is 0.
+However, this contradicts our assumption for this step, which is that $f(x) \neq 0$ for all $x$.
+Thus, the case where $f$ has no roots is impossible.
+
+### Conclusion
+
+We first checked that $f(x)=0$ is a solution.
+Then we assumed that a non-zero solution exists. We established that any such solution must be injective.
+We then considered two possibilities for a non-zero function $f$:
+1.  $f$ has a root, $f(y_0)=0$. This leads to the conclusion that $f(x)=0$ for all $x$, which contradicts the assumption that $f$ is non-zero.
+2.  $f$ has no roots, $f(x) \neq 0$ for all $x$. This leads to the conclusion that $f(f(f(0))) = 0$, which contradicts the premise of this case.
+
+Both cases for a non-zero solution lead to a contradiction. Therefore, no non-zero solutions exist.
+The only possible solution is the zero function.

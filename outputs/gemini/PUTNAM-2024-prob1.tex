@@ -1,0 +1,103 @@
+Here is a complete and rigorous, step-by-step solution to the problem.
+
+### The Problem
+
+Let $C_1$ and $C_2$ be two circles with centers $O_1$ and $O_2$ and radii $r_1$ and $r_2$ respectively. The two circles intersect at points $A$ and $B$. Let $P$ be a point on the segment $AB$ ($P \ne A, B$). The line through $P$ perpendicular to $O_1P$ intersects $C_1$ at points $U$ and $V$. The line through $P$ perpendicular to $O_2P$ intersects $C_2$ at points $X$ and $Y$. Show that the circle passing through $U, V, X, Y$ is centered at $P$.
+
+### Solution
+
+To show that the points $U, V, X, Y$ lie on a circle centered at $P$, we must prove that these four points are equidistant from $P$. That is, we need to show that $PU = PV = PX = PY$.
+
+Let's break this down into three main steps:
+1.  Show that $P$ is the midpoint of the chord $UV$, which implies $PU = PV$.
+2.  Show that $P$ is the midpoint of the chord $XY$, which implies $PX = PY$.
+3.  Show that the lengths $PU$ and $PX$ are equal.
+
+Combining these three results will establish the desired conclusion.
+
+---
+
+#### Step 1: P is the midpoint of the chord UV
+
+The points $U$ and $V$ lie on the circle $C_1$, so the segment $UV$ is a chord of $C_1$. The center of $C_1$ is $O_1$.
+
+The problem states that the line containing the chord $UV$ passes through $P$ and is perpendicular to the line segment $O_1P$.
+A fundamental property of circles is that the perpendicular from the center to a chord bisects the chord. In our case, the line segment $O_1P$ is perpendicular to the chord $UV$. This means that $P$ is the foot of the perpendicular from the center $O_1$ to the line containing the chord $UV$.
+
+Therefore, $P$ must be the midpoint of the chord $UV$. This gives us our first equality:
+$$PU = PV$$
+
+---
+
+#### Step 2: P is the midpoint of the chord XY
+
+The argument for the points $X$ and $Y$ on circle $C_2$ is identical.
+The points $X$ and $Y$ lie on the circle $C_2$, so the segment $XY$ is a chord of $C_2$. The center of $C_2$ is $O_2$.
+
+The problem states that the line containing the chord $XY$ passes through $P$ and is perpendicular to the line segment $O_2P$.
+Applying the same circle property, the perpendicular from the center $O_2$ to the chord $XY$ bisects the chord. Since $O_2P \perp XY$, $P$ is the midpoint of the chord $XY$.
+
+Therefore, we have our second equality:
+$$PX = PY$$
+
+---
+
+#### Step 3: Proving that PU = PX
+
+Now we need to show that the distance from $P$ to a point on the first chord is equal to the distance from $P$ to a point on the second chord. We will do this by relating these distances to the power of the point $P$ with respect to each circle.
+
+Consider the circle $C_1$. We have a right-angled triangle $\triangle O_1PU$, with the right angle at $P$ (since $O_1P \perp UV$). The vertices of this triangle are the center $O_1$, the point $P$, and the point $U$ on the circle. The segment $O_1U$ is a radius of $C_1$, so its length is $r_1$.
+
+By the Pythagorean theorem in $\triangle O_1PU$:
+$$O_1U^2 = O_1P^2 + PU^2$$
+$$r_1^2 = O_1P^2 + PU^2$$
+Rearranging this equation, we can express the squared distance $PU^2$ as:
+$$PU^2 = r_1^2 - O_1P^2 \quad (*)$$
+
+Similarly, consider the circle $C_2$. We have a right-angled triangle $\triangle O_2PX$, with the right angle at $P$ (since $O_2P \perp XY$). The segment $O_2X$ is a radius of $C_2$, so its length is $r_2$.
+
+By the Pythagorean theorem in $\triangle O_2PX$:
+$$O_2X^2 = O_2P^2 + PX^2$$
+$$r_2^2 = O_2P^2 + PX^2$$
+Rearranging this equation, we get:
+$$PX^2 = r_2^2 - O_2P^2 \quad (**)$$
+
+To prove that $PU = PX$, we need to show that $PU^2 = PX^2$. Using equations $(*)$ and $(**)$, this is equivalent to proving:
+$$r_1^2 - O_1P^2 = r_2^2 - O_2P^2$$
+This can be rewritten as:
+$$O_1P^2 - r_1^2 = O_2P^2 - r_2^2$$
+
+The expression $O_1P^2 - r_1^2$ is defined as the **power of the point P with respect to the circle $C_1$**, denoted as $\text{Pow}_{C_1}(P)$. Likewise, $O_2P^2 - r_2^2$ is the power of $P$ with respect to $C_2$, $\text{Pow}_{C_2}(P)$. So, our goal is to show that $\text{Pow}_{C_1}(P) = \text{Pow}_{C_2}(P)$.
+
+The set of all points that have equal power with respect to two given circles is a line called the **radical axis**. For two intersecting circles, the radical axis is the line passing through their intersection points. In our case, the circles $C_1$ and $C_2$ intersect at $A$ and $B$. Therefore, the line $AB$ is the radical axis of $C_1$ and $C_2$.
+
+By definition of the radical axis, for any point $K$ on the line $AB$, we have $\text{Pow}_{C_1}(K) = \text{Pow}_{C_2}(K)$.
+
+The problem states that $P$ is a point on the segment $AB$. Thus, $P$ lies on the line $AB$, which is the radical axis of the two circles.
+Therefore, we must have:
+$$\text{Pow}_{C_1}(P) = \text{Pow}_{C_2}(P)$$
+which implies
+$$O_1P^2 - r_1^2 = O_2P^2 - r_2^2$$
+and consequently
+$$r_1^2 - O_1P^2 = r_2^2 - O_2P^2$$
+
+From our equations $(*)$ and $(**)$, this means:
+$$PU^2 = PX^2$$
+Since distances are non-negative, we can take the square root of both sides to get:
+$$PU = PX$$
+
+---
+
+### Conclusion
+
+We have shown the following:
+1.  $PU = PV$ (from Step 1)
+2.  $PX = PY$ (from Step 2)
+3.  $PU = PX$ (from Step 3)
+
+Combining these equalities, we get:
+$$PU = PV = PX = PY$$
+
+This result shows that the four points $U, V, X, Y$ are all equidistant from the point $P$. Therefore, they all lie on a single circle with its center at $P$.
+
+This completes the proof.

@@ -1,0 +1,97 @@
+Bob (the builder) always has a winning strategy.
+
+Notation.  “Directly similar’’ means similarity obtained by a rotation, a homothety and a translation, but never a reflection.  
+For two already fixed, distinct points \(P,Q\) denote by  
+
+\[
+\mathcal T_{A,B}\; :\; \Bbb R^{2}\longrightarrow\Bbb R^{2}
+\]
+
+the unique direct similarity that sends \(P\mapsto A\) and \(Q\mapsto B\)
+(the scale factor and the rotation are determined by the vector \(PQ\mapsto AB\)).
+For every point \(X\) we write  
+
+\[
+X^{A,B}:=\mathcal T_{A,B}^{-1}(X).
+\]
+
+Thus \( \triangle PQR\sim\triangle ABC\)  iff \(C=R^{A,B}\), and   
+\( \triangle PQR\sim\triangle BAC\)  iff \(C=(R^{A,B})^{\!*}:=
+\mathcal T_{B,A}^{-1}(R)\).
+
+--------------------------------------------------------------------
+1.  If  \(S=\Bbb R^{2}\).
+
+Then for every pair of cities \(A,B\) and every third city \(C\) we have
+\(\mathcal T_{A,B}(C)\in S\); hence a road is built between every
+pair of cities, i.e. the graph of roads is the straight-line drawing of the
+complete graph on Bob’s set of cities.
+
+Bob now places four cities forming a convex
+quadrilateral whose sides are all longer than \(1\).
+No three of them are collinear, so the placement is legal.
+Because the drawing is the complete graph,
+the two diagonals of that quadrilateral are roads and they intersect.
+Therefore condition (ii) (“no two roads cross’’) fails and Bob wins.
+
+--------------------------------------------------------------------
+2.  If  \(S\neq\Bbb R^{2}\).
+
+Fix once and for all a point \(R_{0}\notin S\).
+Bob will construct his cities inductively so that
+
+(♠)  For every two distinct cities \(A,B\) already placed there is  
+a third city \(C\) already placed with
+\(\triangle PQR_{0}\) directly similar to \(\triangle ABC\) or \(\triangle BAC\).
+
+If (♠) holds, no pair \((A,B)\) satisfies the rule stated in the
+statement (because that rule requires the existence of an \(R\in S\) for
+every third city): hence no road will ever be built and the graph of roads
+is totally disconnected, making Bob the winner by condition (i).
+
+Inductive construction.  
+Suppose after \(n\,(n\ge 0)\) steps Bob has already placed
+cities \(C_{1},\dots ,C_{n}\) satisfying
+
+• mutual distances  \(>1\);  
+
+• no three collinear;  
+
+• property (♠) for every pair among them.
+
+List all the finitely many pairs \(\{A,B\}\subset \{C_{1},\dots ,C_{n}\}\)
+for which (♠) is still missing, and pick one such pair.
+Because \(R_{0}\notin S\), the set
+\(\mathcal T_{A,B}^{-1}(R_{0})\)\;(and also
+\(\mathcal T_{B,A}^{-1}(R_{0})\)) is a single point, but we are free to
+replace \(R_{0}\) by any point of the open set \(\Bbb R^{2}\setminus S\).
+That open set is infinite, hence so is its
+pre-image under the similarity \(\mathcal T_{A,B}^{-1}\).
+Consequently we can choose a point \(C\) that
+
+– lies in \(\mathcal T_{A,B}^{-1}(\Bbb R^{2}\setminus S)\),  
+so that \(\triangle PQR_{0}\) is directly similar
+to \(\triangle ABC\) or \(\triangle BAC\);  
+
+– is at distance \(>1\) from all \(C_{1},\dots ,C_{n}\);  
+
+– does not belong to any of the finitely many lines determined
+by two previously placed cities.
+
+Add that point as \(C_{n+1}\).
+All inductive requirements stay satisfied.
+Continuing recursively we obtain an infinite, legal set of cities that fulfils (♠).
+
+--------------------------------------------------------------------
+3.  Conclusion.
+
+Either Alice chooses \(S=\Bbb R^{2}\), in which case Bob makes four
+convex–quadrilateral cities and forces a crossing road, or
+\(S\neq\Bbb R^{2}\), in which case Bob follows the inductive scheme above
+and forces the road graph to be totally disconnected.
+In both cases at least one of Alice’s winning conditions fails,
+so Bob has a winning strategy.
+
+Therefore
+
+Bob is the player who always has a winning strategy.

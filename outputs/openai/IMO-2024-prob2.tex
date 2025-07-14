@@ -1,0 +1,138 @@
+Let  
+
+d_n = gcd(a^{\,n}+b,\; b^{\,n}+a),  n = 1,2,\dots 
+
+and assume that the positive integers a , b are fixed.  
+We have to decide for which pairs (a , b) the sequence (d_n) is
+eventually constant, i.e. d_n = d_{n+1}= \dots = d for all n larger than
+some N.
+
+------------------------------------------------
+1.  The pair (1,1)
+
+For a = b = 1 we have 1^{\,n}+1 = 2, hence
+
+d_n = gcd(2,2)=2  for every n ,
+
+so the sequence is (and always was) the constant sequence 2.
+Thus (1,1) certainly works.
+
+In the rest of the proof we assume (a , b) ≠ (1,1) and show that the
+sequence (d_n) can never stabilise.
+
+------------------------------------------------
+2.  A first necessary condition for an eventual constant
+
+Write d = d_N = d_{N+1}= \dots , choose some n ≥ N and put
+
+a^{\,n}+b = d x ,  b^{\,n}+a = d y  (x , y ∈ ℕ).
+
+Because d divides both numbers, the following identities hold:
+
+0 ≡ a^{\,n}+b ≡ -b (mod d)  ⇒  a^{\,n} ≡ -b (mod d)           (1)
+0 ≡ b^{\,n}+a ≡ -a (mod d)  ⇒  b^{\,n} ≡ -a (mod d)           (2)
+
+Multiplying (1) and (2) gives
+
+(ab)^{\,n} ≡ a b (mod d) ⇒ (ab)^{\,n-1} ≡ 1 (mod d).         (3)
+
+Take now the next exponent, n+1 ≥ N.  
+Because d_{n+1}=d, the same identities hold with n replaced by n+1; using
+(1) we obtain
+
+0 ≡ a^{\,n+1}+b = a(a^{\,n})+b ≡ a(-b)+b = b(1-a) (mod d),  
+0 ≡ b^{\,n+1}+a = b(b^{\,n})+a ≡ b(-a)+a = a(1-b) (mod d).
+
+Hence
+
+d | b(a-1) and d | a(b-1).                                         (4)
+
+------------------------------------------------
+3.  Two consecutive exponents force d ≤ 2
+
+Because d divides (ab)^{n-1}-1 for all n ≥ N (see (3)), it also divides
+the difference of two consecutive powers, therefore d divides  
+(ab)^{n}-(ab)^{n-1}= (ab)^{n-1}(ab-1).  Because d | (ab)^{n-1}-1, we get
+
+d | (ab-1).                                                        (5)
+
+Combining (4) and (5) we see that d divides simultaneously
+
+a , b , a-1 , b-1 .
+
+But no prime can divide a and a-1 (or b and b-1) at the same time.
+Consequently every prime divisor of d can occur only once in the list,
+so d is square–free and in fact
+
+d ≤ 2.                                                              (6)
+
+Thus the only two possible limiting values are d = 1 or d = 2.
+We treat them separately.
+
+------------------------------------------------
+4.  The limiting value d = 1 is impossible
+
+Suppose d_n = 1 for all n ≥ N.  
+If gcd(a , b) > 1 then that common divisor divides every d_n – a
+contradiction.  Hence gcd(a , b) = 1.
+
+If a + b possesses an odd prime factor p (that prime is coprime to
+ab), then
+
+a ≡ -b (mod p) ⇒ a^{p} ≡ a (mod p) (Fermat)  
+⇓ a^{p}+b ≡ 0 (mod p)  
+Similarly, b^{p}+a ≡ 0 (mod p).
+
+Thus p divides d_p > 1, contradicting d_p = 1.  Therefore
+
+a + b = 2^{k} with some k ≥ 1.                                     (7)
+
+Because a and b are coprime, (7) forces both of them to be odd.
+Take any odd exponent n.  Then a^{\,n} and b^{\,n} are odd, hence
+
+a^{\,n}+b and b^{\,n}+a are even  ⇒  d_n is even.
+
+But an even number cannot be 1, so d_n ≠ 1 for infinitely many n.
+This contradicts the assumption that all d_n (n ≥ N) equal 1.
+Hence d = 1 cannot occur.
+
+------------------------------------------------
+5.  What happens if d = 2 ?
+
+So from now on d = 2 and by (6) both a and b are odd.
+Write a + b = 2^{k} (k ≥ 1 again).
+For every odd n we may apply the 2–adic Lifting-The-Exponent (LTE) lemma
+to the odd numbers a and −b :
+
+v_2(a^{\,n}+b) = v_2(a^{\,n}-(-b)^{\,n})
+               = v_2(a + b) + v_2(n) = k + v_2(n).
+
+(The last equality holds because n is odd.)
+Exactly the same formula holds for b^{\,n}+a.  Consequently
+
+v_2(d_n) = k + v_2(n) for every odd n.                             (8)
+
+Since v_2(n) can be made arbitrarily large simply by choosing n to be
+large odd powers of two (n = 2^{m}+1, say), the 2-adic valuation of d_n
+is unbounded.  In particular v_2(d_n) cannot stay equal to 1, so the
+sequence (d_n) cannot stabilise at the value 2 unless k = 1, i.e.
+a + b = 2.
+
+The only positive integers with a + b = 2 are a = b = 1.
+But we excluded (1,1) at the beginning of this section.
+Therefore d = 2 is impossible for every other pair of odd numbers.
+
+------------------------------------------------
+6.  Conclusion
+
+The sequence (d_n) can be eventually constant only in the already
+verified case (a , b) = (1,1).
+
+------------------------------------------------
+Answer.  
+The sequence  
+
+gcd(a^{\,n}+b,\; b^{\,n}+a)\;(n = 1,2,\dots)
+
+is eventually constant if and only if (a , b) = (1,1); in that case it
+is the constant sequence 2.

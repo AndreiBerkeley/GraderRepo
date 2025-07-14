@@ -1,0 +1,85 @@
+Let  
+
+S(m)=∑_{k=1}^{m}⌊m/k⌋  (m=1,2,3, …).
+
+The required equation is  
+
+S(m)=n²+a   (m,n∈ℕ, a∈ℕ₀). (1)
+
+We show that for a suitable a the set of solutions (m,n) is larger than one
+million.
+
+────────────────────────────────────────────────────────
+1.  A convenient upper bound for S(m)
+────────────────────────────────────────────────────────
+Because ⌊m/k⌋≤m/k,
+
+ S(m)=∑_{k=1}^{m}⌊m/k⌋≤m∑_{k=1}^{m}1/k = m H_m ,  
+
+where H_m is the m-th harmonic number.  Since H_m<ln m+1 for m≥1,  
+
+ S(m)<m(ln m+1)<2m ln m  (m≥3). (2)
+
+────────────────────────────────────────────────────────
+2.  “Defects from the nearest square’’
+────────────────────────────────────────────────────────
+For every m put  
+
+ b(m)=S(m)−⌊√{S(m)}⌋². (3)
+
+Obviously b(m) is a non–negative integer and
+
+ 0≤b(m)<2√{S(m)} ≤2√{2m ln m}  (by (2)). (4)
+
+────────────────────────────────────────────────────────
+3.  How many different values can b(m) take?
+────────────────────────────────────────────────────────
+Fix a large integer M and look at the first M numbers b(1),…,b(M).
+
+By (4) each of them lies in  
+
+ [0,2√{2M ln M}).  
+
+Hence the set {b(1),…,b(M)} has cardinality at most  
+
+ L:=⌈2√{2M ln M}⌉. (5)
+
+────────────────────────────────────────────────────────
+4.  Pigeonhole principle
+────────────────────────────────────────────────────────
+Distributing M integers among at most L boxes, some value a occurs at least  
+
+ Q:=⌈M/L⌉≥ M/(2√{2M ln M}+1) > √M /(3√{2 ln M}). (6)
+
+────────────────────────────────────────────────────────
+5.  Choosing M
+────────────────────────────────────────────────────────
+We need Q>1,000,000.  
+Take M:=10¹⁵.  Then √M=10^{7.5}=3.16·10⁷ and ln M≈34.54, whence
+
+ Q> 3.16·10⁷ /(3√{2·34.54}) ≈ 1.27·10⁶ > 10⁶.
+
+Thus for this M there is a non-negative integer a that occurs as b(m) for
+more than one million different m (namely, for at least Q of the integers
+1,…,M).
+
+────────────────────────────────────────────────────────
+6.  Constructing the solutions
+────────────────────────────────────────────────────────
+For every m with b(m)=a we have, by (3),
+
+ S(m)=⌊√{S(m)}⌋²+a=n²+a  with n:=√{S(m)−a}∈ℕ.
+
+Hence each of those m furnishes a solution (m,n) of (1).
+Because they are distinct m’s, the pairs (m,n) are distinct as well; their
+number exceeds 1,000,000.
+
+────────────────────────────────────────────────────────
+7.  Conclusion
+────────────────────────────────────────────────────────
+Yes.  There exists a non-negative integer a (e.g. the most frequent value
+of b(m) among 1≤m≤10¹⁵) for which the equation
+
+ ⌊m/1⌋+⌊m/2⌋+⋯+⌊m/m⌋ = n²+a
+
+has more than one million different solutions in positive integers (m,n).

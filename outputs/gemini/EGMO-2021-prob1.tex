@@ -1,0 +1,70 @@
+An elegant, step-by-step solution to the problem is as follows.
+
+Let $P(x, y)$ be the assertion $f(x^2 - y^2) = (x-y)(f(x) + f(y))$.
+
+**Step 1: Find the value of $f(0)$**
+By substituting $y=x$ into the given equation, we get $P(x, x)$:
+$$f(x^2 - x^2) = (x-x)(f(x) + f(x))$$
+$$f(0) = 0 \cdot (2f(x))$$
+$$f(0) = 0$$
+This is a crucial initial property of the function $f$.
+
+**Step 2: Prove that $f$ is an odd function**
+The term $x^2 - y^2$ is symmetric with respect to $y \to -y$. Let's exploit this.
+Consider the assertion $P(x, -y)$:
+$$f(x^2 - (-y)^2) = (x - (-y))(f(x) + f(-y))$$
+$$f(x^2 - y^2) = (x+y)(f(x) + f(-y))$$
+We now have two expressions for $f(x^2 - y^2)$:
+1. $f(x^2 - y^2) = (x-y)(f(x) + f(y))$ (from $P(x,y)$)
+2. $f(x^2 - y^2) = (x+y)(f(x) + f(-y))$ (from $P(x,-y)$)
+
+Equating the right-hand sides of these two equations gives:
+$$(x-y)(f(x) + f(y)) = (x+y)(f(x) + f(-y))$$
+This identity holds for all $x, y \in \mathbb{R}$. Let's set $x=0$:
+$$(0-y)(f(0) + f(y)) = (0+y)(f(0) + f(-y))$$
+$$-y(f(0) + f(y)) = y(f(0) + f(-y))$$
+Since we found that $f(0)=0$, this simplifies to:
+$$-y f(y) = y f(-y)$$
+For any $y \neq 0$, we can divide by $y$ to obtain:
+$$-f(y) = f(-y)$$
+For $y=0$, we have $f(-0) = f(0) = 0$ and $-f(0) = 0$, so the equality holds for $y=0$ as well.
+Therefore, $f(-x) = -f(x)$ for all $x \in \mathbb{R}$, which means $f$ is an odd function.
+
+**Step 3: Simplify the functional equation**
+Now we use the fact that $f$ is odd in the equation we derived in Step 2:
+$$(x-y)(f(x) + f(y)) = (x+y)(f(x) + f(-y))$$
+Since $f(-y) = -f(y)$, the equation becomes:
+$$(x-y)(f(x) + f(y)) = (x+y)(f(x) - f(y))$$
+Now, we expand both sides of the equation:
+$$xf(x) + xf(y) - yf(x) - yf(y) = xf(x) - xf(y) + yf(x) - yf(y)$$
+We can cancel the terms $xf(x)$ and $-yf(y)$ from both sides:
+$$xf(y) - yf(x) = -xf(y) + yf(x)$$
+Rearranging the terms, we get:
+$$2xf(y) = 2yf(x)$$
+$$xf(y) = yf(x)$$
+This relation holds for all $x, y \in \mathbb{R}$.
+
+**Step 4: Determine the form of the function $f(x)$**
+From the relation $xf(y) = yf(x)$, we can determine the general form of $f(x)$.
+Let's choose a non-zero constant for $y$, for example $y=1$. The equation becomes:
+$$x f(1) = 1 f(x)$$
+$$f(x) = f(1) \cdot x$$
+Let $c = f(1)$, which is a fixed constant. Then the function must be of the form:
+$$f(x) = cx$$
+This derivation is valid for all $x \in \mathbb{R}$. To be fully rigorous, we note that if we pick any $y_0 \neq 0$, then $f(x) = \frac{f(y_0)}{y_0}x$. The constant $c = \frac{f(y_0)}{y_0}$ is independent of the choice of $y_0$, because for any other $y_1 \neq 0$, we have $y_1 f(y_0) = y_0 f(y_1)$, which implies $\frac{f(y_0)}{y_0} = \frac{f(y_1)}{y_1}$. The case where $f(y)=0$ for all $y \neq 0$ is included by setting $c=0$.
+
+**Step 5: Verify the solution**
+We must check if the functions of the form $f(x)=cx$ satisfy the original equation for any constant $c \in \mathbb{R}$.
+The original equation is $f(x^2 - y^2) = (x-y)(f(x) + f(y))$.
+
+Substitute $f(x)=cx$ into the left-hand side (LHS):
+$$LHS = f(x^2 - y^2) = c(x^2 - y^2)$$
+
+Substitute $f(x)=cx$ into the right-hand side (RHS):
+$$RHS = (x-y)(f(x) + f(y)) = (x-y)(cx + cy)$$
+$$RHS = c(x-y)(x+y) = c(x^2 - y^2)$$
+
+Since LHS = RHS, the equation holds for any function of the form $f(x)=cx$.
+
+**Conclusion**
+The set of all functions satisfying the given equation is $f(x) = cx$ for any constant $c \in \mathbb{R}$.

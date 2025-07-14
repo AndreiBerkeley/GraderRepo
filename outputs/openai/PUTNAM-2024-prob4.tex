@@ -1,0 +1,57 @@
+Denote by  
+
+X_k:=a_{n,k}\qquad(k=0,1,2,\dots ) ,  so  X_0=1.  
+
+For a fixed n, at step k the present value is j (1≤j≤n).  
+Because m_{n,k} is uniform on {1,…,n},
+
+P(X_{k+1}=j+1 | X_k=j)= (n-j)/n ,  
+P(X_{k+1}=j   | X_k=j)= 1/n         ,  
+P(X_{k+1}=j-1 | X_k=j)= (j-1)/n .
+
+Hence
+
+E[X_{k+1}\mid X_k=j]
+ = j+1·(n-j)/n +0·1/n −1·(j-1)/n
+ = j+\frac{\,n-j-(j-1)\,}{n}
+ = j+\frac{n+1-2j}{n}.                           (1)
+
+1.  Recurrence for the mean  
+Put μ_k:=E[X_k].  Taking expectation in (1):
+
+μ_{k+1}=μ_k+\frac{n+1-2μ_k}{n}
+       =\Bigl(1-\frac{2}{n}\Bigr)μ_k+\frac{n+1}{n}.        (2)
+
+Let  
+
+r:=1-\dfrac{2}{n}, c:=\dfrac{n+1}{n}.
+
+(2) is a first–order linear recurrence: μ_{k+1}=rμ_k+c.
+
+2.  Solving the recurrence  
+With μ_0=1,
+
+μ_k=r^k μ_0 + c(1+r+\dots+r^{k-1})
+    = r^k + c\frac{1-r^{k}}{1-r}
+    = r^k +\frac{n+1}{n}\frac{1-r^{k}}{2/n}
+    = r^k +\frac{n+1}{2}(1-r^{k}).                      (3)
+
+3.  Mean after n steps  
+Put k=n in (3) and recall r=1-2/n:
+
+E(n)=μ_n=\frac{n+1}{2}-\frac{n+1}{2}r^{\,n}+r^{\,n}
+     =\frac{n+1}{2}-\frac{n-1}{2}\,r^{\,n}.             (4)
+
+4.  Asymptotics of r^{\,n}  
+(r^{\,n})=(1-2/n)^{n}\longrightarrow e^{-2}\qquad(n\to\infty).      (5)
+
+5.  Limit of E(n)/n  
+Divide (4) by n:
+
+\frac{E(n)}{n}= \frac{n+1}{2n}-\frac{n-1}{2n}(1-2/n)^{n}
+             \xrightarrow[n\to\infty]{} \frac12-\frac12 e^{-2}
+             =\frac{1-e^{-2}}{2}.                       (6)
+
+Therefore  
+
+\boxed{\displaystyle \lim_{n\to\infty}\frac{E(n)}{n}= \frac{1-e^{-2}}{2}}.

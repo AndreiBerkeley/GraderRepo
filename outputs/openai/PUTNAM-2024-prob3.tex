@@ -1,0 +1,96 @@
+Put  
+
+r_n ∈((n-\tfrac12)π,(n+\tfrac12)π) ,                            n =1,2,3,…  
+
+for the n-th positive root of  
+
+tan x = x .  
+
+Write each root in the form  
+
+r_n = nπ +δ_n \qquad(-\tfrac{π}{2}<δ_n<\tfrac{π}{2}).                     (1)
+
+The required inequality is equivalent to  
+
+0<δ_{n+1}-δ_n<\dfrac1{π\,n(n+1)}.                                        (2)
+
+(Indeed  
+r_{n+1}-r_n-π = (n+1)π+δ_{n+1}-nπ-δ_n-π = δ_{n+1}-δ_n.)
+
+-----------------------------------------------------------------------------
+1.  An auxiliary variable  
+
+Set  
+
+ε_n = \frac{π}{2}-δ_n\qquad(0<ε_n<\tfrac{π}{2}).                        (3)
+
+Relation (1) together with tan (nπ+δ_n)=tan δ_n gives  
+
+cot ε_n = nπ+\frac{π}{2}-ε_n.                                        (4)
+
+Because cot ε is strictly decreasing on (0,π/2), (4) determines a unique  
+ε_n , and therefore ε_n decreases when n increases; hence δ_n grows and the
+ left–hand part of (2) is positive.
+
+-----------------------------------------------------------------------------
+2.  Two easy inequalities for cot x on (0,1]
+
+Elementary Taylor estimates of sin and cos (or L’Hospital/convexity) yield for 0<x≤1  
+
+1/x - x/2  ≤ cot x ≤ 1/x.                                           (5)
+
+-----------------------------------------------------------------------------
+3.  Bounding ε_n from above
+
+Put x =1/(nπ) ≤ 1.  
+Using (5) we have cot x ≤ 1/x = nπ, hence
+
+cot x - x < nπ - x < nπ + π/2                                (for n≥1),
+
+so the left‐hand side of (4) is smaller than the right‐hand side.
+Because the function ε↦cot ε-ε is decreasing, the equality (4)
+is attained at a smaller ε, whence  
+
+ε_n < 1/(nπ).                                                       (6)
+
+-----------------------------------------------------------------------------
+4.  Bounding ε_n from below  
+
+Put y = 1/((n+1)π) ≤ 1.  
+By the left hand inequality in (5),
+
+cot y ≥ 1/y - y/2 = (n+1)π - \frac{1}{2(n+1)π}.
+
+Consequently
+
+cot y - y ≥ (n+1)π - \frac{3}{2(n+1)π}.
+
+For every n ≥1
+
+(n+1)π - \frac{3}{2(n+1)π} - \Bigl(nπ+\frac{π}{2}\Bigr)
+    = \frac{π}{2}-\frac{3}{2(n+1)π}>0,
+
+so the left‐hand side of (4) exceeds the right‐hand side.
+Because cot ε-ε decreases, the equality (4) is attained at a larger ε; hence  
+
+ε_n > 1/((n+1)π).                                                   (7)
+
+-----------------------------------------------------------------------------
+5.  A sharp difference estimate
+
+Combine (6) for n and (7) for n+1:
+
+ε_n - ε_{n+1}  <  \frac{1}{nπ} - \frac{1}{(n+1)π}
+               =  \frac{1}{π\,n(n+1)}.                             (8)
+
+Because ε_n > ε_{n+1}, the left hand side is positive; using (3)
+
+ε_n - ε_{n+1} = \bigl(\tfrac{π}{2}-δ_n\bigr)-\bigl(\tfrac{π}{2}-δ_{n+1}\bigr)
+               = δ_{n+1}-δ_n.
+
+Insert this in (8) to obtain (2), hence
+
+0<r_{n+1}-r_n-π<\frac{1}{π\,n(n+1)}, \qquad n=1,2,3,\dots .
+
+-----------------------------------------------------------------------------
+Thus the required double inequality is proved.

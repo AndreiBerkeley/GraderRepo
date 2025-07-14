@@ -1,0 +1,98 @@
+Answer:  2023  
+
+Explanation  
+
+1.  A strategy that always works in at most 2023 attempts  
+
+Label the columns \(1,2,\dots ,2023\).  
+On his \(j\)-th attempt (\(j=1,2,\dots ,2023\))
+
+ • Turbo starts in the lowest–numbered column that he has never tried before (that
+  is, in column \(j\)).  
+ • He walks straight down that column until either  
+  – he meets a monster (the attempt ends in defeat and he has learned that this
+     column contains a monster), or  
+  – he reaches the last row (the attempt ends in victory).
+
+Because there are exactly \(2022\) monsters and they are all in different
+columns, at most \(2022\) of the \(2023\) columns can harbour a monster.
+Consequently the column tried on or before the \(2023^{\text{rd}}\) attempt is
+certain to be the unique completely monster–free column, so Turbo has reached
+the bottom row by that time.  Hence
+
+  Turbo can always succeed in at most \(2023\) attempts.       \((\ast )\)
+
+
+
+2.  Why no strategy can guarantee success sooner  
+
+Assume, to obtain a contradiction, that some strategy would always reach the
+bottom row in at most \(2022\) attempts.  
+Fix such a strategy and look at the information Turbo possesses after he has
+failed \(k\,(<2022)\) times:
+
+ • He has discovered the positions of exactly \(k\) monsters, one per failed
+  attempt.  
+ • Therefore he knows precisely \(k\) columns that contain monsters.  
+ • Let
+  \[
+     S_k:=\{1,2,\dots ,2023\}\setminus\{\text{those }k\text{ columns}\}.
+  \]
+  These \(|S_k|=2023-k\ge 2\) columns are still “possible” locations for the
+  unique monster-free column.
+
+Look now at how the given strategy is going to conduct the next (namely, the
+\((k+1)\)-st) attempt.  Long before the monsters are really placed we can
+simulate that attempt and obtain the finite sequence of cells
+
+\[
+     P=(p_1,p_2,\dots ,p_m),\qquad p_t=(r_t,c_t),
+\]
+
+that Turbo will step on **provided he never meets an undiscovered
+monster**.  (The sequence is well defined because the strategy is a fixed set
+of rules depending only on previous experiences.)
+
+Because \(|S_k|\ge 2\), pick two different columns  
+\(a,b\in S_k\).
+
+Case 1.  The path \(P\) visits column \(a\) in some as-yet-unrevealed row
+\(r\).  
+Construct a monster placement still consistent with all earlier observations as
+follows:
+
+ • Put the (so far unknown) monster of row \(r\) at the very cell \((r,a)=p_t\)
+  that Turbo is going to step on.  
+ • Put each of the remaining unknown monsters in a **distinct** column chosen
+  among the other columns of \(S_k\setminus\{a\}\); this is possible because
+  there are at least as many still-free columns as still-empty rows.  
+
+All conditions of the original problem are fulfilled and Turbo
+inevitably hits the monster in \((r,a)\) on his \((k+1)\)-st attempt.  
+Thus he certainly cannot reach the bottom row in \(k+1\) attempts.
+
+Case 2.  The path \(P\) avoids column \(a\) completely.
+Do the same construction with column \(b\) instead of \(a\).
+Again a legal arrangement of monsters is produced that forces Turbo to be
+eaten on the coming attempt.
+
+Hence, **whatever the strategy is**, as long as fewer than \(2022\) monsters
+have been located there is a legal way to place the remaining monsters that
+defeats the very next attempt.  Therefore Turbo must first
+discover all \(2022\) monster columns,
+and can succeed only on the subsequent try.
+
+Consequently
+
+  No strategy can guarantee success in fewer than \(2023\) attempts.       \((\dagger )\)
+
+
+
+3.  Conclusion  
+
+Combining \((\ast )\) and \((\dagger )\) we obtain that the smallest integer
+\(n\) with the desired property is
+
+\[
+\boxed{\,n=2023\,}.
+\]

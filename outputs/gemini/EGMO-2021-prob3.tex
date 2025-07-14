@@ -1,0 +1,58 @@
+Here is a complete and rigorous solution to the problem.
+
+### The Problem
+
+Let $C_1$ and $C_2$ be two circles with centers $O_1$ and $O_2$ respectively, and let $r_1$ and $r_2$ be their radii. The two circles intersect at points $A$ and $B$. Let $CD$ be a common external tangent to the two circles, with $C$ on $C_1$ and $D$ on $C_2$. Let $M$ be the intersection of the line $AB$ and the line $CD$. Prove that $MC = MD$.
+
+### Solution
+
+The proof relies on the fundamental concept of the power of a point with respect to a circle and the properties of the radical axis of two circles.
+
+**Step 1: Define Power of a Point and Radical Axis**
+
+The **power of a point** $P$ with respect to a circle $\mathcal{C}$ with center $O$ and radius $r$ is defined as $\text{Pow}(P, \mathcal{C}) = PO^2 - r^2$. The power of a point is a fundamental quantity in geometry with several important properties.
+
+One key property is that if $P$ is an external point to the circle, and a line through $P$ is tangent to the circle at a point $T$, then the power of $P$ is equal to the square of the length of the tangent segment from $P$ to the circle. That is:
+$$ \text{Pow}(P, \mathcal{C}) = PT^2 $$
+
+The **radical axis** of two circles, $C_1$ and $C_2$, is the locus of all points $P$ that have equal power with respect to both circles. That is, the set of points $P$ such that:
+$$ \text{Pow}(P, C_1) = \text{Pow}(P, C_2) $$
+
+**Step 2: Identify the Radical Axis in the Given Problem**
+
+A standard theorem in geometry states that for two intersecting circles, their radical axis is the line passing through their intersection points.
+
+In this problem, the circles $C_1$ and $C_2$ intersect at points $A$ and $B$. Therefore, the line passing through $A$ and $B$, which is the line $AB$, is the radical axis of $C_1$ and $C_2$.
+
+To see why, let $P$ be any point on the line $AB$. A line through $P, A, B$ intersects circle $C_1$ at $A$ and $B$. The power of $P$ with respect to $C_1$ is given by the product of the signed distances from $P$ to the intersection points, which is $\text{Pow}(P, C_1) = \vec{PA} \cdot \vec{PB}$. Similarly, the same line intersects circle $C_2$ at the same points $A$ and $B$, so the power of $P$ with respect to $C_2$ is $\text{Pow}(P, C_2) = \vec{PA} \cdot \vec{PB}$. Thus, for any point $P$ on the line $AB$, $\text{Pow}(P, C_1) = \text{Pow}(P, C_2)$, confirming that line $AB$ is the radical axis.
+
+**Step 3: Use the Properties of Point M**
+
+The point $M$ is defined as the intersection of the line $AB$ and the line $CD$.
+Since $M$ lies on the line $AB$, and the line $AB$ is the radical axis of $C_1$ and $C_2$, it follows from the definition of the radical axis that the power of $M$ with respect to $C_1$ is equal to the power of $M$ with respect to $C_2$.
+$$ \text{Pow}(M, C_1) = \text{Pow}(M, C_2) $$
+
+**Step 4: Express the Power of M using the Tangent Line**
+
+The line $CD$ is a common tangent to both circles. The point $M$ lies on this line.
+*   For circle $C_1$, the line $CD$ is tangent at point $C$. Since $M$ is a point on this tangent line, the length of the tangent segment from $M$ to $C_1$ is the distance $MC$.
+    According to the property of the power of a point, we have:
+    $$ \text{Pow}(M, C_1) = MC^2 $$
+*   Similarly, for circle $C_2$, the line $CD$ is tangent at point $D$. The length of the tangent segment from $M$ to $C_2$ is the distance $MD$.
+    Thus, we have:
+    $$ \text{Pow}(M, C_2) = MD^2 $$
+
+**Step 5: Conclude the Proof**
+
+By combining the equations from Step 3 and Step 4, we get:
+$$ MC^2 = MD^2 $$
+Since $MC$ and $MD$ are lengths, they must be non-negative real numbers. Taking the square root of both sides gives:
+$$ MC = MD $$
+This proves that $M$ is the midpoint of the segment $CD$.
+
+### Summary of the argument:
+1.  The line $AB$ is the radical axis of circles $C_1$ and $C_2$.
+2.  The point $M$ lies on the radical axis $AB$, so it has equal power with respect to both circles: $\text{Pow}(M, C_1) = \text{Pow}(M, C_2)$.
+3.  The power of $M$ with respect to $C_1$ is $MC^2$, as $MC$ is the tangent segment from $M$ to $C_1$.
+4.  The power of $M$ with respect to $C_2$ is $MD^2$, as $MD$ is the tangent segment from $M$ to $C_2$.
+5.  Equating the powers gives $MC^2 = MD^2$, which implies $MC=MD$.

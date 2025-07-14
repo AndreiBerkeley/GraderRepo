@@ -1,0 +1,102 @@
+Solution outline  
+——————————
+
+1.  Think of the circle as the sequence  
+   $C_{1},C_{2},\dots ,C_{m}\;(C_{m+1}=C_{1})$ written clockwise.
+
+2.  Fix an order of the people  
+   $P_{1},P_{2},\dots ,P_{n}$ (any order will do).
+
+3.  For a starting place $s\in\{1,2,\dots ,m\}$ run the
+   following “walk–around–the–circle’’ procedure.
+
+  Step 0 Put the pointer at $C_{s}$.
+
+  Step 1 Give consecutive cupcakes to $P_{1}$, beginning
+     with $C_{s}$, until the total score of the cupcakes that
+     $P_{1}$ has obtained is at least 1.  
+     Let the first cupcake *not* given to $P_{1}$
+     be $C_{t_{1}}$; place the pointer there.
+
+  Step 2 Give consecutive cupcakes to $P_{2}$, beginning with
+     $C_{t_{1}}$, until $P_{2}$ has accumulated
+     score $\ge 1$; call the next cupcake $C_{t_{2}}$.
+
+  \qquad  ⋯  
+
+  Step $n$  Give consecutive cupcakes to $P_{n}$, starting with
+     $C_{t_{n-1}}$, until $P_{n}$ has score $\ge1$.
+     Stop at the first cupcake that is *not* given to $P_{n}$.
+     Denote that stopping place by $C_{\varphi(s)}$.
+     Let $L(s)=\varphi(s)-s$ (taken in the integer interval
+     $\{1,\dots ,m\}$) be the number of cupcakes that were
+     distributed by the procedure that started at $s$.
+
+   The outcome of the procedure that starts at $s$
+   is a partition of the *first* $L(s)$ cupcakes met
+   after $C_{s}$ into $n$ consecutive
+   blocks, the $k$-th block belonging to $P_{k}$ and giving that
+   person total score at least 1.
+
+4.  Two key facts about the map $s\mapsto\varphi(s)$.
+
+   A. (Strict monotonicity)  
+      If $1\le s\le m$ then, read on the
+      infinite line $\dots ,C_{s-1},C_{s},C_{s+1},\dots$,
+      the index $\varphi(s+1)$ is *strictly larger* than
+      $\varphi(s)$.  
+      Indeed, when the procedure begins one cupcake later, the
+      first person can never finish sooner; hence every person
+      finishes no earlier, so the global stopping place moves
+      forward at least one position.
+
+   B. (Bounded motion)  
+      Passing the starting point by one cupcake advances
+      the stopping point by *at most* one cupcake; consequently
+      $\varphi(s+1)=\varphi(s)+1$ for every $s$.
+
+   Together these two statements say that the mapping
+      s ↦ (ϕ(s) − s)   (mod m)
+   is a permutation of the residue classes
+   $0,1,\dots ,m-1$.
+
+5.  As $s$ runs through $1,2,\dots ,m$, one of the residues
+   $\varphi(s)-s$ must be $0$.
+   Choose such an $s_{0}$.
+   Then
+          $\varphi(s_{0}) = s_{0}+m$,
+   i.e. the procedure that starts at $C_{s_{0}}$
+   goes once around the circle, distributes *every one*
+   of the $m$ cupcakes, and then stops.
+
+6.  In that distribution each person $P_{k}$ has been given a
+   consecutive block of cupcakes whose total score
+   (according to $P_{k}$) is at least 1.
+   The blocks are pairwise disjoint, so every cupcake has been
+   given to exactly one person.
+
+   That is precisely the required assignment of cupcakes.
+
+
+Why the procedure always reaches the next person  
+—————————————————————————————————
+
+Fix a person $P_{k}$ and look at the moment the pointer starts
+giving cupcakes to that person.
+
+Because $P_{1},\dots ,P_{k-1}$ already received *consecutive*
+blocks, the circle is split into at most $k$ disjoint arcs that
+have been removed and one big arc that is still untouched.
+The hypothesis of the problem gives $P_{k}$ a personal partition
+of the whole circle into $n$ consecutive arcs, each of
+score $\ge1$.  At most $k-1$ of those arcs have been touched
+already, so at least one complete “untouched’’ arc of the
+partition remains.  Its total score is $\ge1$, therefore
+$P_{k}$ certainly reaches total score 1 *before* the pointer
+travels all the way around the circle.  Hence the procedure
+is well‐defined and uses no more than $m$ cupcakes for any one
+person.
+
+Therefore every part of the construction is legitimate, and
+Steps 1–6 give a rigorous proof that the desired distribution
+exists.

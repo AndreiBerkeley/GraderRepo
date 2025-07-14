@@ -1,0 +1,121 @@
+Label the rows and columns \(1,2,\dots ,n\).
+If we choose one square in every row and every column we
+necessarily pick the squares  
+
+\[
+(1,\sigma(1)),(2,\sigma(2)),\dots ,(n,\sigma(n))
+\]
+
+for some permutation \(\sigma\) of \(\{1,\dots ,n\}\).
+The number written in the square \((i,\sigma(i))\) is  
+\(i+\sigma(i)-k\).
+
+--------------------------------------------------------------------
+I.  A necessary condition
+--------------------------------------------------------------------
+The required numbers are \(1,2,\dots ,n\); their sum is  
+
+\[
+1+2+\cdots +n=\frac{n(n+1)}2 .
+\]
+
+On the other hand the sum of the numbers in the chosen squares is  
+
+\[
+\sum_{i=1}^{n}\bigl(i+\sigma(i)-k\bigr)
+      =\sum_{i=1}^{n}i+\sum_{i=1}^{n}\sigma(i)-nk
+      =\frac{n(n+1)}2+\frac{n(n+1)}2-nk
+      =n(n+1)-nk .
+\]
+
+Equality of the two sums gives  
+
+\[
+\frac{n(n+1)}2=n(n+1)-nk
+\quad\Longrightarrow\quad
+n(n+1)-2nk=0
+\quad\Longrightarrow\quad
+k=\frac{n+1}{2}.
+\]
+
+Hence \(k\) must be the half–integer \((n+1)/2\); therefore \(n\)
+has to be odd.  Thus
+
+  Necessary condition   \(n\) is odd and \(k=\dfrac{n+1}{2}\).
+
+--------------------------------------------------------------------
+II.  A construction when the condition holds
+--------------------------------------------------------------------
+Now assume \(n\) is odd and put  
+
+\[
+k=\frac{n+1}{2}.
+\]
+
+Define a permutation \(\sigma\) by a fixed cyclic shift:
+
+\[
+\sigma(i)\;=\;
+\begin{cases}
+i+k,& 1\le i\le n-k,\\[4pt]
+i+k-n,& n-k< i\le n.
+\end{cases}
+\qquad\Bigl(\text{equivalently } \sigma(i)\equiv i+k\;(\bmod n)\Bigr)
+\]
+
+Because adding the constant \(k\) modulo \(n\) is a bijection,
+\(\sigma\) really is a permutation, so the chosen squares lie in
+different rows and columns.
+
+--------------------------------------------------------------------
+III.  The values that appear
+--------------------------------------------------------------------
+Compute \(i+\sigma(i)\).
+
+•  If \(1\le i\le n-k=\dfrac{n-1}{2}\),
+   then \(\sigma(i)=i+k\) and  
+
+   \[
+   i+\sigma(i)=i+(i+k)=2i+k.
+   \]
+
+•  If \(\dfrac{n+1}{2}\le i\le n\),
+   write \(i=\dfrac{n+1}{2}+t\;(0\le t\le \tfrac{n-1}{2})\).
+   Then \(\sigma(i)=i+k-n\) and  
+
+   \[
+   i+\sigma(i)=i+i+k-n
+              =2\Bigl(\tfrac{n+1}{2}+t\Bigr)+k-n
+              =1+k+2t.
+   \]
+
+Thus the set \(\{\,i+\sigma(i)\mid1\le i\le n\,\}\) is
+
+\[
+\{\,k+1,k+2,\dots ,k+n\,\}.
+\]
+
+Finally, the numbers actually written in the selected squares are
+
+\[
+\bigl(i+\sigma(i)-k\bigr)_{i=1}^{n}
+  \;=\;\{\,k+1-k,k+2-k,\dots ,k+n-k\,\}
+  \;=\;\{\,1,2,\dots ,n\,\}.
+\]
+
+--------------------------------------------------------------------
+IV.  Conclusion
+--------------------------------------------------------------------
+An admissible selection exists
+exactly when
+
+•  \(n\) is odd, and  
+•  \(k=\dfrac{n+1}{2}\).
+
+For these parameters the above permutation furnishes the required
+\(n\) squares; for all other pairs \((n,k)\) no such selection can
+exist.
+
+Hence the answer is:
+
+Possible ⇔ \(n\) is odd and \(k=(n+1)/2\).

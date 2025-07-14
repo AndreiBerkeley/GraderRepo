@@ -1,0 +1,79 @@
+The problem statement as given is:
+"Given a right-angled triangle $ABC$ with the right angle at $C$. Let $H$ be the foot of the altitude from $C$ to $A B$. Let $M$ and $N$ be the midpoints of the segments $AH$ and $BH$ respectively. Prove that the lines $CM$ and $AN$ are perpendicular."
+
+There appears to be a typographical error in the problem statement. Let's analyze the statement as it is.
+
+### Analysis of the Original Problem Statement
+
+Let's set up a coordinate system to analyze the geometry. Let the line $AB$ be the x-axis and the line $CH$ be the y-axis. Let $H$ be the origin $(0,0)$.
+Since $\angle A$ and $\angle B$ in the right triangle $ABC$ must be acute, $H$ lies between $A$ and $B$. We can set the coordinates of the vertices without loss of generality:
+* $H = (0,0)$
+* Let $AH = a$ and $BH = b$ for some $a,b > 0$. Then $A = (-a, 0)$ and $B = (b, 0)$.
+* Let $CH=c$ for some $c > 0$. So $C = (0, c)$.
+
+The points $A, M, H, N, B$ are all on the line segment $AB$, which is the x-axis in our coordinate system.
+* $M$ is the midpoint of $AH$. The coordinates of $M$ are $\left(\frac{-a+0}{2}, \frac{0+0}{2}\right) = \left(-\frac{a}{2}, 0\right)$.
+* $N$ is the midpoint of $BH$. The coordinates of $N$ are $\left(\frac{b+0}{2}, \frac{0+0}{2}\right) = \left(\frac{b}{2}, 0\right)$.
+
+We want to prove that the lines $CM$ and $AN$ are perpendicular.
+* The line $AN$ is the line passing through $A(-a, 0)$ and $N(b/2, 0)$. Since both points lie on the x-axis, the line $AN$ is the x-axis itself. The slope of $AN$ is $m_{AN}=0$.
+* The line $CM$ is the line passing through $C(0, c)$ and $M(-a/2, 0)$.
+
+For $CM$ to be perpendicular to $AN$ (the x-axis), $CM$ must be a vertical line. This would require the x-coordinates of $C$ and $M$ to be the same. The x-coordinate of $C$ is $0$ and the x-coordinate of $M$ is $-a/2$.
+For them to be equal, we must have $-a/2 = 0$, which implies $a=0$.
+$a=AH$, so $a=0$ means $A=H$. If $A=H$, the triangle $\triangle AHC$ is degenerate. In $\triangle ABC$, this would mean that the altitude from $C$ is the side $AC$, so $\angle A = 90^\circ$.
+However, the triangle $ABC$ is given to be right-angled at $C$, so $\angle C = 90^\circ$. A triangle cannot have two right angles. The only way this is possible is in a degenerate triangle where $B$ and $C$ coincide, which is not a triangle.
+
+Therefore, the problem statement as written is incorrect for any non-degenerate triangle.
+
+### Corrected Problem Statement and Solution
+
+A common and very similar problem has a slight modification in the definition of one of the midpoints. The most likely intended problem is the following, where the "A" in "AH" is replaced by a "C":
+
+**Corrected Problem:** Given a right-angled triangle $ABC$ with the right angle at $C$. Let $H$ be the foot of the altitude from $C$ to $AB$. Let $M$ be the midpoint of the segment **CH** and $N$ be the midpoint of the segment $BH$. Prove that the lines $AM$ and $CN$ are perpendicular.
+
+We will now provide a rigorous proof for this corrected statement. We can use vector algebra, which provides an elegant solution.
+
+**Proof:**
+
+Let's establish a coordinate system with the vertex $H$ at the origin $(0,0)$. Let the line $AB$ be the x-axis and the line $CH$ be the y-axis.
+* $H = (0,0)$.
+* Let $A = (-a, 0)$ and $B = (b, 0)$ for some $a,b > 0$.
+* Let $C = (0, c)$ for some $c > 0$.
+
+In $\triangle ABC$, $\angle C = 90^\circ$. The position vectors of the vertices relative to the origin $H$ are $\vec{a} = (-a,0)$, $\vec{b} = (b,0)$ and $\vec{c} = (0,c)$.
+The vectors representing the sides $AC$ and $BC$ are:
+$\vec{CA} = \vec{a} - \vec{c} = (-a, -c)$
+$\vec{CB} = \vec{b} - \vec{c} = (b, -c)$
+
+Since $\angle C = 90^\circ$, the vectors $\vec{AC}$ and $\vec{BC}$ are perpendicular. (Note: using $\vec{CA}$ and $\vec{CB}$ is equivalent). Their dot product must be zero.
+$\vec{AC} \cdot \vec{BC} = 0$
+$(\vec{c}-\vec{a}) \cdot (\vec{c}-\vec{b}) = 0$
+$(a, c) \cdot (-b, c) = 0$
+$a(-b) + c(c) = 0 \implies -ab + c^2 = 0 \implies c^2 = ab$.
+This relation is the well-known geometric mean theorem for right triangles ($CH^2 = AH \cdot BH$).
+
+Now, let's find the coordinates of $M$ and $N$ based on the corrected problem statement.
+* $M$ is the midpoint of $CH$. $C=(0,c), H=(0,0)$. So, $M = \left(\frac{0+0}{2}, \frac{c+0}{2}\right) = \left(0, \frac{c}{2}\right)$.
+* $N$ is the midpoint of $BH$. $B=(b,0), H=(0,0)$. So, $N = \left(\frac{b+0}{2}, \frac{0+0}{2}\right) = \left(\frac{b}{2}, 0\right)$.
+
+We need to prove that the lines $AM$ and $CN$ are perpendicular. We can do this by showing that the dot product of their direction vectors is zero.
+* The direction vector for the line $AM$ can be represented by $\vec{AM} = \vec{M} - \vec{A}$.
+$\vec{A} = (-a, 0)$ and $\vec{M} = (0, c/2)$.
+$\vec{AM} = (0 - (-a), c/2 - 0) = (a, c/2)$.
+
+* The direction vector for the line $CN$ can be represented by $\vec{CN} = \vec{N} - \vec{C}$.
+$\vec{C} = (0, c)$ and $\vec{N} = (b/2, 0)$.
+$\vec{CN} = (b/2 - 0, 0 - c) = (b/2, -c)$.
+
+Now, we compute the dot product of $\vec{AM}$ and $\vec{CN}$:
+$\vec{AM} \cdot \vec{CN} = (a, c/2) \cdot (b/2, -c)$
+$= a\left(\frac{b}{2}\right) + \left(\frac{c}{2}\right)(-c)$
+$= \frac{ab}{2} - \frac{c^2}{2}$
+
+Using the relation $c^2=ab$ that we derived earlier:
+$\vec{AM} \cdot \vec{CN} = \frac{ab}{2} - \frac{ab}{2} = 0$.
+
+Since the dot product of the direction vectors of the lines $AM$ and $CN$ is zero, the lines are perpendicular.
+
+This completes the proof for the corrected problem statement.

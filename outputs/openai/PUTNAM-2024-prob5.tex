@@ -1,0 +1,193 @@
+Let  
+
+\[
+\mathcal S_{k,m}(z)=\Bigl\{\,
+(x_{1},\dots ,x_{k},y_{1},\dots ,y_{m})\in \Bbb Z ^{k+m}\; ;\;
+1\le x_{1}\le\cdots \le x_{k}\le z,\;
+1\le y_{1}\le\cdots \le y_{m}\le z\Bigr\}.
+\]
+
+For a fixed positive integer \(z\) the number of such pairs of
+non-decreasing \(k\)- and \(m\)-tuples equals  
+
+\[
+|\mathcal S_{k,m}(z)|=\binom{z+k-1}{k}\binom{z+m-1}{m},
+\tag{1}
+\]
+
+because \(\binom{z+k-1}{k}\) counts the multisets of cardinality \(k\)
+chosen from \(\{1,\dots ,z\}\) and the second factor does the same for
+cardinality \(m\).
+With this notation
+
+\[
+f(n)=\sum_{z=1}^{n}\binom{z+k-1}{k}\binom{z+m-1}{m}.
+\tag{2}
+\]
+
+The task is to show that \(f(n)\) is a polynomial in \(n\) all of whose
+coefficients are non–negative.
+
+--------------------------------------------------------------------
+1.  A convenient polynomial basis  
+--------------------------------------------------------------------
+For non–negative integers \(r\) put  
+
+\[
+\llbracket n \\ r \rrbracket=\binom{n}{r}
+       =\frac{n(n-1)\dots(n-r+1)}{r!}.
+\]
+
+The family \(\bigl\{\llbracket n \\ r \rrbracket\bigr\}_{r\ge 0}\) (the
+“binomial‐coefficient basis’’) is a basis of the space of all
+polynomials in \(n\):
+every polynomial
+
+\[
+P(n)\quad(\deg P\le d)
+\]
+
+can be written uniquely in the
+Newton expansion  
+
+\[
+P(n)=\sum_{r=0}^d
+        \bigl(\Delta^{\,r}P\bigr)(0)\;
+        \llbracket n \\ r\rrbracket ,
+\tag{3}
+\]
+
+where \(\Delta\) is the forward–difference operator
+\((\Delta P)(n)=P(n+1)-P(n)\).
+The coefficients in this expansion are  
+
+\[
+c_r:=\bigl(\Delta^{\,r}P\bigr)(0)
+     =\sum_{j=0}^{r}(-1)^{r-j}\binom{r}{j}P(j).
+\tag{4}
+\]
+
+--------------------------------------------------------------------
+2.  Expanding the summand in the Newton basis  
+--------------------------------------------------------------------
+Fix \(k,m\ge 1\) and set  
+
+\[
+g(z):=\binom{z+k-1}{k}\binom{z+m-1}{m}\qquad(z\ge 0).
+\]
+
+Because \(g\) is a polynomial in \(z\) of degree \(k+m\),
+(3) gives
+
+\[
+g(z)=\sum_{r=0}^{k+m}a_{r}\llbracket z\\ r\rrbracket ,
+\qquad a_{r}=\bigl(\Delta^{\,r}g\bigr)(0).
+\tag{5}
+\]
+
+We next show that every \(a_{r}\) is a non–negative integer.
+
+--------------------------------------------------------------------
+3.  The coefficients \(a_{r}\) are non–negative  
+--------------------------------------------------------------------
+Observe first that \(g(0)=0\).  Moreover \(g(1)=1\) only when
+\(k=m=1\); in every case \(g(z)\) is strictly increasing in \(z\) because
+allowing a larger maximal value offers (weakly) more possibilities for
+all coordinates.  Consequently  
+
+\[
+\Delta g(z)=g(z+1)-g(z)\ge 0
+\qquad\text{for every }z\ge 0 .
+\tag{6}
+\]
+
+Apply (6) repeatedly:
+all higher forward differences of \(g\) are non–negative,
+
+\[
+\bigl(\Delta^{\,r}g\bigr)(z)\;\ge\;0
+\qquad\text{for every }r\ge 1,\;z\ge 0.
+\tag{7}
+\]
+
+(In words: the sequence \(g(0),g(1),g(2),\dots\) is {\it convex} in the
+sense of finite differences.)  In particular  
+
+\[
+a_{r}=\bigl(\Delta^{\,r}g\bigr)(0)\ge 0
+\qquad\bigl(0\le r\le k+m\bigr),
+\tag{8}
+\]
+
+so every coefficient appearing in (5) is a non–negative integer.
+
+--------------------------------------------------------------------
+4.  Summing over \(z\)  
+--------------------------------------------------------------------
+Insert (5) into (2):
+
+\[
+f(n)=\sum_{z=1}^{n}g(z)
+    =\sum_{z=1}^{n}\,
+      \sum_{r=0}^{k+m}a_{r}\llbracket z\\ r\rrbracket
+    =\sum_{r=0}^{k+m}a_{r}
+      \sum_{z=1}^{n}\llbracket z\\ r\rrbracket .
+\tag{9}
+\]
+
+The inner sum can be evaluated explicitly:
+
+\[
+\sum_{z=1}^{n}\llbracket z\\ r\rrbracket
+ =\sum_{z=0}^{n}\llbracket z\\ r\rrbracket
+          -\llbracket 0\\ r\rrbracket
+ =\binom{n+1}{r+1}-0
+ =\llbracket n+1\\ r+1\rrbracket ,
+\tag{10}
+\]
+
+so (9) becomes  
+
+\[
+f(n)=\sum_{r=0}^{k+m}a_{r}\;
+      \llbracket n+1\\ r+1\rrbracket .
+\tag{11}
+\]
+
+--------------------------------------------------------------------
+5.  Positivity of the final coefficients  
+--------------------------------------------------------------------
+Equation (11) shows that \(f(n)\) is a linear combination of the
+polynomials
+\(\llbracket n+1\\ r+1\rrbracket\;(0\le r\le k+m)\).
+Each polynomial \(\llbracket n+1\\ r+1\rrbracket
+      =\tfrac1{(r+1)!}(n+1)n(n-1)\dots(n-r+2)\)
+has, when expanded, only non-negative coefficients in the usual power
+basis \(\{1,n,n^{2},\dots\}\).
+Together with \(a_{r}\ge 0\) from (8) this proves that the right–hand
+side of (11) is itself a polynomial in \(n\) whose every coefficient is
+non-negative.
+
+--------------------------------------------------------------------
+6.  Conclusion  
+--------------------------------------------------------------------
+For every pair of positive integers \(k,m\) the function  
+
+\[
+f(n)=\sum_{z=1}^{n}\binom{z+k-1}{k}\binom{z+m-1}{m}
+\qquad(n=1,2,\dots)
+\]
+
+admits the representation  
+
+\[
+\boxed{\;
+f(n)=\displaystyle\sum_{r=0}^{k+m}
+        a_{r}\binom{n+1}{r+1}},
+\]
+
+where \(a_{r}=\bigl(\Delta^{\,r}g\bigr)(0)\) are non–negative integers.
+Because every binomial coefficient \(\binom{n+1}{r+1}\) expands into a
+polynomial in \(n\) with non-negative coefficients, \(f(n)\) itself is a
+polynomial in \(n\) with all coefficients non-negative, as was to be
+shown.

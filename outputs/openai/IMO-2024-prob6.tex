@@ -1,0 +1,186 @@
+Let  
+
+\[
+P(x,y):\qquad  
+(\text A)\;f(x+f(y))=f(x)+y\quad\text{or}\quad  
+(\text B)\;f\bigl(f(x)+y\bigr)=x+f(y)
+\]
+
+be the assertion of the statement.  
+Throughout the solution we work only with rational numbers; no other
+domain or codomain occurs.
+
+--------------------------------------------------------------------
+1.  The value of $f$ at $0$
+
+Put $x=y=0$ in $P$ :
+
+\[
+f\bigl(f(0)\bigr)=f(0).\tag{1}
+\]
+
+Now put $x=0,\;y=-f(0)$ :
+
+– If $(\text A)$ is true,  
+ $f\bigl(f(-f(0))\bigr)=f(0)-f(0)=0$.  
+ Because of (1) this gives $f(0)=0$.
+
+– If $(\text B)$ is true,  
+ $f\bigl(f(0)-f(0)\bigr)=f(-f(0))$, i.e. $f(0)=f(-f(0))$.  
+ Together with (1) it again yields $f(0)=0$.
+
+Hence  
+
+\[
+\boxed{\,f(0)=0\,}. \tag{2}
+\]
+
+--------------------------------------------------------------------
+2.  Surjectivity of $f$
+
+With (2) the alternative $P\bigl(f(0),y\bigr)$ becomes
+
+\[
+f\bigl(f(y)\bigr)=y\quad\text{or}\quad f\bigl(f(0)+y\bigr)=f(y).
+\]
+
+The second possibility reads $f(y)=f(y)$ and is therefore always true,
+while the first one gives $f\bigl(f(y)\bigr)=y$.  
+Consequently, for every $y$ there is some argument, namely $f(y)$,
+whose image is $y$; hence $f$ is surjective.
+
+--------------------------------------------------------------------
+3.  A crucial identity:  $f(-f(x))=-x$
+
+Because of surjectivity we can pick, for any fixed $x$, a rational
+$y$ with  
+
+\[
+f(y)=-x.
+\]
+
+Apply $P(x,y)$.
+
+If $(\text A)$ is true, then
+
+\[
+f\bigl(x+f(y)\bigr)=f(x)+y\;\Longrightarrow\;
+f(0)=f(x)+y\;\Longrightarrow\;y=-f(x).
+\]
+
+If $(\text B)$ is true, then
+
+\[
+f\bigl(f(x)+y\bigr)=x+f(y)\;\Longrightarrow\;
+f(0)=x-f(x)\;\Longrightarrow\;x=f(x),
+\]
+
+and in this case again $y=-f(x)$.  
+Hence in either case $y=-f(x)$, and recalling $f(y)=-x$ we obtain  
+
+\[
+\boxed{\,f\bigl(-f(x)\bigr)=-x\quad\forall x\in\Bbb Q.\,}\tag{3}
+\]
+
+--------------------------------------------------------------------
+4.  Oddness and involution
+
+Apply $f$ to both sides of (3) and use (3) once more:
+
+\[
+f\bigl(f(-f(x))\bigr)=f(-x)\quad\Longrightarrow\quad
+-f(x)=f(-x).
+\]
+
+Thus  
+
+\[
+\boxed{\,f(-x)=-f(x)\quad\forall x.\,}\tag{4}
+\]
+
+Now put $x\mapsto f(x)$ in (4):
+
+\[
+f\bigl(-f(f(x))\bigr)=-f(f(x)).
+\]
+
+But with (3) the left–hand side equals $-\,f(x)$, so we get  
+
+\[
+-\,f(x)=-f(f(x))\;\Longrightarrow\;
+\boxed{\,f(f(x))=x\quad\forall x.\,}\tag{5}
+\]
+
+Therefore $f$ is an involution and bijective.
+
+--------------------------------------------------------------------
+5.  Additivity of $f$
+
+Let $x,y$ be arbitrary.  
+Because $f$ is onto, pick $z$ with $f(z)=y$ and apply $P(x,z)$.
+
+• If $(\text A)$ holds,  
+
+\[
+f(x+y)=f(x)+z. \tag{6}
+\]
+
+• If $(\text B)$ holds,  
+
+\[
+f\bigl(f(x)+z\bigr)=x+y.
+\]
+Using (5) and $z=f(y)$ this becomes  
+
+\[
+f(x+y)=f(x)+f(y). \tag{7}
+\]
+
+In case (6) we again use $z=f(y)$ (because $f$ is involutive) and get
+the same relation (7).
+Hence  
+
+\[
+\boxed{\,f(x+y)=f(x)+f(y)\quad\forall x,y.\,}\tag{8}
+\]
+
+So $f$ is additive on $\Bbb Q$; therefore there exists a constant
+$k\in\Bbb Q$ with  
+
+\[
+f(x)=k\,x\quad\forall x. \tag{9}
+\]
+
+--------------------------------------------------------------------
+6.  Determination of the constant $k$
+
+Putting (9) in the involution property (5) gives $k^{2}=1$, hence
+$k=\pm1$.  
+Thus the only aquaesulian functions are
+
+\[
+f(x)=x\qquad\text{and}\qquad f(x)=-x\qquad(x\in\Bbb Q). \tag{10}
+\]
+
+--------------------------------------------------------------------
+7.  The values $f(r)+f(-r)$
+
+For both functions in (10)
+
+\[
+f(r)+f(-r)=\pm r\mp r=0\qquad\text{for every }r\in\Bbb Q.
+\]
+
+So every aquaesulian function yields exactly one (and the same)
+rational number, namely $0$, of the form $f(r)+f(-r)$.
+
+Consequently there is a universal bound $c=1$, and no smaller integer
+is possible.  
+
+--------------------------------------------------------------------
+Answer.  
+The smallest integer with the required property is  
+
+\[
+\boxed{c=1}.
+\]

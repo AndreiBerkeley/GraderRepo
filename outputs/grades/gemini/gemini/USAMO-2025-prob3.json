@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"Incorrect\",\n  \"score\": 0,\n  \"feedback\": \"The student has provided a solution to a different problem. The problem asks to determine which player has a winning strategy in a game played by Alice and Bob, which involves constructing a graph based on a set of cities. The winning conditions for Alice are that this graph must be connected and planar.\\n\\nThe student's submission, however, presents a proof for a completely unrelated Euclidean geometry problem about the concurrency of three lines in a triangle (related to the Spieker center). While the provided proof for that problem is correct and well-argued, it does not address the actual problem statement in any way. No part of the given problem has been solved or even attempted. Therefore, no points can be awarded.\"\n}\n```"
+}

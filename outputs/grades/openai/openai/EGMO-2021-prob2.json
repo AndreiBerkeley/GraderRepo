@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 2,
+  "feedback": "The argument for f(0)=0 is incorrect: periodicity alone does not imply that a function Q→Q is bounded on a fundamental domain (consider e.g. g(q)=1/(q−⌊q⌋)). Because this unsupported claim is used repeatedly, every subsequent step – in particular formulas (5), (6) and the construction of h – lacks justification. Therefore the proof does not establish the necessity of the solutions, although the final list of solutions is correct. Some credit is given for deriving the correct candidates and for the later algebraic manipulation once f(0)=0 is (incorrectly) assumed."
+}

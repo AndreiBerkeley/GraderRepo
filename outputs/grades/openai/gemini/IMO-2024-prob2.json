@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 0,
+  "feedback": "The presented solution discusses a geometric configuration with vectors, circumcenter, orthocenter, etc., and never treats the arithmetic sequence gcd(a^n+b, b^n+a). It does not attempt to prove that the sequence is (or is not) eventually constant for any (a,b), nor does it identify (1,1) as the unique solution. Therefore it does not solve the stated problem."
+}

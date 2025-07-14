@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"The submitted solution is for a different problem.\",\n  \"score\": 0,\n  \"feedback\": \"The student has submitted a solution to a geometry problem involving triangles, circumcenters, and vectors. However, the problem posed is a number theory problem concerning the greatest common divisor of a sequence of integers, specifically $\\\\gcd(a^n+b, b^n+a)$.\\n\\nThe provided solution does not address the given problem in any way. It seems the student has misunderstood the question or submitted a solution for a different problem by mistake. As the submission makes no progress towards solving the actual problem, it receives a score of 0.\"\n}\n```"
+}

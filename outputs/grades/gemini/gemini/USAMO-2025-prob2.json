@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"Wrong Problem\",\n  \"score\": 0,\n  \"feedback\": \"The student has provided a solution to a geometry problem, not the stated algebra problem about polynomials. The solution discusses properties of circles, chords, and angles, which are unrelated to the given problem concerning the roots of a polynomial P(x) based on a condition on the coefficients of its divisors. As the submission does not address the question asked, it receives no points.\"\n}\n```"
+}

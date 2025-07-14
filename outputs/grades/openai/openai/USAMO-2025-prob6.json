@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 2,
+  "feedback": "The construction is imaginative, but the crucial “bounded-motion’’ claim (Fact B: ϕ(s+1)=ϕ(s)+1) is false.  A starting point that is shifted by one cupcake can make the first person take more than one extra cupcake, and the later people can add further shift; explicit counter-examples (e.g. m=4, n=2 with scores (1,0,1,0) and (0,1,0,1)) give ϕ(s+1)=ϕ(s)+2.  Since the equality ϕ(s+1)=ϕ(s)+1 fails, the argument that the residues ϕ(s)−s run through all values mod m collapses, and the existence of an s₀ with ϕ(s₀)=s₀+m is not proved.  Thus the core of the proof is invalid and the solution does not establish the required distribution, although some preliminary observations (the procedure is well-defined, monotonicity ϕ(s+1)>ϕ(s)) are correct."
+}

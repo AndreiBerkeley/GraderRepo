@@ -1,0 +1,5 @@
+{
+  "verdict": "CORRECT",
+  "score": 7,
+  "feedback": "The argument rigorously bounds every base-2n digit a_i from below by ⌊n/2^i⌋, then observes that the smallest of these bounds is ⌊n/2^k⌋.  Choosing N = 2^k(d+1)+1 guarantees ⌊n/2^k⌋ ≥ d+1 for all odd n ≥ N, hence all digits exceed d.  All deductions are valid; the bound on N is only slightly weaker than the minimal one, which is perfectly acceptable.  Solution is complete and correct."
+}

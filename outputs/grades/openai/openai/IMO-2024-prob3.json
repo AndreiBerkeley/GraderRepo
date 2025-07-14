@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 2,
+  "feedback": "Good observation that the value 1 must occur infinitely often (Step 1) and that therefore one of the parity classes contains infinitely many 1’s (Step 2); these parts are valid and deserve partial credit.  \nHowever Step 3 is false: from the fact that a_{2m}=1 it does not follow that the next value t=a_{2m+1}=c_{2m}(1) is new.  In general t may already have appeared (e.g. the sequence 2,1,1,2,… shows a_{2}=1 but a_{4}=2).  Consequently the inductive claim that all later even terms equal 1 is unsupported, and the remainder of the proof collapses.  The argument therefore does not establish eventual periodicity of either subsequence.\n"
+}

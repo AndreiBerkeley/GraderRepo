@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"The student has provided a solution to a completely different problem.\",\n  \"score\": 0,\n  \"feedback\": \"The student's submission provides a detailed and correct solution to a problem concerning the roots of the polynomial $P(x) = x^3 - 3x^2 + 1$. The analysis of the roots using calculus and the evaluation of an expression involving the roots are both well-executed and correct.\\n\\nUnfortunately, the submission does not address the actual problem posed, which is a number theory question about the number of solutions to the equation $\\\\sum_{k=1}^{m} \\\\lfloor m/k \\\\rfloor = n^2 + a$. There is no connection between the content of the submission and the problem statement.\\n\\nAccording to standard contest grading policies, a solution must address the given problem to receive points. Since this submission solves an entirely different problem, it cannot be awarded any marks.\"\n}\n```"
+}

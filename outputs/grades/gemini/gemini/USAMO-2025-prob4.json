@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"wrong_answer\",\n  \"score\": 0,\n  \"feedback\": \"The student has provided a detailed and correct solution to an inequality problem. However, the problem statement given was a geometry problem. The submission does not address the given problem about the orthocenter and circumcircle of a triangle. Therefore, no points can be awarded for this submission as it solves a completely different problem.\"\n}\n```"
+}

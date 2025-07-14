@@ -1,0 +1,5 @@
+{
+  "verdict": "PARTIALLY CORRECT",
+  "score": 3,
+  "feedback": "Good observations: you correctly proved that D is the orthocenter of ΔIEF and deduced ID ⟂ EF, hence AA′ ∥ ID.  The remainder of the proof, however, is not valid.\n\n•  The claimed similarity of right-angled triangles AMF and INF is not established – the equality of the angles at F is not proved (AF and IF form arbitrary angles with EF).\n•  Point N is not the midpoint of IF; in a right triangle the midpoint of the hypotenuse lies on the hypotenuse, not at the foot of the altitude from the right-angle vertex.  Therefore the equality IN = NF and the subsequent midpoint argument are false.\n\nBecause the critical final step showing A′ ≡ P (and thus A′ ∈ BC) is unsupported, the solution is incomplete."
+}

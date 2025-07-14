@@ -14,3 +14,9 @@ Adding new contests to our dataset:
 Platform Handler:
 - viewer.py: automatically detects any new models and adds them to the dropdown menu. (to be added for grader)
 - static/viewer.html: handles platform generation as well as review/comment saving. (minor edits for ease of use still in progress)
+
+
+Currently, both the grader and generator analyze complete folders: 
+- Solution to target specific contest-year pairing:
+      - set CONTEST_FILTER ; YEAR_FILTER in your terminal to the {CONTEST_NAME} ; {CONTEST_YEAR} you wish to process.
+      - Delete the comments for the necessary parts in the file processing in gemini.py / openai_helper.py ; gemini_grader.py / openai_grader.py .

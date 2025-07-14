@@ -1,0 +1,9 @@
+Let \( p(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0 \) be a polynomial of degree \( n \) with real coefficients. Then, the square of \( p(x) \) is given by
+\[ p(x)^2 = (a_nx^n + a_{n-1}x^{n-1} + \cdots + a_1x + a_0)^2. \]
+Expanding this expression, we get
+\[ p(x)^2 = a_n^2x^{2n} + 2a_na_{n-1}x^{2n-1} + \cdots + 2a_na_1x^{n+1} + (2a_na_0 + a_{n-1}^2)x^n + \cdots + a_0^2. \]
+The number of negative coefficients in \( p(x)^2 \) is equal to the number of negative coefficients in the above expression. Observe that the terms with negative coefficients are \( 2a_na_1x^{n+1} \) and \( 2a_na_0 + a_{n-1}^2 \) if \( n \) is odd, and \( 2a_na_{n-1}x^{2n-1} \), \( 2a_na_1x^{n+1} \), and \( 2a_na_0 + a_{n-1}^2 \) if \( n \) is even.
+
+To maximize the number of negative coefficients, we need to make the coefficients \( a_n, a_{n-1}, a_{n-2}, \ldots, a_1, a_0 \) as negative as possible. Since we are given that \( n \geq 2 \), we can choose \( a_n = -1 \) and all other coefficients to be \( 0 \). In this case, the number of negative coefficients in \( p(x)^2 \) is \( 1 \) if \( n \) is odd and \( 2 \) if \( n \) is even.
+
+Therefore, the largest possible number of negative coefficients of \( p(x)^2 \) over all real polynomials \( p(x) \) of degree \( n \) with \( n \geq 2 \) is \( 2 \).

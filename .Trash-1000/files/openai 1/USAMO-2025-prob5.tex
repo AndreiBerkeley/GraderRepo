@@ -1,0 +1,39 @@
+Let's denote the given sum as \( S_k(n) = \binom{n}{0}^k + \binom{n}{1}^k + \dots + \binom{n}{n}^k \).
+
+We know that for any positive integer \( n \), the sum \( S_k(n) \) is divisible by \( n+1 \). This implies that for any positive integer \( n \), \( S_k(n) \equiv 0 \pmod{n+1} \).
+
+Now, let's consider the binomial theorem:
+\[
+(x+y)^n = \binom{n}{0}x^n y^0 + \binom{n}{1}x^{n-1}y^1 + \dots + \binom{n}{n}x^0 y^n
+\]
+If we set \( x = 1 \) and \( y = 1 \), we get:
+\[
+2^n = \binom{n}{0} + \binom{n}{1} + \dots + \binom{n}{n}
+\]
+This means that \( S_1(n) = \binom{n}{0} + \binom{n}{1} + \dots + \binom{n}{n} = 2^n \).
+
+Since \( S_k(n) \equiv 0 \pmod{n+1} \) for all positive integers \( n \), we have:
+\[
+S_k(n) \equiv 0 \equiv S_k(n+1) \equiv 0 \pmod{n+1}
+\]
+This implies that \( S_k(n) \equiv S_k(n+1) \pmod{n+1} \).
+
+Now, let's consider the binomial theorem for \( S_k(n+1) \):
+\[
+2^{n+1} = \binom{n+1}{0} + \binom{n+1}{1} + \dots + \binom{n+1}{n+1}
+\]
+Since \( S_k(n) \equiv S_k(n+1) \pmod{n+1} \), we have:
+\[
+2^n \equiv 2^{n+1} \pmod{n+1}
+\]
+This implies that \( 2^n \equiv 2 \cdot 2^n \equiv 2^{n+1} \pmod{n+1} \).
+
+Since \( 2^n \equiv 2^{n+1} \pmod{n+1} \), we have:
+\[
+2^n(2-1) \equiv 0 \pmod{n+1}
+\]
+\[
+2^n \equiv 0 \pmod{n+1}
+\]
+
+Therefore, for any positive integer \( n \), we have \( 2^n \equiv 0 \pmod{n+1} \). This implies that \( k = 1 \) is the only positive integer that satisfies the given condition.

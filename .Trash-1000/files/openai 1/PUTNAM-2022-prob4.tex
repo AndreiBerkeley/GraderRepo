@@ -1,0 +1,17 @@
+Let's first find the probability that \( k = n \) for some positive integer \( n \). For this to happen, we need \( X_n < X_{n+1} \) and \( X_{n-1} \geq X_n \). The probability of the first condition is \( \frac{1}{2} \) since \( X_n \) and \( X_{n+1} \) are chosen independently and uniformly at random. The probability of the second condition is \( \frac{1}{2} \) as well since \( X_{n-1} \) is chosen uniformly at random between 0 and \( X_n \). Therefore, the probability that \( k = n \) is \( \frac{1}{2} \times \frac{1}{2} = \frac{1}{4} \).
+
+Now, let's find the expected value of \( S \) when \( k = n \) for some positive integer \( n \). In this case, we have
+\[ E[S \mid k = n] = E\left[\sum_{i=1}^n \frac{X_i}{2^i} \right] = \sum_{i=1}^n \frac{E[X_i]}{2^i} = \sum_{i=1}^n \frac{1}{2^{i+1}} = \frac{1}{2} \left(1 - \frac{1}{2^{n}}\right). \]
+
+Therefore, the expected value of \( S \) when \( k = n \) is \( \frac{1}{2} \left(1 - \frac{1}{2^{n}}\right) \).
+
+Finally, the expected value of \( S \) is given by
+\begin{align*}
+E[S] &= \sum_{n=1}^{\infty} E[S \mid k = n] \cdot P(k = n) \\
+&= \sum_{n=1}^{\infty} \frac{1}{2} \left(1 - \frac{1}{2^{n}}\right) \cdot \frac{1}{4} \\
+&= \frac{1}{8} \sum_{n=1}^{\infty} \left(1 - \frac{1}{2^{n}}\right) \\
+&= \frac{1}{8} \left(\infty - 1\right) \\
+&= \infty.
+\end{align*}
+
+Therefore, the expected value of \( S \) is \( \infty \).

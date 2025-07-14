@@ -1,0 +1,9 @@
+Let $P(x) = x^k + c_{k-1}x^{k-1} + \dots + c_1x + c_0$ be a polynomial of degree $k$ with non-negative integer coefficients $c_0, c_1, \dots, c_{k-1}$. We are given that for all positive integers $n$, we have
+\[P(a_n) = a_{n+1}a_{n+2}\dots a_{n+k}.\]
+Let $r$ be a root of $P(x) = 0$. Then, by Vieta's formulas, the sum of the roots of $P(x) = 0$ is $-c_{k-1}$, which is a non-negative integer. Since all coefficients of $P$ are non-negative integers, all roots of $P(x) = 0$ are non-negative integers.
+
+Let $a_1 = r$. Then, by the given condition, we have
+\[P(a_1) = a_2a_3\dots a_{k+1}.\]
+Since $r$ is a root of $P(x) = 0$, we have $P(r) = 0$, which implies that $a_2a_3\dots a_{k+1} = 0$. This implies that at least one of $a_2, a_3, \dots, a_{k+1}$ is equal to $0$. However, since all terms in the sequence are positive integers, this is a contradiction.
+
+Therefore, there are no such infinite sequences of positive integers $a_1, a_2, \dots$ that satisfy the given condition for any integer $k \geq 2$.

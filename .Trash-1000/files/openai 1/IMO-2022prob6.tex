@@ -1,0 +1,17 @@
+Let's prove that there exists an uphill path in any Nordic square.
+
+Consider the Nordic square as a graph where each cell is a vertex and two vertices are connected by an edge if and only if they are orthogonally adjacent. Since the Nordic square is an $n \times n$ board, it has $n^2$ vertices.
+
+Now, let's define a directed graph $G$ as follows:
+- The vertices of $G$ are the cells of the Nordic square.
+- For each pair of vertices $u$ and $v$ in $G$, there is a directed edge from $u$ to $v$ if and only if the number in cell $u$ is less than the number in cell $v$.
+
+Since the numbers in the Nordic square are distinct and range from $1$ to $n^2$, there is a unique directed edge between any two vertices in $G$.
+
+Now, we claim that there exists a vertex in $G$ with out-degree $0$.  
+Suppose, for the sake of contradiction, that every vertex in $G$ has a directed edge leaving it. Then, starting from any vertex, we can keep moving along the directed edges to get a cycle. However, this is impossible since the numbers in the cells are distinct. Hence, there must be a vertex with out-degree $0$.
+
+Let $v$ be a vertex in $G$ with out-degree $0$. This means that $v$ is a valley in the Nordic square.  
+Starting from $v$, we can construct an uphill path by repeatedly moving to a neighbor with a larger number. Since $v$ has out-degree $0$, this process must terminate at some point, and we obtain an uphill path.
+
+Therefore, we have shown that there exists an uphill path in any Nordic square.

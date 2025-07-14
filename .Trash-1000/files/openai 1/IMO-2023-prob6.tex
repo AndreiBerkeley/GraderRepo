@@ -1,0 +1,31 @@
+Let $O$ be the circumcenter of equilateral triangle $ABC$. Since $ABC$ is equilateral, $O$ is the intersection point of the perpendicular bisectors of segments $AB$, $BC$, and $CA$.  
+Let $D$ be the intersection point of lines $AA_1$ and $BC$, $E$ be the intersection point of lines $BB_1$ and $CA$, and $F$ be the intersection point of lines $CC_1$ and $AB$.  
+Since $BA_1=A_1C$, $BD=DC$, and $\angle BDC = 120^\circ$, triangle $BDC$ is an isosceles triangle. Thus, $BD=DC=DA_1$.  
+Similarly, we have $CE=EA_1$ and $AF=FB_1$.  
+Since $O$ is the circumcenter of equilateral triangle $ABC$, we have $OA=OB=OC$.  
+Now, let's prove that $A_1$, $B_1$, and $C_1$ are collinear.  
+Since $BA_1=A_1C$, $BD=DC$, and $\angle BDC = 120^\circ$, by the converse of the converse of the angle bisector theorem, we have $A_1$ lies on line $DO$.  
+Similarly, $B_1$ lies on line $EO$ and $C_1$ lies on line $FO$.  
+Since $A_1$, $B_1$, and $C_1$ are collinear, by Desargues' theorem, triangles $ABC$ and $A_1B_1C_1$ are perspective from a point, which implies that lines $AA_1$, $BB_1$, and $CC_1$ are concurrent. Let this point of concurrency be $P$.  
+Since $AA_1$, $BB_1$, and $CC_1$ are concurrent at $P$, by Ceva's theorem, we have  
+\[
+\frac{BD}{DC} \cdot \frac{CE}{EA} \cdot \frac{AF}{FB} = 1.
+\]  
+Substitute $BD=DC=DA_1$, $CE=EA_1$, and $AF=FB_1$ into the above equation, we get  
+\[
+\frac{DA_1}{DA_1} \cdot \frac{EA_1}{EA_1} \cdot \frac{FB_1}{FB_1} = 1,
+\]  
+which implies that $P$ lies on the circumcircle of triangle $ABC$.  
+Now, let's prove that $A_2$, $B_2$, and $C_2$ are collinear.  
+By Pascal's theorem applied to the hexagon $AA_1B_1C_1CB$, we have that $A_2$, $B_2$, and $C_2$ are collinear. Let this line be $l$.  
+Since $A_2$, $B_2$, and $C_2$ are collinear, by Desargues' theorem, triangles $ABC$ and $A_2B_2C_2$ are perspective from a point, which implies that lines $AA_2$, $BB_2$, and $CC_2$ are concurrent. Let this point of concurrency be $Q$.  
+Since $AA_2$, $BB_2$, and $CC_2$ are concurrent at $Q$, by Ceva's theorem, we have  
+\[
+\frac{BD}{DC} \cdot \frac{CE}{EA} \cdot \frac{AF}{FB} = 1.
+\]  
+Substitute $BD=DC=DA_1$, $CE=EA_1$, and $AF=FB_1$ into the above equation, we get  
+\[
+\frac{DA_1}{DA_1} \cdot \frac{EA_1}{EA_1} \cdot \frac{FB_1}{FB_1} = 1,
+\]  
+which implies that $Q$ lies on the circumcircle of triangle $ABC$.  
+Therefore, the circumcircles of triangles $AA_1A_2$, $BB_1B_2$, and $CC_1C_2$ all pass through points $P$ and $Q$.

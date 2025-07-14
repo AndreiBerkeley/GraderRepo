@@ -1,0 +1,36 @@
+Let $S_k = x_1+x_2+\dots+x_k$ and $T_k = \frac{1}{x_1}+\frac{1}{x_2}+\dots+\frac{1}{x_k}$ for $k=1,2,\dots,2023$. We are given that $a_n = \sqrt{S_n \cdot T_n}$ is an integer for every $n=1,2,\dots,2023$.
+
+We will prove by induction that $S_n$ and $T_n$ are integers for all $n=1,2,\dots,2023$.
+
+For the base case $n=1$, we have $S_1 = x_1$ and $T_1 = \frac{1}{x_1}$, which are clearly integers.
+
+Now, assume that $S_k$ and $T_k$ are integers for some $k \geq 1$. We will show that $S_{k+1}$ and $T_{k+1}$ are also integers.
+
+We have
+\begin{align*}
+S_{k+1} &= S_k + x_{k+1}, \\
+T_{k+1} &= T_k + \frac{1}{x_{k+1}}.
+\end{align*}
+
+Since $S_k$ and $T_k$ are integers by the inductive hypothesis, it suffices to show that $x_{k+1}$ and $\frac{1}{x_{k+1}}$ are rational numbers.
+
+Since $a_k = \sqrt{S_k \cdot T_k}$ is an integer, we have $S_k \cdot T_k = a_k^2$. Therefore, $S_k = \frac{a_k^2}{T_k}$ is rational. Since $S_k$ is rational and $S_k = S_{k+1} - x_{k+1}$, we have $x_{k+1} = S_{k+1} - S_k$ is rational.
+
+Similarly, since $T_k$ is rational and $T_k = T_{k+1} - \frac{1}{x_{k+1}}$, we have $\frac{1}{x_{k+1}} = T_{k+1} - T_k$ is rational.
+
+Therefore, by induction, we have shown that $S_n$ and $T_n$ are integers for all $n=1,2,\dots,2023$.
+
+Now, we have $a_n = \sqrt{S_n \cdot T_n}$. Since $S_n$ and $T_n$ are integers, $a_n$ is an integer for all $n=1,2,\dots,2023$.
+
+Finally, we need to show that $a_{2023} \geq 3034$. Note that $a_{2023} = \sqrt{S_{2023} \cdot T_{2023}}$. Since $S_{2023}$ and $T_{2023}$ are integers, $a_{2023}$ is an integer.
+
+Now, let's consider the following inequality:
+\begin{align*}
+a_{2023} &= \sqrt{S_{2023} \cdot T_{2023}} \\
+&\geq \sqrt{2023 \cdot \frac{2023}{2023}} \\
+&= \sqrt{2023} \\
+&> \sqrt{3034} \\
+&= 55.08\ldots.
+\end{align*}
+
+Since $a_{2023}$ is an integer, we have $a_{2023} \geq 56 > 3034$. Therefore, we have proved that $a_{2023} \geq 3034$.

@@ -1,0 +1,90 @@
+An elegant solution to this problem involves a series of insightful transformations.
+
+**Step 1: Simplify the expression**
+
+Let the given expression be $E$. We are given $x, y, z$ are positive real numbers such that $x+y+z=1$.
+We can rewrite each term in the sum by substituting $1=x+y+z$ in the numerator.
+For the first term:
+$$ \frac{1+xy}{z+xy} = \frac{(x+y+z)+xy}{z+xy} = \frac{(z+xy) + (x+y)}{z+xy} = 1 + \frac{x+y}{z+xy} $$
+Applying this to all three terms, the expression becomes:
+$$ E = \left(1 + \frac{x+y}{z+xy}\right) + \left(1 + \frac{y+z}{x+yz}\right) + \left(1 + \frac{z+x}{y+zx}\right) = 3 + \sum_{cyc} \frac{x+y}{z+xy} $$
+The original inequality, $\E \ge 4$, is therefore equivalent to proving:
+$$ \sum_{cyc} \frac{x+y}{z+xy} \ge 1 $$
+
+**Step 2: A key substitution**
+
+The condition $x+y+z=1$ allows for a powerful transformation of the denominators. Consider the term $z+xy$:
+$$ z+xy = (1-x-y) + xy = 1-x-y+xy = (1-x)(1-y) $$
+Similarly, $x+yz = (1-y)(1-z)$ and $y+zx = (1-z)(1-x)$.
+The numerators can also be simplified: $x+y = 1-z$, $y+z=1-x$, and $z+x=1-y$.
+
+Substituting these into the simplified inequality:
+$$ \frac{1-z}{(1-x)(1-y)} + \frac{1-x}{(1-y)(1-z)} + \frac{1-y}{(1-z)(1-x)} \ge 1 $$
+
+**Step 3: Change of variables**
+
+Let $a = 1-x$, $b = 1-y$, and $c = 1-z$.
+Since $x,y,z$ are positive and sum to 1, they must lie in the interval $(0,1)$. This implies that $a,b,c$ also lie in $(0,1)$.
+The sum of these new variables is:
+$$ a+b+c = (1-x)+(1-y)+(1-z) = 3 - (x+y+z) = 3-1 = 2 $$
+So we have $a,b,c \in (0,1)$ with $a+b+c=2$.
+The inequality transforms into:
+$$ \frac{c}{ab} + \frac{a}{bc} + \frac{b}{ca} \ge 1 $$
+Multiplying by the common denominator $abc$ (which is positive), we get:
+$$ c^2+a^2+b^2 \ge abc $$
+So, the problem is reduced to proving $a^2+b^2+c^2 \ge abc$ for positive numbers $a,b,c \in (0,1)$ with $a+b+c=2$.
+
+**Step 4: Proving the inequality in $a,b,c$**
+
+We want to prove $a^2+b^2+c^2 - abc \ge 0$ subject to $a,b,c \in (0,1)$ and $a+b+c=2$.
+Let's consider the function $f(a,b,c) = a^2+b^2+c^2 - abc$. We want to find its minimum value under the given constraints.
+Let's assume, without loss of generality, that $a \le b \le c$. The constraints $a,b,c \in (0,1)$ and $a+b+c=2$ imply that $a,b,c$ form the sides of a triangle. To see this, $a+b = 2-c > 2-1=1$, and since $c<1$, we have $a+b > c$.
+
+We can use the method of "smoothing". Let's fix $c$ and analyze the expression with respect to $a$ and $b$, where $a+b=2-c$ is constant.
+Let $a+b=k$. The expression is $a^2+b^2+c^2-abc = a^2+(k-a)^2+c^2-ac(k-a)$.
+Let's examine the part dependent on $a$ and $b$: $a^2+b^2-abc = a^2+(k-a)^2-ac(k-a) = 2a^2-2ak+k^2+a^2c-akc = (2+c)a^2 - k(2+c)a + k^2$.
+This is a quadratic in $a$ which opens upwards (since $2+c > 0$). Its minimum is at $a = \frac{k(2+c)}{2(2+c)} = \frac{k}{2}$.
+This corresponds to $a=b=(a+b)/2$.
+This means that for any non-equal $a$ and $b$, we can decrease the value of the expression by making them equal. This implies that the minimum of the function must occur when at least two variables are equal.
+Let's assume $a=b$. Since $a+b+c=2$, we have $2a+c=2$, so $c=2-2a$.
+The condition $a,b,c \in (0,1)$ translates to $a \in (0,1)$ and $c=2-2a \in (0,1)$.
+$2-2a > 0 \implies 2a < 2 \implies a < 1$.
+$2-2a < 1 \implies 1 < 2a \implies a > 1/2$.
+So we need to analyze the case $a=b=t$ and $c=2-2t$ for $t \in (1/2, 1)$.
+
+Substitute this into $a^2+b^2+c^2 \ge abc$:
+$$ t^2+t^2+(2-2t)^2 \ge t \cdot t \cdot (2-2t) $$
+$$ 2t^2 + 4(1-t)^2 \ge 2t^2(1-t) $$
+$$ 2t^2 + 4(1-2t+t^2) \ge 2t^2-2t^3 $$
+$$ 2t^2 + 4-8t+4t^2 \ge 2t^2-2t^3 $$
+$$ 6t^2-8t+4 \ge 2t^2-2t^3 $$
+$$ 2t^3+4t^2-8t+4 \ge 0 $$
+$$ t^3+2t^2-4t+2 \ge 0 $$
+Let's analyze the polynomial $g(t)=t^3+2t^2-4t+2$ for $t \in (1/2, 1)$.
+Let's find the critical points of $g(t)$ by checking its derivative:
+$$ g'(t) = 3t^2+4t-4 $$
+The roots of $g'(t)=0$ are $t = \frac{-4 \pm \sqrt{16-4(3)(-4)}}{6} = \frac{-4 \pm \sqrt{64}}{6} = \frac{-4 \pm 8}{6}$.
+The roots are $t = 4/6 = 2/3$ and $t = -2$.
+The only critical point in the interval $(1/2, 1)$ is $t=2/3$.
+Let's evaluate $g(t)$ at the critical point and at the boundaries of the interval:
+- At the critical point $t=2/3$:
+  $g(2/3) = (2/3)^3+2(2/3)^2-4(2/3)+2 = 8/27+8/9-8/3+2 = \frac{8+24-72+54}{27} = \frac{14}{27}$.
+- At the boundary $t=1/2$:
+  $g(1/2) = (1/2)^3+2(1/2)^2-4(1/2)+2 = 1/8+1/2-2+2 = 5/8$.
+- At the boundary $t=1$:
+  $g(1) = 1+2-4+2=1$.
+
+Since $g(2/3) = 14/27 > 0$, the minimum value of $g(t)$ on $[1/2, 1]$ is positive. Thus, $g(t) > 0$ for all $t \in (1/2, 1)$.
+This proves that $a^2+b^2+c^2 > abc$ for all relevant $a,b,c$.
+The minimum value of $\frac{a^2+b^2+c^2}{abc}$ occurs at $a=b=c=2/3$, which corresponds to $t=2/3$.
+The minimum value is $\frac{3(2/3)^2}{(2/3)^3} = \frac{3(4/9)}{8/27} = \frac{4/3}{8/27} = \frac{4}{3}\frac{27}{8} = \frac{9}{2}$.
+
+**Step 5: Final Conclusion**
+
+We have shown that $\frac{a^2+b^2+c^2}{abc} \ge 9/2$. Since $9/2 > 1$, the inequality
+$$ \frac{a^2+b^2+c^2}{abc} \ge 1 $$
+is true. This implies that
+$$ \sum_{cyc} \frac{x+y}{z+xy} \ge 1 $$
+is also true. And therefore, the original inequality
+$$ \frac{1+xy}{z+xy} + \frac{1+yz}{x+yz} + \frac{1+zx}{y+zx} = 3 + \sum_{cyc} \frac{x+y}{z+xy} \ge 3+1 = 4 $$
+is proven. The proof shows that the inequality is strict, i.e., the expression is always greater than 4. The minimum value is $3+9/2 = 7.5$, achieved at $x=y=z=1/3$.

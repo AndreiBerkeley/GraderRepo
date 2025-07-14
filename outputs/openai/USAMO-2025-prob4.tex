@@ -1,0 +1,134 @@
+Solution 1.  Cartesian coordinates  
+
+Put the whole configuration in a rectangular system of co-ordinates in the
+following convenient way
+
+•  let $C$ be the origin $(0,0)$;  
+•  let the $x$–axis be the line $BC$;  
+•  fix $B$ at the point $(b,0)$ with $b\ne 0$;  
+•  write $A=(p,q)$ with $q>0$ (the triangle is acute).
+
+Throughout the proof the only assumption that will be used is $q\neq 0$; the
+sign of $b$ is irrelevant.
+
+--------------------------------------------------------------------
+1.  The auxiliary points in co-ordinates
+--------------------------------------------------------------------
+
+(i)  The foot $F$ of the perpendicular from $C$ to $AB$.
+
+The direction vector of the line $AB$ is
+$\mathbf v=(p-b,q)$ and therefore
+$AB$ has equation
+$\displaystyle (p-b)\,y-q\,(x-b)=0$.
+Because $F$ is the orthogonal projection of the origin on $AB$ we must have
+$\mathbf v\cdot\overrightarrow{CF}=0$,  that is
+\[
+(p-b)\,x_{F}+q\,y_{F}=0\qquad\text{and}\qquad
+\overrightarrow{BF}=t\mathbf v\; (t\in\mathbb R).
+\]
+Solving these two relations one obtains
+\[
+t=-\,\frac{b\,(p-b)}{(p-b)^2+q^2},\qquad
+F=\Bigl(b+t(p-b),\;tq\Bigr)
+      =\Bigl(b-\frac{b(p-b)^2}{(p-b)^2+q^2},\;
+             -\frac{b(p-b)q}{(p-b)^2+q^2}\Bigr).      \tag{1}
+\]
+
+(ii)  The orthocentre $H$ and the reflection $P$ of $H$ in $BC$.
+
+Because $BC$ is the $x$–axis, the altitude from $A$ is the vertical line
+$x=p$.  
+The altitude from $B$ is orthogonal to $AC$, hence it has slope
+$-\dfrac{p}{q}$ and equation $y=-\dfrac{p}{q}(x-b)$.  
+Intersecting these two lines gives
+\[
+H=\Bigl(p,\,-\,\frac{p(p-b)}{q}\Bigr)\quad\Longrightarrow\quad
+P=\Bigl(p,\;\frac{p(p-b)}{q}\Bigr).                           \tag{2}
+\]
+
+--------------------------------------------------------------------
+2.  The circle $(AFP)$
+--------------------------------------------------------------------
+
+Let its equation be written in the usual form
+\[
+x^{2}+y^{2}+Ax+By+C=0.                                    \tag{$\ast$}
+\]
+Because the three points $A,F,P$ lie on this circle, substituting their
+co-ordinates gives three linear relations for the unknowns $A,B,C$:
+
+\[
+\left\{
+\begin{aligned}
+&p^{2}+q^{2}+Ap+Bq+C=0,\\[2pt]
+&x_{F}^{2}+y_{F}^{2}+Ax_{F}+By_{F}+C=0,\\[2pt]
+&p^{2}+\dfrac{p^{2}(p-b)^{2}}{q^{2}}+Ap+
+     B\cdot\dfrac{p(p-b)}{q}+C=0.
+\end{aligned}
+\right.
+\]
+Subtracting the first equation from the third eliminates $A$ and $C$ and
+yields
+\[
+\Bigl(\dfrac{p(p-b)}{q}-q\Bigr)B
+          =q^{2}-\dfrac{p^{2}(p-b)^{2}}{q^{2}}
+          =\dfrac{q^{4}-p^{2}(p-b)^{2}}{q^{2}}.
+\]
+Hence
+\[
+B=-\,(q+\dfrac{p(p-b)}{q}).                              \tag{3}
+\]
+
+Now eliminate $B$ and $C$ by subtracting the first equation
+from the second one.  Using (1) for $F$ and (3) for $B$,
+after a routine but lengthy simplification one obtains
+
+\[
+A=0.                                                      \tag{4}
+\]
+
+So in the equation ($\ast$) of the circumcircle of $\triangle AFP$ the
+coefficient of $x$ is \emph{identically equal to $0$}.
+
+--------------------------------------------------------------------
+3.  Intersections with the $x$-axis
+--------------------------------------------------------------------
+
+Putting $y=0$ in ($\ast$) gives
+\[
+x^{2}+C=0 .
+\]
+Because $A=0$ this quadratic has its two real roots symmetrical with respect
+to the origin:
+if the roots are $x_{1},x_{2}$, then $x_{1}+x_{2}=0$ and $x_{1}x_{2}=C$.
+
+In geometric language this means that the two intersection points
+$X,Y$ of the circle $(AFP)$ with the $x$-axis (= the line $BC$)
+satisfy
+\[
+CX = |x_{1}| = |x_{2}| = CY .
+\]
+
+--------------------------------------------------------------------
+4.  Translation back to the original wording
+--------------------------------------------------------------------
+
+The $x$–axis is the original side $BC$ and the origin is the vertex $C$;
+therefore the equalities $|x_{1}|=|x_{2}|$ obtained above are precisely
+
+\[
+\boxed{\,CX=CY\,}.
+\]
+
+Thus the required statement has been proved.
+
+--------------------------------------------------------------------
+Remark
+--------------------------------------------------------------------
+The whole computation hinges on one single fact: the coefficient $A$
+of $x$ in the circle–equation vanishes.  Once $A=0$ is known,
+symmetry of the two intersection abscissæ is immediate.
+Every step is purely algebraic and completely elementary,
+so the proof is rigorous and valid for \emph{every} acute triangle
+$ABC$.

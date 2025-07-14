@@ -1,0 +1,17 @@
+Let $r_1, r_2, \ldots, r_n$ be the roots of $P(x)$, which are distinct real numbers.  
+Since $P(0) \neq 0$, we have $r_i \neq 0$ for all $i = 1, 2, \ldots, n$.  
+Let $Q(x) = (x-r_1)(x-r_2)\cdots(x-r_n)$.  
+Since $P(x)$ has no repeated roots, $Q(x)$ divides $P(x)$.  
+Let $a_0, a_1, \ldots, a_k$ be real numbers such that $a_k x^k + a_{k-1}x^{k-1} + \ldots + a_1 x + a_0$ divides $P(x)$.  
+Then, $P(x) = (a_k x^k + a_{k-1}x^{k-1} + \ldots + a_1 x + a_0) \cdot Q(x)$.  
+Substitute $x = r_1, r_2, \ldots, r_n$ into this equation, we get
+\begin{align*} a_k r_1^k + a_{k-1}r_1^{k-1} + \ldots + a_1 r_1 + a_0 &= 0, \\ a_k r_2^k + a_{k-1}r_2^{k-1} + \ldots + a_1 r_2 + a_0 &= 0, \\ &\vdots \\ a_k r_n^k + a_{k-1}r_n^{k-1} + \ldots + a_1 r_n + a_0 &= 0. \end{align*}  
+Since the product $a_0 a_1 \cdots a_k$ is zero, at least one of $a_0, a_1, \ldots, a_k$ must be zero.  
+Without loss of generality, assume $a_0 = 0$.  
+Then, the above equations become
+\begin{align*} a_k r_1^k + a_{k-1}r_1^{k-1} + \ldots + a_1 r_1 &= 0, \\ a_k r_2^k + a_{k-1}r_2^{k-1} + \ldots + a_1 r_2 &= 0, \\ &\vdots \\ a_k r_n^k + a_{k-1}r_n^{k-1} + \ldots + a_1 r_n &= 0. \end{align*}  
+This is a system of $n$ linear equations in $a_1, a_2, \ldots, a_k$.  
+Since $n > k$, this system is underdetermined and has infinitely many solutions.  
+Therefore, there exist non-zero real numbers $a_1, a_2, \ldots, a_k$ such that the system has a solution.  
+This implies that $P(x)$ has a root that is not real.  
+Hence, $P(x)$ has a nonreal root.

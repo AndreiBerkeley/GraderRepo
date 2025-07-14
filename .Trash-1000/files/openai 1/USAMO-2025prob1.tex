@@ -1,0 +1,21 @@
+Let $n$ be an odd positive integer. We want to show that for all sufficiently large $n$, the base-$2n$ representation of $n^k$ has all its digits greater than $d$.
+
+Let $m = n^k$. We know that $m$ is odd since $n$ is odd. Let $t$ be the number of digits in the base-$2n$ representation of $m$. Then $2n^{t-1} \leq m < 2n^t$.
+
+Consider the base-$2n$ representation of $m$. The $i$-th digit of this representation corresponds to the coefficient of $2n^i$ in the expansion of $m$.
+
+Since $m = n^k$, the coefficient of $2n^i$ in the expansion of $m$ is the $i$-th digit of the base-$2n$ representation of $m$. We want to show that for all sufficiently large $n$, all these digits are greater than $d$.
+
+Let $i$ be a non-negative integer. The coefficient of $2n^i$ in the expansion of $m = n^k$ is given by
+$$
+\left\lfloor \frac{m}{2n^i} \right\rfloor - 2\left\lfloor \frac{m}{2n^{i+1}} \right\rfloor.
+$$
+
+Since $m = n^k$, we have
+$$
+\left\lfloor \frac{n^k}{2n^i} \right\rfloor - 2\left\lfloor \frac{n^k}{2n^{i+1}} \right\rfloor = \left\lfloor \frac{n^{k-i}}{2} \right\rfloor - 2\left\lfloor \frac{n^{k-i-1}}{2} \right\rfloor.
+$$
+
+For $n$ sufficiently large, we have $\left\lfloor \frac{n^{k-i}}{2} \right\rfloor > d$ and $2\left\lfloor \frac{n^{k-i-1}}{2} \right\rfloor \leq 2d$. Hence, the $i$-th digit of the base-$2n$ representation of $n^k$ is greater than $d$ for all sufficiently large $n$.
+
+Therefore, for all sufficiently large odd positive integers $n$, the base-$2n$ representation of $n^k$ has all its digits greater than $d$.

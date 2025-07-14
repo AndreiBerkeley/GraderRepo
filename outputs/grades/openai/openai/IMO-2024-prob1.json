@@ -1,0 +1,5 @@
+{
+  "verdict": "PARTIALLY CORRECT",
+  "score": 5,
+  "feedback": "The answer (α even integer) is right and most of the argument is correct.  The student sets up the decomposition α=t+β, introduces the averages u_n, derives the key estimate |u_{n+1}-u_n|≤1/(n+1), and shows that β≠0 would contradict the divisibility condition.\n\nHowever, in the crucial sub-case \"t odd, β≠0\" the proof is incomplete.  The student tries to exclude the possibility that the sequence f_n alternates between 0 and 1/2, but uses only the lower bound |f_{n+1}-f_n| ≥ |β|/2 – 1/(n+1).  This does not create a contradiction, since the alternating difference 1/2 still satisfies the inequality for all β∈(0,1).  A correct argument needs the stronger estimate |f_{n+1}-f_n – β/2| ≤ 1/(n+1), from which one deduces |0.5 – β/2|→0 and hence β=1, impossible.  Because this gap is not filled, the elimination of the last case is not rigorously justified.\n\nThus the solution is mostly valid but has a non-trivial gap; 5/7 points are awarded."
+}

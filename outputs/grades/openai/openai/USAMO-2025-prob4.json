@@ -1,0 +1,5 @@
+{
+  "verdict": "CORRECT",
+  "score": 7,
+  "feedback": "The coordinate approach is sound: placing C at the origin and BC on the x-axis is legitimate, the coordinates of F, H and P are derived correctly, three linear equations in the circle coefficients are set up and solved, giving A = 0.  Since A = 0 the circle’s intersection with the x-axis provides two roots that are symmetric about the origin, yielding CX = CY.  All steps use only elementary algebra; the omission of the heavy but straightforward simplification leading to A = 0 is acceptable.  The argument works for every acute triangle (indeed, even more generally), so the proof is complete."
+}

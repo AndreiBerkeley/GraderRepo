@@ -1,0 +1,13 @@
+Let's consider the following strategy for Turbo:
+
+1. Turbo starts at any cell in the first row.
+2. Turbo moves to the cell in the second row that is in the same column as the cell he is currently in.
+3. Turbo moves to the cell in the third row that is in the same column as the cell he is currently in.
+4. Turbo continues this pattern until he reaches the last row.
+
+With this strategy, Turbo can guarantee reaching the last row in at most $2022$ attempts. Here's why:
+
+- In the worst-case scenario, Turbo encounters a monster in each of the $2022$ rows from the second row to the second-to-last row. In this case, Turbo will be transported back to the first row $2022$ times.
+- On the $2023$rd attempt, Turbo will reach the last row without encountering any monsters, as there are no monsters in the last row.
+
+Therefore, the smallest integer $n$ such that Turbo has a strategy which guarantees being able to reach the bottom row in at most $n$ attempts is $n = 2022$.

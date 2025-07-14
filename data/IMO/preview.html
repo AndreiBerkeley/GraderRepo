@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MathJax preview – 2024.jsonl</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    fetch("mathjax_macros.json").then(r => r.ok ? r.json() : {}).then(macros => {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['\\[', '\\]']],
+          macros: macros
+        }
+      };
+    });
+  </script>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    .item { margin-bottom: 2rem; }
+    .q { font-weight: 600; margin-bottom: 0.5rem; }
+    .sol { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>2024.jsonl</h1>
+  
+<div class="item">
+  <div class="q">Find all real numbers $\alpha$ so that, for every positive integer $n$, the integer
+\[
+\lfloor \alpha \rfloor + \lfloor 2 \alpha \rfloor + \lfloor 3 \alpha \rfloor + \dots + \lfloor n \alpha \rfloor
+\]
+is divisible by $n$.</div>
+  <div class="sol">\text{Find all real numbers $\alpha$ so that, for every positive integer $n$, the integer
+\[
+\lfloor \alpha \rfloor + \lfloor 2 \alpha \rfloor
+  + \lfloor 3 \alpha \rfloor + \dots + \lfloor n \alpha \rfloor 
+\]
+is divisible by $n$.}
+The answer is that $\alpha$ must be an even integer.
+Let $S(n, \alpha)$ denote the sum in question.
+
+– Analysis for $\alpha$ an integer.
+If $\alpha$ is an integer, then the sum equals
+\[
+S(n, \alpha) = (1+2+\dots+n) \alpha = \frac{n(n+1)}{2} \cdot \alpha 
+\]
+which is obviously a multiple of $n$ if $2 \mid \alpha$;
+meanwhile, if $\alpha$ is an odd integer then $n = 2$ gives a counterexample.
+
+– Main case.
+Suppose $\alpha$ is not an integer; we show the desired condition can never be true.
+Note that replacing $\alpha$ with $\alpha \pm 2$ changes by
+\[
+S(n \pm 2, \alpha) - S(n, \alpha) = 2(1+2+\dots+n) = n(n+1) \equiv 0 \mod n 
+\]
+for every $n$.
+Thus, by shifting appropriately we may assume $-1 < \alpha < 1$ and $\alpha \notin \mathbb{Z}$.
+
+– If $0 < \alpha < 1$,
+then let $m \ge 2$ be the smallest integer such that $m \alpha \ge 1$.
+Then
+\[
+S(m, \alpha) = 0 + \dots + 0 + 1 = 1 
+\]
+is not a multiple of $m$.
+
+– If $-1 < \alpha < 0$,
+then let $m \ge 2$ be the smallest integer such that $m \alpha \le -1$.
+Then
+\[
+S(m, \alpha) = (-1) + \dots + (-1)</div>
+</div>
+
+
+<div class="item">
+  <div class="q">For which pairs of positive integers $(a,b)$ is the sequence
+\[
+\gcd(a^n+b, b^n+a) \qquad n = 1, 2, \ldots
+\]
+eventually constant?</div>
+  <div class="sol">For which pairs of positive integers $(a,b)$ is the sequence
+\[
+\gcd(a^n+b, b^n+a) \quad n = 1, 2, \ldots
+\]
+eventually constant?
+The answer is $(a,b)=(1,1)$ only, which obviously works since the sequence is always $2$.
+
+Conversely, assume the sequence
+\[
+x_n := \gcd(a^n+b, b^n+a)
+\]
+is eventually constant.
+The main crux of the other direction is to consider
+\[
+M := ab+1.
+\]
+\begin{remark}
+  [Motivation]
+  The reason to consider the number is the same technique used in IMO 2005/4,
+  namely the idea to consider "n = -1".
+  The point is that the two rational numbers
+  \[
+  \frac 1a + b = \frac{ab+1}{b}, \quad \frac 1b + a = \frac{ab+1}{a}
+  \]
+  have a large common factor: we could write "x_{-1} = ab + 1", loosely speaking.
+
+  Now, the sequence is really only defined for $n \ge 1$,
+  so one should instead take $n \equiv -1 \mod \varphi(M)$
+  --- and this is exactly what we do.
+\end{remark}
+Obviously $\gcd(a,M) = \gcd(b,M) = 1$.
+Let $n$ be a sufficiently large multiple of $\varphi(M)$
+so that 
+\[
+x_{n-1} = x_n = x_{n+1} = \ldots.
+\]
+We consider the first three terms;
+the first one is the "key" one that gets the bulk of the work,
+and the rest is bookkeeping and extraction.
+– Consider $x_{n-1}$.
+Note that
+\[
+a (a^{n-1} + b) = a^n + ab \equiv 1 + (-1) \equiv 0 \mod M
+\]
+and similarly $b (b^n + a) \equiv 0 \mod M$.
+Hence $M \mid x_{n-1}$.
+
+– Consider $x_n$, which is now known to be divisible by $</div>
+</div>
+
+
+<div class="item">
+  <div class="q">Let $a_1$, $a_2$, $a_3$, \ldots be an infinite sequence of positive integers, and let $N$ be a positive integer. Suppose that, for each $n > N$, the number $a_n$ is equal to the number of times $a_{n-1}$ appears in the list $(a_1, a_2, \ldots, a_{n-1})$. Prove that at least one of the sequences $a_1$, $a_3$, $a_5$, \ldots and $a_2$, $a_4$, $a_6$, \ldots is eventually periodic.</div>
+  <div class="sol">Let $a_1$, $a_2$, $a_3$, \dots be an infinite sequence of positive integers, and let $N$ be a positive integer. Suppose that, for each $n > N$, the number $a_n$ is equal to the number of times $a_{n-1}$ appears in the list $(a_1, a_2, \dots, a_{n-1})$. Prove that at least one of the sequences $a_1$, $a_3$, $a_5$, \dots and $a_2$, $a_4$, $a_6$, \dots is eventually periodic.
+
+We present the solution from 'gigamilkmen'tgeg' in , with some adaptation from the first shortlist official solution as well. Set $M := \max(a_1, \dots, a_N)$.
+
+Setup. We will visualize the entire process as follows. We draw a stack of towers labeled $1$, $2$, \dots, each initially empty. For $i=1,2,\dots$, we imagine the term $a_i$ as adding a block $B_i$ to tower $a_i$.
+
+Then there are $N$ initial blocks placed, colored red. The rest of the blocks are colored yellow: if the last block $B_i$ was added to a tower that then reaches height $a_{i+1}$, the next block $B_{i+1}$ is added to tower $a_{i+1}$. We'll say $B_i$ contributes to the tower containing $B_{i+1}$.
+
+In other words, the yellow blocks $B_i$ for $i > N$ are given coordinates $B_i = (a_i, a_{i+1})$ for $i>N$. Note in particular that in towers $M+1$, $M+2$, \dots, the blocks are all yellow.
+
+We let $h_\ell$ denote the height of the $\ell$th tower at a given time $n$. (This is an abuse of notation and we should write $h_\ell(n)$ at time $n$, but $n$ will always be clear from context.)
+
+Up to alternating up and down. We start with two independent easy observations: the set of numbers that occur infinitely often is downwards closed, and consecutive terms cannot both be huge.
+
+\begin{claim*}</div>
+</div>
+
+
+<div class="item">
+  <div class="q">Let triangle $ABC$ with incenter $I$ satisfying $AB < AC < BC$. Let $X$ be a point on line $BC$, different from $C$, such that the line through $X$ and parallel to $AC$ is tangent to the incircle. Similarly, let $Y$ be a point on line $BC$, different from $B$, such that the line through $Y$ and parallel to $AB$ is tangent to the incircle. Line $AI$ intersects the circumcircle of triangle $ABC$ again at $P$. Let $K$ and $L$ be the midpoints of $AC$ and $AB$, respectively. Prove that $\measuredangle KIL + \measuredangle YPX = 180^{\circ}$.</div>
+  <div class="sol">Let triangle $ABC$ with incenter $I$ satisfying $AB < AC < BC$.
+Let $X$ be a point on line $BC$, different from $C$,
+such that the line through $X$ and parallel to $AC$ is tangent to the incircle.
+Similarly, let $Y$ be a point on line $BC$, different from $B$,
+such that the line through $Y$ and parallel to $AB$ is tangent to the incircle.
+Line $AI$ intersects the circumcircle of triangle $ABC$ again at $P$.
+Prove that $\measuredangle KIL + \measuredangle YPX = 180^{\circ}$.
+Let $T$ be the reflection of $A$ over $I$, the most important point to add
+since it gets rid of $K$ and $L$ as follows.
+\begin{claim*}
+  We have $\measuredangle KIL = \measuredangle BTC$,
+  and lines $TX$ and $TY$ are tangent to the incircle.
+\end{claim*}
+\begin{proof}
+  The first part is true since $\triangle BTC$ is the image of $\triangle KIL$
+  under a homothety of ratio $2$.
+  The second part is true because lines $AB$, $AC$, $TX$, $TY$
+  determine a rhombus with center $I$.
+\end{proof}
+
+We thus delete $K$ and $L$ from the picture altogether; they aren't needed anymore.
+
+\begin{claim*}
+  We have $BXPT$ and $CYPT$ are cyclic.
+\end{claim*}
+\begin{proof}
+  \measuredangle TYC = \measuredangle TYB = \measuredangle ABC = \measuredangle APC = \measuredangle TPC \text{ and similarly.}
+\end{proof}
+
+To finish, observe that
+\[
+\measuredangle CTB = \measuredangle CTP + \measuredangle PTB = \measuredangle CYP + \measuredangle PXB
+  = \measuredangle XYP + \measuredangle XYP = \measuredangle XPY
+\]
+as desired.
+(The length conditions $AC > AB > BC$ ensure that $B$, $X$, $Y$, $C$ are collinear
+in that order, and that $T$ lies on the opposite side of $\over</div>
+</div>
+
+
+<div class="item">
+  <div class="q">Turbo the snail is in the top row of a grid with $2024$ rows and $2023$ columns
+and wants to get to the bottom row.
+However, there are $2022$ hidden monsters, one in every row except the first and last,
+with no two monsters in the same column.
+
+Turbo makes a series of attempts to go from the first row to the last row.
+On each attempt, he chooses to start on any cell in the first row,
+then repeatedly moves to an orthogonal neighbor.
+(He is allowed to return to a previously visited cell.)
+If Turbo reaches a cell with a monster,
+his attempt ends and he is transported back to the first row to start a new attempt.
+The monsters do not move between attempts, and Turbo remembers whether or not each cell
+he has visited contains a monster.
+If he reaches any cell in the last row, his attempt ends and Turbo wins.
+
+Find the smallest integer $n$ such that Turbo has a strategy which guarantees
+being able to reach the bottom row in at most $n$ attempts,
+regardless of how the monsters are placed.</div>
+  <div class="sol">Turbo the snail is in the top row of a grid with $2024$ rows and $2023$ columns and wants to get to the bottom row. However, there are $2022$ hidden monsters, one in every row except the first and last, with no two monsters in the same column. Turbo makes a series of attempts to go from the first row to the last row. On each attempt, he chooses to start on any cell in the first row, then repeatedly moves to an orthogonal neighbor. (He is allowed to return to a previously visited cell.) If Turbo reaches a cell with a monster, his attempt ends and he is transported back to the first row to start a new attempt. The monsters do not move between attempts, and Turbo remembers whether or not each cell he has visited contains a monster. If he reaches any cell in the last row, his attempt ends and Turbo wins. Find the smallest integer $n$ such that Turbo has a strategy which guarantees being able to reach the bottom row in at most $n$ attempts, regardless of how the monsters are placed.
+
+Surprisingly the answer is $n = 3$ for any grid size $s \times (s-1)$ when $s \ge 4$. We prove this in that generality.
+
+Proof that at least three attempts are needed. When Turbo first moves into the second row, Turbo could encounter a monster $M_1$ right away. Then on the next attempt, Turbo must enter the third row in different column as $M_1$, and again could encounter a monster $M_2$ right after doing so. This means no strategy can guarantee fewer than three attempts.
+
+Strategy with three attempts. On the first attempt, we have Turbo walk through the entire second row until he finds the monster $M_1$ in it. Then we get two possible cases.
+
+Case where $M_1$ is not on the edge. In the first case, if that monster $M_1$ is not on the edge of the row, then Turbo can trace two paths below it as shown below. At least one of these paths works, hence three attempts is sufficient.
+
+Case where $M_1$ is on the edge. WLOG, $M_1$ is in the leftmost cell. Then Turbo follows the green staircase pattern shown in the left figure.</div>
+</div>
+
+
+<div class="item">
+  <div class="q">A function $f : \mathbb{Q} \to \mathbb{Q}$ is called aquaesulian if the following property holds: for every $x,y \in \mathbb{Q}$,
+\[
+f(x+f(y)) = f(x) + y \text{ or } f(f(x)+y) = x + f(y).
+\]
+Show that there exists an integer $c$ such that for any aquaesulian function $f$ there are at most $c$ different rational numbers of the form $f(r) + f(-r)$ for some rational number $r$, and find the smallest possible value of $c$.</div>
+  <div class="sol">A function $f : \mathbb{Q} \to \mathbb{Q}$ is called aquaesulian if the following property holds: for every $x,y \in \mathbb{Q}$, 
+\[
+f(x+f(y)) = f(x) + y \quad \text{or} \quad f(f(x)+y) = x + f(y). 
+\] 
+Show that there exists an integer $c$ such that for any aquaesulian function $f$ there are at most $c$ different rational numbers of the form $f(r) + f(-r)$ for some rational number $r$, and find the smallest possible value of $c$. 
+We will prove that 
+\[
+\{ f(x) + f(-x) \mid x \in \mathbb{Q} \} 
+\] 
+contains at most $2$ elements and give an example where there are indeed $2$ elements. 
+
+We fix the notation $x \to y$ to mean that $f(x+f(y)) = f(x)+y$. So the problem statement means that either $x \to y$ or $y \to x$ for all $x$, $y$. In particular, we always have $x \to x$, and hence 
+\[
+f(x+f(x)) = x+f(x) 
+\] 
+for every $x$. 
+
+Construction. The function 
+\[
+f(x) = \lfloor 2x \rfloor - x 
+\] 
+can be seen to satisfy the problem conditions. Moreover, $f(0)+f(0) = 0$ but $f(1/3)+f(-1/3) = -1$. 
+
+Here is how I (Evan) found the construction. Let $h(x) := x+f(x)$, and let $S := h(\mathbb{Q}) = \{h(x) \mid x \in \mathbb{Q}\}$. Hence $f$ is the identity on all of $S$. If we rewrite the problem condition in terms of $h$ instead of $f$, it asserts that at least one of the equations 
+\[
+h(x+h(y)-y) = h(x)+h(y) 
+\]
+\[
+h(y+h(x)-x) = h(x)+h(y) 
+\] 
+is true. In particular, $S$ is closed under addition.</div>
+</div>
+
+</body>
+</html>

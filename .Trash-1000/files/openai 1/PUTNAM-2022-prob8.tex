@@ -1,0 +1,13 @@
+Let $S = \{v_1, v_2, \ldots, v_n\}$ be a set with $n$ elements such that $S = \{v \times w: v, w \in S\}$. Since $S$ contains exactly $n$ elements, we have $n = |S| = |\{v \times w: v, w \in S\}|$. 
+
+For any $v, w \in S$, $v \times w$ is orthogonal to both $v$ and $w$. This means that $v \times w$ is orthogonal to the plane spanned by $v$ and $w$. Since $v \times w$ is orthogonal to all vectors in the set $S$, it must be parallel to the normal vector of the plane spanned by any two vectors in $S$. 
+
+Let $N$ be the set of all normal vectors to the planes spanned by any two vectors in $S$. Since $S$ has $n$ elements, $N$ has at most $n$ elements. 
+
+Now, since $v \times w$ is parallel to the normal vector of the plane spanned by $v$ and $w$, we have $v \times w = \lambda(v \times w)$ for some scalar $\lambda$. This implies that $(1-\lambda)(v \times w) = 0$, which means that $v \times w = 0$ or $\lambda = 1$. 
+
+If $v \times w = 0$, then $v$ and $w$ are linearly dependent, which means that the plane spanned by $v$ and $w$ is degenerate. This implies that the normal vector to the plane is undefined, which contradicts the assumption that $N$ contains at most $n$ elements. 
+
+Therefore, we must have $\lambda = 1$, which means $v \times w = v \times w$ for all $v, w \in S$. This implies that the cross product is commutative, which is only true for $n = 1$.
+
+Hence, the only positive integer $n$ for which there exists a set $S$ with exactly $n$ elements satisfying $S = \{v \times w: v, w \in S\}$ is $n = 1$.

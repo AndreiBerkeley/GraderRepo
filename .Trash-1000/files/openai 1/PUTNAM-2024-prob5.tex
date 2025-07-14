@@ -1,0 +1,37 @@
+Let $A$ and $B$ be the endpoints of the chord $\overline{PQ}$. The probability that the chord $\overline{PQ}$ intersects the disc $\Delta$ is equivalent to the probability that the line segment $\overline{AB}$ intersects the disc $\Delta$. 
+
+Without loss of generality, we can assume that $A$ is closer to the $x$-axis than $B$. Let $A = (9\cos\theta, 9\sin\theta)$ and $B = (9\cos\phi, 9\sin\phi)$, where $\theta$ and $\phi$ are angles in the interval $[0, 2\pi)$.
+
+The line passing through points $A$ and $B$ has the equation
+$$y = \frac{9\sin\phi - 9\sin\theta}{9\cos\phi - 9\cos\theta}x + 9\sin\theta - \frac{9\sin\phi - 9\sin\theta}{9\cos\phi - 9\cos\theta}9\cos\theta.$$
+
+This line intersects the $x$-axis when $y = 0$, so we have
+$$0 = \frac{9\sin\phi - 9\sin\theta}{9\cos\phi - 9\cos\theta}x + 9\sin\theta - \frac{9\sin\phi - 9\sin\theta}{9\cos\phi - 9\cos\theta}9\cos\theta.$$
+
+Solving for $x$, we get
+$$x = \frac{81\cos\theta - 81\cos\phi}{9\sin\phi - 9\sin\theta}.$$
+
+The line segment $\overline{AB}$ intersects the disc $\Delta$ if and only if $|x| \leq 1$. Therefore, we need to find the range of $\theta$ and $\phi$ such that
+$$\left|\frac{81\cos\theta - 81\cos\phi}{9\sin\phi - 9\sin\theta}\right| \leq 1.$$
+
+This simplifies to
+$$|9\cos\theta - 9\cos\phi| \leq |9\sin\phi - 9\sin\theta|.$$
+
+Since $0 \leq r \leq 8$, we have $0 \leq \theta, \phi \leq \pi$. Without loss of generality, we can assume $\theta \leq \phi$. Then, the inequality becomes
+$$9\cos\phi - 9\cos\theta \leq 9\sin\phi - 9\sin\theta.$$
+
+This simplifies to
+$$\cos\phi - \cos\theta \leq \sin\phi - \sin\theta.$$
+
+Using the angle addition formula, we have
+$$2\sin\left(\frac{\phi - \theta}{2}\right)\cos\left(\frac{\phi + \theta}{2}\right) \leq 2\cos\left(\frac{\phi - \theta}{2}\right)\sin\left(\frac{\phi + \theta}{2}\right).$$
+
+Dividing both sides by 2 and rearranging, we get
+$$\tan\left(\frac{\phi + \theta}{2}\right) \leq \tan\left(\frac{\phi - \theta}{2}\right).$$
+
+Since $\theta \leq \phi$, we have $\frac{\phi - \theta}{2} \geq 0$. Therefore, the inequality simplifies to
+$$\frac{\phi + \theta}{2} \leq \frac{\pi}{4}.$$
+
+This means that the chord $\overline{PQ}$ intersects the disc $\Delta$ if and only if the angle between the two points $P$ and $Q$ is less than or equal to $\frac{\pi}{2}$. This occurs when the chord is a diameter of the circle $\Omega$.
+
+Hence, the value of $r$ that minimizes the probability that the chord $\overline{PQ}$ intersects $\Delta$ is $r = 8$.

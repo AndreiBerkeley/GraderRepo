@@ -1,0 +1,25 @@
+Let's denote $b_n = a_{n+1}$. Then the given recursive relation becomes
+$$b_{n+1} = mb_n - b_{n-1}.$$
+We are given that $b_1 = 1$ and $b_2 = 4$. We want to find all $m > 1$ such that $b_n$ is a perfect square for all $n \geq 1$.
+
+Let's first find the characteristic equation of the linear recurrence relation $b_{n+1} = mb_n - b_{n-1}$. Assume $b_n = r^n$ for some constant $r$. Substituting this into the recurrence relation, we get
+$$r^{n+1} = mr^n - r^{n-1} \implies r^2 = mr - 1.$$
+This gives us the characteristic equation $r^2 - mr + 1 = 0$. The roots of this characteristic equation are given by
+$$r = \frac{m \pm \sqrt{m^2 - 4}}{2}.$$
+
+Since $b_1 = 1$ and $b_2 = 4$, we have $b_n = \frac{r^n - s^n}{r - s}$, where $r$ and $s$ are the roots of the characteristic equation. We know that $b_n$ must be a perfect square for all $n \geq 1$. This implies that $r$ and $s$ must be integers, as otherwise the expression for $b_n$ will not be an integer for all $n \geq 1$.
+
+Since $b_1 = 1$ and $b_2 = 4$, we have $r + s = m$ and $rs = 1$. Thus, $r$ and $s$ are the roots of the quadratic equation $x^2 - mx + 1 = 0$. By Vieta's formulas, the sum of the roots is $m$ and the product of the roots is $1$. Therefore, the roots are the solutions to the equation $x^2 - mx + 1 = 0$, which are given by
+$$x = \frac{m \pm \sqrt{m^2 - 4}}{2}.$$
+
+For $b_n$ to be a perfect square for all $n \geq 1$, both $r$ and $s$ must be integers. This implies that the discriminant $\Delta = m^2 - 4$ must be a perfect square. Hence, we need to find all $m > 1$ such that $m^2 - 4 = k^2$ for some integer $k$.
+
+Solving $m^2 - 4 = k^2$ gives $(m-k)(m+k) = 4$. The factors of $4$ are $(1,4)$ and $(-1,-4)$. So, we have two cases to consider:
+
+Case 1: $(m-k,m+k) = (1,4)$
+Solving this system gives $m = 3$.
+
+Case 2: $(m-k,m+k) = (-1,-4)$
+Solving this system gives $m = -3$, but since $m > 1$, this case is not valid.
+
+Therefore, the only integer $m > 1$ for which the sequence $(a_n)_{n\ge1}$ contains only perfect squares is $m = 3$.

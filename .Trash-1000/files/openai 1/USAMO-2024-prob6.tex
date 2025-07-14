@@ -1,0 +1,26 @@
+Let $S = \{1, 2, \dots, n\}$ and let $m = |S| = n$. Let $f(A) = |A|$ denote the size of a set $A$. We will show that the largest real number $c$ such that the inequality holds is $\frac{\ell^2}{\ell^2 + (m-\ell)^2}$.
+
+First, we will prove that the inequality holds for $c = \frac{\ell^2}{\ell^2 + (m-\ell)^2}$. Let $k$ be a positive integer, $x_1, x_2, \dots, x_k$ be nonnegative real numbers, and $A_1, A_2, \dots, A_k$ be $\ell$-large collections of subsets of $S$. We have
+\begin{align*}
+\sum_{i=1}^k\sum_{j=1}^k x_ix_j \frac{|A_i\cap A_j|^2}{|A_i|\cdot|A_j|} &= \sum_{i=1}^k\sum_{j=1}^k x_ix_j \frac{|A_i\cap A_j|^2}{f(A_i)f(A_j)} \\
+&\ge \frac{\left(\sum_{i=1}^k x_i|A_i\cap A_i|\right)^2}{\sum_{i=1}^k x_if(A_i)\cdot \sum_{j=1}^k x_jf(A_j)} \quad \text{(Cauchy-Schwarz inequality)} \\
+&= \frac{\left(\sum_{i=1}^k x_if(A_i)\right)^2}{\left(\sum_{i=1}^k x_if(A_i)\right)^2} \\
+&= \frac{\left(\sum_{i=1}^k x_if(A_i)\right)^2}{\left(\sum_{i=1}^k x_i\right)^2} \\
+&\ge \frac{\ell^2}{\ell^2 + (m-\ell)^2} \left(\sum_{i=1}^k x_i\right)^2.
+\end{align*}
+Therefore, the inequality holds for $c = \frac{\ell^2}{\ell^2 + (m-\ell)^2}$.
+
+Next, we will show that the inequality does not hold for $c > \frac{\ell^2}{\ell^2 + (m-\ell)^2}$. Consider $k = 2$, $x_1 = x_2 = 1$, and $A_1 = \{1, 2, \dots, \ell\}$, $A_2 = \{1, \ell+1, \ell+2, \dots, m\}$. We have
+\begin{align*}
+\sum_{i=1}^k\sum_{j=1}^k x_ix_j \frac{|A_i\cap A_j|^2}{|A_i|\cdot|A_j|} &= \sum_{i=1}^k\sum_{j=1}^k x_ix_j \frac{|A_i\cap A_j|^2}{f(A_i)f(A_j)} \\
+&= \frac{|A_1\cap A_1|^2}{f(A_1)^2} + \frac{|A_1\cap A_2|^2}{f(A_1)f(A_2)} + \frac{|A_2\cap A_1|^2}{f(A_2)f(A_1)} + \frac{|A_2\cap A_2|^2}{f(A_2)^2} \\
+&= \frac{\ell^2}{\ell^2} + \frac{0}{\ell(m-\ell)} + \frac{0}{\ell(m-\ell)} + \frac{0}{(m-\ell)^2} \\
+&= 1.
+\end{align*}
+On the other hand,
+\[
+c\left(\sum_{i=1}^k x_i\right)^2 = c(2)^2 = 4c > \frac{4\ell^2}{\ell^2 + (m-\ell)^2} = 4.
+\]
+Therefore, the inequality does not hold for $c > \frac{\ell^2}{\ell^2 + (m-\ell)^2}$.
+
+In conclusion, the largest real number $c$ such that the inequality holds is $\frac{\ell^2}{\ell^2 + (m-\ell)^2}$.

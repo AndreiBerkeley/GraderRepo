@@ -1,0 +1,5 @@
+{
+  "verdict": "PARTIALLY CORRECT",
+  "score": 4,
+  "feedback": "The general strategy (try to find a k-term monic factor all of whose coefficients are non–zero) is fine and most steps are sound.  However the key Lemma in Step 2 is not proved: from the vanishing of two consecutive coefficients the solution wrongly deduces that the whole polynomial factors as x^{d-m-2}(x²+px+q), which would force 0 to be a root, contradicting P(0)≠0.  The deduction is false in general, so the argument that two consecutive zero elementary symmetric sums give a multiple root is invalid.  Since the lemma is essential for Steps 3–5, the proof is incomplete.  Some correct observations (Step 1 and parts of Steps 3–5) deserve partial credit, but the core of the proof is missing.\n"
+}

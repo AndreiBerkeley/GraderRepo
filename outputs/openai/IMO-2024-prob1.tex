@@ -1,0 +1,124 @@
+Let  
+
+S_n(α)=⌊α⌋+⌊2α⌋+⋯+⌊nα⌋ ,  n=1,2,…
+
+We look for all real α such that n | S_n(α) for every positive integer n.
+
+Notation  
+{x}=x−⌊x⌋ is the fractional part of x, 0≤{x}<1.  
+Write α=t+β with t=⌊α⌋∈ℤ and β∈[0,1).
+
+-------------------------------------------------
+1.  Even integers work
+-------------------------------------------------
+For an even integer α=2k we have  
+
+S_n(2k)=2k(1+2+⋯+n)=2k· n(n+1) 2 =k n(n+1)=n·k(n+1),
+
+hence n divides S_n(2k) for every n.  
+Thus every even integer belongs to the required set.
+
+-------------------------------------------------
+2.  A convenient reformulation
+-------------------------------------------------
+Because {kα}={kβ},  
+
+S_n(α)=∑_{k=1}^{n}(kα−{kα})  
+      =α n(n+1) 2 −∑_{k=1}^{n}{kβ}.                         (1)
+
+Divide (1) by n :
+
+T_n:= S_n(α) n =α(n+1) 2 −u_n,             (2)
+
+where  
+
+u_n:= 1 n ∑_{k=1}^{n}{kβ}∈[0,1).          (3)
+
+The hypothesis “n | S_n(α)” is equivalent to  
+
+T_n∈ℤ for every n.                         (4)
+
+-------------------------------------------------
+3.  How fast can u_n vary?
+-------------------------------------------------
+From (3):
+
+u_{n+1}= 1 n+1 (n u_n+{(n+1)β}).
+
+Hence  
+
+|u_{n+1}−u_n|= |{(n+1)β}−u_n| n+1 ≤ 1 n+1 .         (5)
+
+So the sequence (u_n) changes extremely slowly: the jump from n to n+1
+is at most 1/(n+1).
+
+-------------------------------------------------
+4.  Consequences if β≠0
+-------------------------------------------------
+Assume β≠0.  
+From (2),
+
+fractional part of T_n = fractional part of ( β(n+1) 2 −u_n).         (6)
+
+Denote  
+
+f_n:= β(n+1) 2 −u_n  (mod 1).
+
+Because of (4), f_n must always cancel the fractional part contributed
+by t(n+1)/2.
+
+There are two possibilities.
+
+A.  t is even  
+Then t(n+1)/2 is integral, so (4) demands f_n≡0 (mod 1) for all n.
+
+B.  t is odd  
+Then t(n+1)/2 is integral if n is odd and has fractional part ½ if n
+is even; consequently
+
+    f_n≡0 (n odd),  f_n≡½ (n even).        (7)
+
+-------------------------------------------------
+5.  But f_n cannot oscillate so little
+-------------------------------------------------
+Compute the difference of successive f_n’s:
+
+f_{n+1}−f_n = β 2 −(u_{n+1}−u_n).             (8)
+
+Using the bound (5):
+
+|f_{n+1}−f_n−β/2| ≤ 1 n+1 .                   (9)
+
+Because β≠0, the constant |β|/2 is positive; choose N so large that
+|β|/2−1/(N+1)>0.  
+For all n≥N,
+
+|f_{n+1}−f_n| ≥ |β| 2 − 1 n+1 ≥ |β| 2 − 1 N+1 >0.             (10)
+
+Thus (f_n) must move by at least a fixed positive amount for every large
+n, which is impossible in either situation A or B:
+
+• In A we would have f_n constantly 0, so every difference is 0.  
+• In B the sequence alternates between two fixed values (0 and ½),
+hence |f_{n+1}−f_n| is either 0 or ½, contradicting (10) once n is
+large enough (½ cannot equal the small bound in (10) for large n).
+
+Therefore β must be 0.
+
+-------------------------------------------------
+6.  So α is an integer – what kind?
+-------------------------------------------------
+Put β=0 in (4).  Then
+
+S_2(α)=⌊α⌋+⌊2α⌋=α+2α=3α.
+
+The condition 2 | 3α forces α to be even (because gcd(2,3)=1).  
+Hence α=2k, k∈ℤ.
+
+-------------------------------------------------
+7.  Conclusion
+-------------------------------------------------
+The only real numbers satisfying the requirement are the even
+integers.
+
+Answer.  α ∈ {…, −4, −2, 0, 2, 4, …} = 2ℤ.

@@ -1,0 +1,37 @@
+Let $S_n = a_1 X_1 + \cdots + a_n X_n$. We have $P(0, a_1, \dots, a_n) = P(S_n = 0)$ and $P(b, a_1, \dots, a_n) = P(S_n = b)$. 
+
+Since $X_i$ are independent, the characteristic function of $S_n$ is given by
+\[
+\phi_{S_n}(t) = \prod_{i=1}^n \mathbb{E}[e^{itX_i}] = \left(1-2p + 2p\cos(t)\right)^n.
+\]
+The probability generating function of $S_n$ is then
+\[
+P(S_n = k) = \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-ikt} \phi_{S_n}(t) \, dt = \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-ikt} \left(1-2p + 2p\cos(t)\right)^n \, dt.
+\]
+We can simplify this integral by using the identity $e^{i\theta} = \cos(\theta) + i\sin(\theta)$:
+\begin{align*}
+P(S_n = k) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-ikt} \left(1-2p + 2p\cos(t)\right)^n \, dt \\
+&= \frac{1}{2\pi} \int_{-\pi}^{\pi} \left(1-2p + 2p\cos(t)\right)^n \cos(kt) \, dt.
+\end{align*}
+
+Now, we need to compare $P(S_n = 0)$ and $P(S_n = b)$ for all $b$. For $P(S_n = 0)$, we have $k=0$:
+\begin{align*}
+P(S_n = 0) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} \left(1-2p + 2p\cos(t)\right)^n \, dt.
+\end{align*}
+
+For $P(S_n = b)$, we have $k=b$:
+\begin{align*}
+P(S_n = b) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} \left(1-2p + 2p\cos(t)\right)^n \cos(bt) \, dt.
+\end{align*}
+
+To compare $P(S_n = 0)$ and $P(S_n = b)$ for all $b$, we need to compare the integrands of the two expressions. For this, we need to analyze the behavior of $\cos(bt)$ for different values of $b$.
+
+If $b=0$, then $\cos(bt) = 1$ for all $t$, and the integrands are the same. For $b \neq 0$, we need to consider the behavior of $\cos(bt)$ over the interval $[-\pi, \pi]$.
+
+If $b$ is even, then $\cos(bt)$ is an even function, and the integral of an even function over a symmetric interval is zero. Therefore, $P(S_n = b) = 0$ for even $b$.
+
+If $b$ is odd, then $\cos(bt)$ is an odd function, and the integral of an odd function over a symmetric interval is zero. Therefore, $P(S_n = b) = 0$ for odd $b$.
+
+Hence, for all $b$, we have $P(S_n = 0) \geq P(S_n = b)$ for all $n$ if and only if $P(S_n = b) = 0$ for all $b \neq 0$. This implies that $1-2p + 2p\cos(t) = 0$ for all $t \in [-\pi, \pi]$, which happens if and only if $p = 1/2$.
+
+Therefore, the inequality $P(0, a_1, \dots, a_n) \geq P(b, a_1, \dots, a_n)$ holds for all positive integers $n$ and all integers $b, a_1, \dots, a_n$ if and only if $p = 1/2$.

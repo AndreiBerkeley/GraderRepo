@@ -1,0 +1,19 @@
+Let's consider the grid as a graph where each unit square is a vertex and there is an edge between two vertices if and only if the corresponding squares share a common side. In this graph, each coin initially occupies a vertex. A legal move corresponds to moving a coin along an edge of the graph.
+
+We can observe that the graph is a grid graph with \( m \times n \) vertices. Since each coin occupies a vertex, there are initially \( (m-1)(n-1) \) coins in the graph.
+
+Now, let's consider the diagonal line passing through the top-left and bottom-right corners of the grid. This line divides the grid into two parts: one part contains the squares above the diagonal line and the other part contains the squares below the diagonal line.
+
+For any configuration of coins, the coins in the upper part of the grid and the coins in the lower part of the grid move independently of each other. This means that the configurations of coins in the upper part do not affect the configurations of coins in the lower part and vice versa.
+
+Therefore, the number of distinct configurations of coins that can be reached starting from the initial configuration is the product of the number of distinct configurations in the upper part and the number of distinct configurations in the lower part.
+
+For the upper part, we have an \( (m-1) \)-by-\( n \) grid with \( (m-1)(n-1) \) coins initially placed in the squares \( (i,j) \) with \( 1 \leq i \leq m-1 \) and \( 1 \leq j \leq n \). The number of distinct configurations in the upper part is the number of ways to distribute these coins in the upper part, which is given by the binomial coefficient \( \binom{(m-1)(n-1)}{(m-1)} \).
+
+Similarly, for the lower part, we have an \( m \)-by-\( (n-1) \) grid with \( (m-1)(n-1) \) coins initially placed in the squares \( (i,j) \) with \( 1 \leq i \leq m \) and \( 1 \leq j \leq n-1 \). The number of distinct configurations in the lower part is the number of ways to distribute these coins in the lower part, which is given by the binomial coefficient \( \binom{(m-1)(n-1)}{(n-1)} \).
+
+Therefore, the total number of distinct configurations of coins that can be reached starting from the initial configuration is:
+
+\[
+\binom{(m-1)(n-1)}{(m-1)} \times \binom{(m-1)(n-1)}{(n-1)}
+\]

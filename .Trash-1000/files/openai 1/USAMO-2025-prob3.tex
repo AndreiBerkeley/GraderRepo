@@ -1,0 +1,22 @@
+Let $d$ be the distance between points $P$ and $Q$. We will show that Bob has a winning strategy.
+
+Consider the following strategy for Bob:
+1. Bob places a city at point $P$.
+2. Bob places a city at point $Q$ such that the distance between $P$ and $Q$ is $d$.
+3. Bob places a city at each point $R\in \mathcal{S}$.
+4. Bob places a city at each point $X$ such that $PX = QX = d$.
+5. Bob places a city at each point $Y$ such that $PY = QY = d$.
+
+Now, we will show that the roads constructed according to the conditions in the problem statement satisfy the requirements for Alice to win the game.
+
+Consider any two cities $A$ and $B$ placed by Bob. We need to show that there exists a road between $A$ and $B$ such that the conditions hold.
+
+If $A$ and $B$ are both on the line segment $PQ$, then the road between $A$ and $B$ satisfies the conditions since any other city $C$ distinct from $A$ and $B$ can be connected to $P$ or $Q$.
+
+If $A$ is on the line segment $PX$ and $B$ is on the line segment $QY$, then the road between $A$ and $B$ satisfies the conditions since any other city $C$ distinct from $A$ and $B$ can be connected to $P$ or $Q$.
+
+If $A$ is on the line segment $PR$ and $B$ is on the line segment $QR$ for some $R\in \mathcal{S}$, then the road between $A$ and $B$ satisfies the conditions since any other city $C$ distinct from $A$ and $B$ can be connected to $P$ or $Q$.
+
+If $A$ is on the line segment $PA$ and $B$ is on the line segment $PB$, then the road between $A$ and $B$ satisfies the conditions since any other city $C$ distinct from $A$ and $B$ can be connected to $P$ or $Q$.
+
+Therefore, Bob's strategy ensures that the conditions for Alice to win the game are satisfied. Since Bob has a winning strategy, he wins the game.

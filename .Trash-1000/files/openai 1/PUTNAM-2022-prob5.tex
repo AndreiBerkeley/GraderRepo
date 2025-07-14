@@ -1,0 +1,11 @@
+Let's consider the game from the perspective of Alice. 
+
+Alice's strategy is to always place the tile in such a way that Bob cannot place a tile that covers both squares of the tile she placed. This means that Alice should always place the tile in such a way that the two squares it covers are different parity (one is even and the other is odd). 
+
+At the beginning of the game, all the squares are of the same parity (either all even or all odd). So, Alice's first move will split the board into two parts, one with all even squares and the other with all odd squares. 
+
+From this point on, Alice can always ensure that Bob cannot place a tile that covers both squares of the tile she placed. This is because if Bob places a tile that covers both squares of the tile Alice placed, then the two squares of Bob's tile will have the same parity, which means Alice can place a tile that covers both squares of Bob's tile.
+
+Therefore, Alice can always ensure that Bob can only cover one square with each move. Since there are 2022 squares in total, Alice can ensure that at least $\left\lceil \frac{2022}{2} \right\rceil = 1011$ squares remain uncovered at the end of the game.
+
+Hence, the greatest number of uncovered squares that Alice can ensure at the end of the game, no matter how Bob plays, is $\boxed{1011}$.

@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 1,
+  "feedback": "Shows some initial correct observations (e.g. f(0)=0), but Step 2 incorrectly deduces surjectivity: for x=0 the second alternative B is tautologically true, hence A need not hold, so f(f(y))=y is not forced. All later steps (involution, oddness, additivity, linearity) depend on this false claim, so the classification of all aquaesulian functions and the conclusion c=1 are wrong; in fact the correct bound is c=2."
+}

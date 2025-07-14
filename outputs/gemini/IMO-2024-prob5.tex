@@ -1,0 +1,62 @@
+This problem is a classic result in combinatorial mathematics, which can be elegantly solved using Hall's Marriage Theorem. The goal is to prove the existence of a system of distinct representatives (SDR) for the given collection of sets.
+
+### **Understanding the Problem**
+
+We are given $n$ subsets, $A_1, A_2, \dots, A_n$, of the set $S = \{1, 2, \dots, n\}$. The condition is that for any choice of $k$ of these subsets, where $1 \le k \le n$, their union contains at least $k$ elements. Formally, for any nonempty subset of indices $I \subseteq \{1, 2, \dots, n\}$, we have:
+$$|\bigcup_{i \in I} A_i| \ge |I|$$
+We want to prove that we can choose one element $a_i$ from each set $A_i$ such that all these chosen elements are distinct. That is, we need to show there exist $a_1, a_2, \dots, a_n$ with $a_i \in A_i$ for all $i=1, \dots, n$, and $a_i \neq a_j$ for $i \neq j$. Such a set of elements $\{a_1, \dots, a_n\}$ is called a **system of distinct representatives (SDR)** for the family of sets $(A_1, \dots, A_n)$.
+
+We will prove this by modeling the problem using a bipartite graph and applying Hall's Marriage Theorem.
+
+### **Step 1: Constructing a Bipartite Graph**
+
+Let's construct a bipartite graph $G = (X \cup Y, E)$ to represent the relationships between the sets and their elements.
+*   Let the first partite set $X$ be the set of indices of the subsets: $X = \{1, 2, \dots, n\}$.
+*   Let the second partite set $Y$ be the set of elements: $Y = S = \{1, 2, \dots, n\}$.
+*   The set of edges $E$ is defined as follows: an edge $(i, j)$ exists between a vertex $i \in X$ and a vertex $j \in Y$ if and only if the element $j$ is in the subset $A_i$. That is,
+    $$E = \{ (i, j) \mid i \in X, j \in Y, \text{ and } j \in A_i \}$$
+
+### **Step 2: Reframing the Goal in Graph Theory Terms**
+
+The problem asks for the existence of distinct elements $a_1, a_2, \dots, a_n \in S$ such that $a_i \in A_i$ for each $i \in \{1, 2, \dots, n\}$. In our graph $G$:
+*   The condition $a_i \in A_i$ means there is an edge $(i, a_i) \in E$.
+*   The condition that $a_1, a_2, \dots, a_n$ are distinct means that the vertices $a_1, \dots, a_n$ in $Y$ are all different.
+
+So, we are looking for a set of $n$ edges $(1, a_1), (2, a_2), \dots, (n, a_n)$ where all the $a_i$ are distinct vertices in $Y$. This is precisely the definition of a **matching** in $G$ that covers every vertex in $X$. Since $|X| = |Y| = n$, such a matching is a **perfect matching**.
+
+The problem is therefore equivalent to proving that the bipartite graph $G$ has a perfect matching.
+
+### **Step 3: Applying Hall's Marriage Theorem**
+
+Hall's Marriage Theorem provides a necessary and sufficient condition for the existence of a matching that covers one of the partite sets.
+
+**Hall's Marriage Theorem:** Let $G=(X \cup Y, E)$ be a bipartite graph. There exists a matching that covers every vertex in $X$ if and only if for every subset $I \subseteq X$, the size of its neighborhood $N(I)$ is at least the size of $I$. That is,
+$$|N(I)| \ge |I| \quad \text{for all } I \subseteq X$$
+where $N(I) = \{y \in Y \mid \exists i \in I \text{ such that } (i,y) \in E\}$ is the set of all neighbors of vertices in $I$.
+
+Let's verify that Hall's condition holds for our graph $G$.
+
+Let $I$ be an arbitrary subset of $X = \{1, 2, \dots, n\}$.
+*   If $I = \emptyset$, its neighborhood is $N(\emptyset) = \emptyset$. The condition is $|N(\emptyset)| \ge |\emptyset|$, which is $0 \ge 0$. This is trivially true.
+*   If $I$ is a non-empty subset of $X$, let's determine its neighborhood $N(I)$. By definition, $N(I)$ consists of all vertices $j \in Y$ that are connected by an edge to at least one vertex $i \in I$. Based on our construction of $G$, an edge $(i, j)$ exists if and only if $j \in A_i$. Therefore:
+    $$N(I) = \{j \in Y \mid \exists i \in I \text{ with } j \in A_i\}$$
+    This is exactly the definition of the union of the sets $A_i$ for all indices $i$ in $I$.
+    $$N(I) = \bigcup_{i \in I} A_i$$
+
+The condition given in the problem is that for any non-empty subset $I \subseteq \{1, 2, \dots, n\}$, we have $|\bigcup_{i \in I} A_i| \ge |I|$. Substituting our expression for the neighborhood, this becomes:
+$$|N(I)| \ge |I|$$
+This holds for all non-empty subsets $I \subseteq X$. As we've shown it also holds for $I=\emptyset$, Hall's condition is satisfied for all subsets $I \subseteq X$.
+
+### **Step 4: Conclusion**
+
+Since our constructed bipartite graph $G=(X \cup Y, E)$ satisfies Hall's condition, we can apply Hall's Marriage Theorem. The theorem guarantees the existence of a matching that covers every vertex in $X$.
+
+Let this matching be $M$. Since $M$ covers all $n$ vertices of $X$, it must consist of $n$ edges. Let's denote these edges as:
+$$M = \{ (1, a_1), (2, a_2), \dots, (n, a_n) \}$$
+By the definition of a matching, no two edges in $M$ share a vertex. This implies:
+1.  The first components of the pairs are distinct (which are $1, 2, \dots, n$ by construction).
+2.  The second components of the pairs, $a_1, a_2, \dots, a_n$, must also be distinct.
+
+Furthermore, the existence of an edge $(i, a_i)$ in $M$ means that $a_i \in A_i$ for each $i=1, \dots, n$. The vertices $a_1, \dots, a_n$ are distinct elements of $Y=S$.
+
+Therefore, we have found distinct elements $a_1, a_2, \dots, a_n \in S$ such that $a_i \in A_i$ for all $i = 1, 2, \dots, n$. This completes the proof.

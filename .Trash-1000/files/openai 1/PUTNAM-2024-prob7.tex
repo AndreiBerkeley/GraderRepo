@@ -1,0 +1,24 @@
+Let's denote the number in the square in the \(i\)th row and \(j\)th column as \(a_{ij} = i+j-k\). We want to find \(n\) squares such that the numbers contained in them are exactly \(1,2,\dots,n\).
+
+Let's consider the sum of the numbers in the selected squares. Since we want the numbers to be \(1,2,\dots,n\), the sum of these numbers is \(\frac{n(n+1)}{2}\).
+
+The sum of the numbers in the \(n\) selected squares can be expressed as:
+\[\sum_{i=1}^{n} \sum_{j=1}^{n} a_{ij} = \sum_{i=1}^{n} \sum_{j=1}^{n} (i+j-k) = \sum_{i=1}^{n} \left( \sum_{j=1}^{n} i + \sum_{j=1}^{n} j - \sum_{j=1}^{n} k \right).\]
+
+Solving the above expression, we get:
+\[\frac{n(n+1)(2n+1)}{6} + n(n+1) - nk = \frac{n(n+1)}{2}.\]
+
+Simplifying, we get:
+\[n^2 + 3n - 6k = 0.\]
+
+This is a quadratic equation in \(n\). For the equation to have a positive integer solution for \(n\), the discriminant must be a perfect square. Thus, we have:
+\[9 + 24k = m^2\]
+for some positive integer \(m\).
+
+Rearranging, we get:
+\[24k = m^2 - 9 = (m+3)(m-3).\]
+
+Since \(k\) is a positive integer, the possible values for \(m\) are \(4, 6, 8, 12, 24\). Substituting these values back into the equation, we find the corresponding values for \(k\).
+
+Therefore, the possible values for \(n\) and \(k\) are:
+\[(n,k) = (1,0), (3,1), (6,3), (15,9), (276,81).\]

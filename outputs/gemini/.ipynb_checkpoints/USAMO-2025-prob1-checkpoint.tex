@@ -1,0 +1,85 @@
+Here is a complete and rigorous, step-by-step solution to the problem.
+
+### The Problem
+
+Let $P(x)$ be a polynomial with integer coefficients such that $P(2021) = P(2022) = 2023$. If $P(2023) = k$, what are the possible values of $k$?
+
+### Key Property of Polynomials with Integer Coefficients
+
+A fundamental property of polynomials with integer coefficients is that for any two distinct integers $a$ and $b$, the difference $a-b$ must divide the difference $P(a) - P(b)$.
+
+**Proof:** Let $P(x) = c_n x^n + c_{n-1} x^{n-1} + \dots + c_1 x + c_0$, where all coefficients $c_i$ are integers.
+Then,
+$P(a) - P(b) = (c_n a^n + \dots + c_0) - (c_n b^n + \dots + c_0)$
+$P(a) - P(b) = c_n(a^n - b^n) + c_{n-1}(a^{n-1} - b^{n-1}) + \dots + c_1(a - b)$
+For any positive integer $m$, the term $a^m - b^m$ can be factored as $(a-b)(a^{m-1} + a^{m-2}b + \dots + b^{m-1})$. Since the second factor is a sum of products of integers, it is an integer. Thus, $(a-b)$ is a factor of $a^m - b^m$.
+Since $(a-b)$ divides each term $c_m(a^m - b^m)$ in the sum, it must divide the entire sum. Therefore, $(a-b) | (P(a) - P(b))$.
+
+### Step 1: Deriving the Necessary Condition for k
+
+We are given that $P(x)$ is a polynomial with integer coefficients and
+1.  $P(2021) = 2023$
+2.  $P(2022) = 2023$
+3.  $P(2023) = k$
+
+Let's define a new polynomial $Q(x) = P(x) - 2023$. Since $P(x)$ has integer coefficients, $Q(x)$ must also have integer coefficients.
+
+From the given conditions, we can find the roots of $Q(x)$:
+*   $Q(2021) = P(2021) - 2023 = 2023 - 2023 = 0$
+*   $Q(2022) = P(2022) - 2023 = 2023 - 2023 = 0$
+
+By the Factor Theorem, since $Q(2021) = 0$ and $Q(2022) = 0$, both $(x-2021)$ and $(x-2022)$ are factors of the polynomial $Q(x)$. Since these two factors are coprime, their product must also be a factor of $Q(x)$.
+So, we can write $Q(x)$ as:
+$Q(x) = (x-2021)(x-2022)R(x)$
+for some polynomial $R(x)$.
+
+Since $Q(x)$ has integer coefficients and $(x-2021)(x-2022) = x^2 - 4043x + 4086462$ is a monic polynomial with integer coefficients, the quotient polynomial $R(x)$ must also have integer coefficients.
+
+Now, we can express $P(x)$ in terms of $R(x)$:
+$P(x) = Q(x) + 2023 = (x-2021)(x-2022)R(x) + 2023$
+
+We are interested in the value of $k = P(2023)$. Let's substitute $x=2023$ into our expression for $P(x)$:
+$k = P(2023) = (2023 - 2021)(2023 - 2022)R(2023) + 2023$
+$k = (2)(1)R(2023) + 2023$
+$k = 2R(2023) + 2023$
+
+Since $R(x)$ is a polynomial with integer coefficients, $R(2023)$ must be an integer. Let $m = R(2023)$, where $m \in \mathbb{Z}$.
+The expression for $k$ becomes:
+$k = 2m + 2023$
+
+This equation tells us that $k-2023$ must be an even number. This is equivalent to stating that $k$ and $2023$ must have the same parity. Since $2023$ is an odd number, $k$ must also be an odd number.
+This is the necessary condition: if a polynomial $P(x)$ satisfying the given conditions exists, then $k$ must be an odd integer.
+
+### Step 2: Showing the Condition is Sufficient
+
+Now we must show that for any odd integer $k$, there exists a polynomial $P(x)$ with integer coefficients that satisfies the given conditions. This will prove that the set of possible values for $k$ is precisely the set of all odd integers.
+
+Let $k$ be any odd integer.
+We want to construct a polynomial $P(x)$ with integer coefficients such that:
+*   $P(2021) = 2023$
+*   $P(2022) = 2023$
+*   $P(2023) = k$
+
+From our derivation in Step 1, we know that such a polynomial would satisfy $k = 2m + 2023$, where $m = R(2023)$ for some polynomial $R(x)$ with integer coefficients.
+Since $k$ is an odd integer and $2023$ is an odd integer, their difference $k - 2023$ is an even integer. Therefore, we can write $k - 2023 = 2m$ for some integer $m$. This gives $m = \frac{k-2023}{2}$, which is guaranteed to be an integer.
+
+Let's construct a suitable polynomial $P(x)$. We need to find a polynomial $R(x)$ with integer coefficients such that $R(2023) = m$. The simplest such polynomial is the constant polynomial $R(x) = m$. Since $m$ is an integer, this polynomial has integer coefficients.
+
+Now, we define our candidate polynomial $P(x)$ using this choice of $R(x)$:
+$P(x) = (x-2021)(x-2022)m + 2023$
+
+Let's verify that this polynomial meets all the requirements:
+1.  **Integer Coefficients:** $P(x) = m(x^2 - 4043x + 4086462) + 2023 = mx^2 - 4043mx + (4086462m + 2023)$. Since $m$ is an integer, all the coefficients ($m$, $-4043m$, and $4086462m + 2023$) are integers.
+
+2.  **$P(2021)$:** $P(2021) = (2021-2021)(2021-2022)m + 2023 = (0)(-1)m + 2023 = 2023$. This is correct.
+
+3.  **$P(2022)$:** $P(2022) = (2022-2021)(2022-2022)m + 2023 = (1)(0)m + 2023 = 2023$. This is correct.
+
+4.  **$P(2023)$:** $P(2023) = (2023-2021)(2023-2022)m + 2023 = (2)(1)m + 2023 = 2m + 2023$. By our definition of $m$, $2m + 2023 = (k-2023) + 2023 = k$. This is correct.
+
+We have successfully constructed a polynomial $P(x)$ with integer coefficients that satisfies all the problem's conditions for any given odd integer $k$. This shows that the condition of $k$ being odd is sufficient.
+
+### Conclusion
+
+We have shown that any possible value of $k$ must be an odd integer (necessity) and that any odd integer is a possible value for $k$ (sufficiency).
+Therefore, the set of all possible values for $k$ is the set of all odd integers.

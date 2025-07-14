@@ -1,0 +1,7 @@
+Given that \( p(1/k) = k^2 \) for all integers \( k \) such that \( 1 \leq |k| \leq n \), we can write this as:
+\[ p\left(\frac{1}{k}\right) = \left(\frac{1}{k}\right)^{2n} + a_{2n-1} \left(\frac{1}{k}\right)^{2n-1} + \cdots + a_1 \left(\frac{1}{k}\right) + a_0 = k^2 \]
+Multiplying both sides by \( k^{2n} \) gives:
+\[ p\left(\frac{1}{k}\right)k^{2n} = 1 + a_{2n-1} k + \cdots + a_{2n-1} k^{2n-1} = k^{2n+2} \]
+Now, we can consider the polynomial \( q(x) = xp(x) - x^{2n+2} \). We know that \( q(1/k) = 0 \) for all integers \( k \) such that \( 1 \leq |k| \leq n \). Since \( q(x) \) has degree \( 2n+1 \), it has at most \( 2n+1 \) roots. However, we have found \( 2n \) distinct roots, namely \( 1/k \) for \( k = 1, 2, \ldots, n \) and \( k = -1, -2, \ldots, -n \). Therefore, \( q(x) = 0 \) for all \( x \) such that \( p(x) = x^{2n+2} \).
+
+Hence, the other real numbers \( x \) for which \( p(1/x) = x^2 \) are all real numbers \( x \) such that \( p(x) = x^{2n+2} \).

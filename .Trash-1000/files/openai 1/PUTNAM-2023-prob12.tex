@@ -1,0 +1,29 @@
+To find the determinant of the matrix $S$, we will first express $s(i,j)$ in terms of the greatest common divisor (gcd) of $i$ and $j$.
+
+Given $ai + bj = n$, we can rewrite this equation as $ai = n - bj$. Since $a$ and $b$ are nonnegative integers, we have $ai \geq 0$ and $bj \leq n$. This implies that $0 \leq a \leq \frac{n}{i}$ and $0 \leq b \leq \frac{n}{j}$.
+
+Let $d = \gcd(i,j)$. Then, we can rewrite $i = dx$ and $j = dy$, where $\gcd(x,y) = 1$. Substituting these into the equation $ai + bj = n$, we get $adx + bdy = n$. Dividing by $d$, we have $ax + by = \frac{n}{d}$.
+
+Now, we need to count the number of nonnegative integer solutions to $ax + by = \frac{n}{d}$, where $\gcd(x,y) = 1$.
+
+Let $N(\frac{n}{d})$ be the number of solutions to $ax + by = \frac{n}{d}$, where $a$ and $b$ are nonnegative integers. Then, $s(i,j) = N(\frac{n}{\gcd(i,j)})$.
+
+The number of solutions to $ax + by = k$ is given by $\binom{k+d-1}{d-1}$.
+
+Therefore, $N(\frac{n}{d}) = \binom{\frac{n}{d}+d-1}{d-1}$.
+
+Now, we can express $s(i,j)$ in terms of $d$ as follows:
+
+$$s(i,j) = N\left(\frac{n}{\gcd(i,j)}\right) = \binom{\frac{n}{\gcd(i,j)}+\gcd(i,j)-1}{\gcd(i,j)-1}.$$
+
+Now, we can express the determinant of $S$ as:
+
+\begin{align*}
+\det(S) &= \det\left(\begin{bmatrix} s(1,1) & s(1,2) & \cdots & s(1,n) \\ s(2,1) & s(2,2) & \cdots & s(2,n) \\ \vdots & \vdots & \ddots & \vdots \\ s(n,1) & s(n,2) & \cdots & s(n,n) \end{bmatrix}\right) \\
+&= \det\left(\begin{bmatrix} \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \\ \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \\ \vdots & \vdots & \ddots & \vdots \\ \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \end{bmatrix}\right) \\
+&= \det\left(\begin{bmatrix} 1 & 1 & \cdots & 1 \\ 1 & 1 & \cdots & 1 \\ \vdots & \vdots & \ddots & \vdots \\ 1 & 1 & \cdots & 1 \end{bmatrix}\right) \cdot \det\left(\begin{bmatrix} \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \\ \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \\ \vdots & \vdots & \ddots & \vdots \\ \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \end{bmatrix}\right) \\
+&= 0 \cdot \det\left(\begin{bmatrix} \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \\ \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \\ \vdots & \vdots & \ddots & \vdots \\ \binom{n}{1} & \binom{n}{2} & \cdots & \binom{n}{n} \end{bmatrix}\right) \\
+&= 0.
+\end{align*}
+
+Therefore, the determinant of $S$ is $0$.

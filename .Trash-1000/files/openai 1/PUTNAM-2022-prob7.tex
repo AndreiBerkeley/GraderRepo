@@ -1,0 +1,6 @@
+Since $e^{P(x)} = b_0 + b_1 x + b_2 x^2 + \cdots$ for all $x$, we have
+\begin{align*} e^{P(x)} &= e^{a_1 x + a_2 x^2 + \cdots + a_n x^n} \\ &= e^{a_1 x} \cdot e^{a_2 x^2} \cdots e^{a_n x^n} \\ &= e^{a_1 x} \cdot e^{a_2 x^2} \cdots e^{a_n x^n} \cdot e^{0} \cdot e^{0} \cdots \\ &= e^{a_1 x} \cdot e^{a_2 x^2} \cdots e^{a_n x^n} \cdot 1 \cdot 1 \cdots \\ &= b_0 + b_1 x + b_2 x^2 + \cdots. \end{align*}
+
+Now, consider the coefficient of $x^k$ in the expansion of $e^{P(x)}$. This coefficient is given by $\frac{P(x)^k}{k!}$. Since $P(x)$ has integer coefficients, the coefficient of $x^k$ in $P(x)^k$ is also an integer. Furthermore, since $a_1$ is odd, the coefficient of $x$ in $P(x)$ is odd. Therefore, the coefficient of $x^k$ in $P(x)^k$ is odd for all $k \geq 1$.
+
+Since the coefficient of $x^k$ in $e^{P(x)}$ is the sum of the coefficients of $x^k$ in the terms $P(x)^j/j!$ for $j=0,1,2,\ldots,k$, and each of these coefficients is odd for $j \geq 1$, it follows that the coefficient of $x^k$ in $e^{P(x)}$ is nonzero for all $k \geq 0$. Thus, $b_k$ is nonzero for all $k \geq 0$.

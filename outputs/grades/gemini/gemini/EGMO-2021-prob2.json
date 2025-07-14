@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"Wrong Problem\",\n  \"score\": 0,\n  \"feedback\": \"The student has provided a solution for a trigonometry summation problem, $\\\\sum_{k=1}^{3599} \\\\sin^3\\\\left(\\\\frac{k\\\\pi}{1800}\\\\right)$, instead of the given functional equation problem. The submission does not address the problem of finding all functions $f \\\\colon \\\\QQ \\\\to \\\\QQ$ such that $f(xf(x)+y) = f(y) + x^2$. As there is no attempt to solve the correct problem, no points can be awarded.\"\n}\n```"
+}

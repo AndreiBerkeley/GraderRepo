@@ -1,0 +1,35 @@
+Let $d = \gcd(a,b)$. Then we can write $a = da'$ and $b = db'$, where $\gcd(a',b') = 1$. 
+
+Now, we have
+\begin{align*}
+\gcd(a^n+b, b^n+a) &= \gcd((da')^n + db', (db')^n + da') \\
+&= \gcd(d(a'^n+b'), d(b'^n+a')) \\
+&= \gcd(a'^n+b', b'^n+a').
+\end{align*}
+
+Thus, we can assume without loss of generality that $\gcd(a,b) = 1$. 
+
+Now, let $d = \gcd(a^n+b, b^n+a)$. Then $d$ divides both $a^n+b$ and $b^n+a$, so it divides their sum and their difference:
+\begin{align*}
+d &\mid (a^n+b) + (b^n+a) = a^n + b^n + a + b, \\
+d &\mid (a^n+b) - (b^n+a) = a^n - b^n + a - b.
+\end{align*}
+
+Adding and subtracting these two equations, we get
+\begin{align*}
+d &\mid 2(a^n + a), \\
+d &\mid 2(a - b^n).
+\end{align*}
+
+Since $\gcd(a,b) = 1$, we have $\gcd(a,a-b) = 1$. Therefore, $d$ must divide $2$, which means $d = 1$ or $d = 2$. 
+
+If $d = 1$, then $\gcd(a^n+b, b^n+a) = 1$ for all $n$, and the sequence is eventually constant.
+
+If $d = 2$, then $a$ and $b$ must be both odd. Let $a = 2a'$ and $b = 2b'$, where $a'$ and $b'$ are positive integers. Then the sequence becomes
+\[
+\gcd((2a')^n + 2b', (2b')^n + 2a') = \gcd(2(a'^n+b'), 2(b'^n+a')) = 2\gcd(a'^n+b', b'^n+a').
+\]
+
+Since $\gcd(a',b') = 1$, we have $\gcd(a'^n+b', b'^n+a') = 1$ for all $n$. Therefore, the sequence is eventually constant in this case as well.
+
+In conclusion, the sequence is eventually constant for all pairs of positive integers $(a,b)$ such that $\gcd(a,b) = 1$.

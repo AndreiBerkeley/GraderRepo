@@ -1,0 +1,5 @@
+{
+  "verdict": "CORRECT",
+  "score": 7,
+  "feedback": "Solution matches the official maximum (343 943 885) and gives a sound combinatorial proof: classification of non-fat triangles via 180° sectors, correct counting with f(i), use of convexity to minimise bad triangles, and construction achieving equality (regular 2021-gon). No logical gaps detected."
+}

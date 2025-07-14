@@ -1,0 +1,11 @@
+To find the minimum value of $k(n)$, we need to consider the binary representation of $2023$ and analyze how it affects the number of ones in the binary representation of $n$.
+
+The binary representation of $2023$ is $11111100111$. 
+
+Now, let's consider the product $2023 \cdot n$ in binary representation. Since $2023$ has $11$ ones in its binary representation, multiplying it by $n$ will result in $n$ being multiplied by $2^0, 2^1, 2^2, \ldots, 2^{10}$, which will shift the binary representation of $n$ to the left by $0, 1, 2, \ldots, 10$ positions.
+
+To minimize the number of ones in the binary representation of $2023 \cdot n$, we want to align the ones in the binary representation of $2023$ with the zeros in the binary representation of $n$. This way, the ones in $2023$ will not contribute to the number of ones in the final product.
+
+Therefore, the minimum value of $k(n)$ occurs when the binary representation of $n$ has $11$ zeros at the end. This means $n$ should be a multiple of $2^{11} = 2048$. 
+
+Hence, the minimum value of $k(n)$ is $\boxed{0}$, which occurs when $n$ is a multiple of $2048$.

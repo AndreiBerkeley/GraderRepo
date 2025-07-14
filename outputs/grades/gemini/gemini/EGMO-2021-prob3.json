@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"Wrong problem solved\",\n  \"score\": 0,\n  \"feedback\": \"The submission provides a detailed solution to a problem about the radical axis of two intersecting circles. The reasoning presented for that problem is correct and well-explained.\\nHowever, this is a completely different problem from the one given in the contest. The assigned problem asks to prove that four specific points (E, F, N, M) related to an obtuse triangle lie on a circle. The submitted text does not attempt to solve the given problem, and therefore, unfortunately, it cannot be awarded any points.\\nIt is crucial in any mathematical competition to solve the exact problem that is posed. Please be careful to read the problem statement thoroughly.\"\n}\n```"
+}

@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 0,
+  "feedback": "The submitted solution addresses a completely different tangent-radical-axis problem and does not discuss the required configuration with triangle ABC, points E, F, M, N. Hence it gives no progress toward proving that E, F, M, N are concyclic."
+}

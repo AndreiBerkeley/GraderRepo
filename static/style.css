@@ -1,0 +1,46 @@
+/* ---------- base ---------- */
+body{
+  margin:0; font-family:system-ui,sans-serif; line-height:1.4; padding:1rem;
+}
+main{max-width:1100px; margin:auto;}
+
+/* selector */
+.selector{display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1rem;}
+.selector label{display:flex; flex-direction:column; font-weight:600; font-size:.9rem;}
+
+/* two‑pane layout */
+.flex{display:flex; gap:1rem; align-items:flex-start;}
+.pane{flex:1 1 50%; border-right:1px solid #ddd; padding-right:1rem;}
+.draft{border:none; position:relative;}
+@media(max-width:800px){.flex{flex-direction:column}.pane{border:none;padding:0}}
+
+/* math / tex block */
+.tex-block{white-space:pre-wrap;}
+
+/* highlight + tooltip */
+.mark{background:#fffd98; cursor:pointer;}
+.comment-pop{
+  position:absolute; background:#333; color:#fff; padding:.25rem .5rem;
+  font-size:.8rem; border-radius:3px; transform:translate(-50%,-100%);
+  white-space:pre-line; z-index:1000; max-width:220px;
+}
+
+/* hr and misc */
+hr{border:none; border-top:1px solid #ccc; margin:1rem 0;}
+
+/* form */
+form{border-top:1px solid #ccc; padding-top:1rem; display:flex; flex-direction:column; gap:.75rem;}
+input[type=number], select, textarea{font:inherit; padding:.25rem; max-width:100%;}
+button{padding:.5rem 1rem; font-size:1rem; cursor:pointer;}
+#cand-wrap{margin-left:.5rem;}
+/* ── Force all MathJax containers & their contents to be text-selectable ── */
+mjx-container[jax],
+mjx-container[jax] *,
+.MathJax,
+.MathJax * {
+  pointer-events: auto !important;
+  -webkit-user-select: text !important;
+  -moz-user-select:    text !important;
+  -ms-user-select:     text !important;
+  user-select:         text !important;
+}

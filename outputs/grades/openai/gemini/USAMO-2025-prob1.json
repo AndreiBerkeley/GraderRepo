@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 0,
+  "feedback": "The submitted solution addresses a completely different polynomial problem and does not attempt to prove the stated claim about the base-2n digits of n^k. Hence it earns no credit for this problem."
+}

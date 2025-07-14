@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Contest Problem Viewer</title>
+
+<!-- ——— MathJax ——— -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+    },
+    options:{skipHtmlTags:['script','noscript','style','textarea','pre']}
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
+
+<!-- ——— Styles ——— -->
+<style>
+  html,body{height:100%;margin:0;}
+  body{font-family:sans-serif;padding:1em;box-sizing:border-box;}
+  select,button,textarea{margin:0.3em;}
+  #viewer{display:flex;gap:1em;height:calc(100vh - 180px);}
+  .pane{flex:1;overflow-y:auto;padding:0.5em;border:1px solid #ddd;background:#fafafa;}
+  #left-pane{flex:2;} #middle-pane{flex:1.5;} #right-pane{flex:1;}
+  .math-block{margin:1em 0;}
+
+  /* comment bubble */
+  #comment-form{
+    display:none;position:fixed;z-index:10000;
+    background:#fff;border:1px solid #ccc;border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);padding:0.5em;max-width:240px;
+  }
+  #comment-form::before{
+    content:"";position:absolute;top:-8px;left:1em;
+    border:8px solid transparent;border-bottom-color:#ccc;
+  }
+  #comment-form::after{
+    content:"";position:absolute;top:-6px;left:1em;
+    border:6px solid transparent;border-bottom-color:#fff;
+  }
+
+  ::selection{background:#b3d4fc;color:inherit;}
+
+  .math-block,.math-block *{pointer-events:auto!important;user-select:text!important;}
+
+  .highlight{
+    display:inline-block!important;line-height:normal!important;
+    padding:0.2em 0.3em!important;
+    background:rgba(255,235,59,0.7)!important;
+    border-radius:0.2em!important;
+    box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  }
+  .comment-icon{cursor:pointer;}
+</style>
+</head>
+
+<body>
+<h1>Contest Problem Viewer</h1>
+
+Contest <select id="select-contest"></select>
+Year <select id="select-year"></select>
+Problem <select id="select-prob"></select>
+Student <select id="select-student" style="display:none"></select>
+Grader <select id="select-grader" style="display:none"></select>
+
+<div id="viewer">
+  <div id="left-pane"   class="pane"><div id="problem"></div><hr/><div id="solution"></div></div>
+  <div id="middle-pane" class="pane"><div id="draft"></div></div>
+  <div id="right-pane"  class="pane">
+      <h2>Grade</h2>
+      <div id="grade-content" class="math-block">Select a problem, student &amp; grader.</div>
+  </div>
+</div>
+
+<!-- comment bubble -->
+<div id="comment-form">
+  <textarea id="comment-text" rows="3" placeholder="Add a comment…" style="width:100%"></textarea>
+  <div style="text-align:right;margin-top:4px">
+    <button id="comment-cancel">Cancel</button>
+    <button id="comment-save">Save</button>
+    <button id="comment-delete">Delete</button>
+  </div>
+</div>
+
+<!-- Review section -->
+<div style="margin-top:1em">
+  <h3>Rate &amp; Review</h3>
+  Rating <select id="select-rating">
+    <option value="">--</option><option>1</option><option>2</option>
+    <option>3</option><option>4</option><option>5</option>
+  </select><br/>
+  <textarea id="review-text" rows="4" style="width:100%" placeholder="Your review…"></textarea><br/>
+  <button id="review-submit">Submit Review</button>
+  <span id="review-status" style="margin-left:1em;"></span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mark.js/dist/mark.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const NICE = {
+    // STUDENTS
+    openai:    "o3",
+    // GRADERS
+    "gemini":        "gemini-2.5-pro",
+    "gemini-2.5-pro":"gemini-2.5-pro"
+  };
+
+  /* ——— State ——— */
+  let dataIndex={}, studentsIndex={}, gradersIndex={};
+
+  const sc = id=>document.getElementById("select-"+id);
+  const val=id=>sc(id).value;
+
+  const selects = {
+    contest: sc("contest"),
+    year:    sc("year"),
+    prob:    sc("prob"),
+    student: sc("student"),
+    grader:  sc("grader")
+  };
+
+  function forceSelect(el){
+    (el ? [el] : document.querySelectorAll(".math-block,.math-block *"))
+      .forEach(e=>{
+        e.style.pointerEvents="auto";
+        e.style.userSelect="text";
+      });
+  }
+
+  /* ——— tiny helper for MathJax partial render ——— */
+  const typeset = el => MathJax.typesetPromise([el]).then(()=>forceSelect(el));
+
+  /* ——— indices ——— */
+  Promise.all([
+    fetch("/api/index_data").then(r=>r.json()).then(js=>dataIndex=js),
+    fetch("/api/index_students").then(r=>r.json()).then(js=>studentsIndex=js),
+    fetch("/api/index_graders").then(r=>r.json()).then(js=>gradersIndex=js)
+  ]).then(initDropdowns);
+
+  function initDropdowns(){
+    // contest
+    selects.contest.append(new Option("--",""));
+    Object.keys(dataIndex).forEach(c=>selects.contest.append(new Option(c.toUpperCase(),c)));
+    if(selects.contest.options.length>1){
+      selects.contest.selectedIndex=1;
+      selects.contest.dispatchEvent(new Event("change"));
+    }
+  }
+
+  /* ——— contest → years ——— */
+  selects.contest.addEventListener("change", ()=>{
+    const yrs=dataIndex[val("contest")]||{};
+    selects.year.innerHTML="<option value=''>--</option>";
+    Object.keys(yrs).forEach(y=>selects.year.append(new Option(y,y)));
+    selects.prob.innerHTML="<option value=''>--</option>";
+    selects.student.style.display="none";
+    selects.grader.style.display="none";
+    if(selects.year.options.length>1){
+      selects.year.selectedIndex=1;
+      selects.year.dispatchEvent(new Event("change"));
+    }
+  });
+
+  /* ——— year → problems ——— */
+  selects.year.addEventListener("change", ()=>{
+    const cnt=(dataIndex[val("contest")]||{})[val("year")]||0;
+    selects.prob.innerHTML="<option value=''>--</option>";
+    for(let i=1;i<=cnt;i++) selects.prob.append(new Option(i,i));
+    selects.student.style.display="none";
+    selects.grader.style.display="none";
+    if(selects.prob.options.length>1){
+      selects.prob.selectedIndex=1;
+      selects.prob.dispatchEvent(new Event("change"));
+    }
+  });
+
+  /* ——— problem → populate student list ——— */
+  selects.prob.addEventListener("change", ()=>{
+    const c=val("contest"), y=val("year"), p=+val("prob");
+    if(!c||!y||!p) return;
+
+    // problem & solution
+    fetch(`/data/${c}/${y}.cleaned.jsonl`)
+      .then(r=>r.text())
+      .then(txt=>{
+        const obj=JSON.parse(txt.split("\n")[p-1]);
+        document.getElementById("problem").innerHTML =
+          `<h2>Problem ${p}</h2><div class='math-block'>${obj.content}</div>`;
+        document.getElementById("solution").innerHTML =
+          `<h2>Solution</h2><div class='math-block'>${obj.solution||""}</div>`;
+        return MathJax.typesetPromise();
+      }).then(()=>forceSelect());
+
+    // students having a draft
+    selects.student.innerHTML="<option value=''>--</option>";
+    Object.entries(studentsIndex).forEach(([stu, arr])=>{
+      if(arr.some(e=>e.contest===c && e.year===y && e.problem===p)){
+        const stuLabel = NICE[stu] || stu;
+        selects.student.append(new Option(stuLabel, stu));
+      }
+    });
+    selects.student.style.display = selects.student.options.length>1 ? "inline" : "none";
+  });
+
+  /* ——— student → grader list + draft + grade ——— */
+  selects.student.addEventListener("change", ()=>{
+    const c=val("contest"), y=val("year"), p=val("prob"), s=val("student");
+    if(!c||!y||!p||!s) return;
+
+    // draft
+    const draftDiv=document.getElementById("draft");
+    const url=`/outputs/${s}/${c}-${y}-prob${p}.tex`;
+    fetch(url).then(r=>r.ok?r.text():"<em>No draft.</em>")
+      .then(raw=>{
+        // very naive TeX strip
+        const lines=raw.split("\n").filter(l=>!/^\\(documentclass|usepackage|begin|end)/.test(l));
+        const safe = lines.join("\n").replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
+        draftDiv.innerHTML=`<h2>Draft by ${s.toUpperCase()}</h2><div class="math-block">${safe}</div>`;
+        return typeset(draftDiv.querySelector(".math-block"));
+      });
+
+    // graders who graded this student/problem
+    selects.grader.innerHTML="<option value=''>--</option>";
+    Object.entries(gradersIndex).forEach(([grader,gradedMap])=>{
+      const arr=gradedMap[s]||[];
+      if(arr.some(e=>e.contest===c && e.year===y && e.problem===+p)){
+        const grdLabel = NICE[grader] || grader;
+        selects.grader.append(new Option(grdLabel, grader));
+      }
+    });
+    selects.grader.style.display=selects.grader.options.length>1?"inline":"none";
+    if(selects.grader.options.length>1){
+      selects.grader.selectedIndex=1;
+      selects.grader.dispatchEvent(new Event("change"));
+    }else{
+      loadGrade();           // maybe legacy grade exists
+    }
+  });
+
+  /* ——— grader → grade display ——— */
+  selects.grader.addEventListener("change", loadGrade);
+
+  function loadGrade(){
+    const box  = document.getElementById("grade-content");
+    const c    = val("contest"),
+          y    = val("year"),
+          p    = val("prob"),
+          stu  = val("student"),
+          grd  = val("grader");
+    if(!c||!y||!p||!stu){
+      box.textContent = "Select a problem, student & grader.";
+      return;
+    }
+
+    const file = `${c}-${y}-prob${p}.json`;
+    const url  = grd
+        ? `/outputs/grades/${grd}/${stu}/${file}`
+        : `/outputs/grades/${stu}/${file}`;
+
+    fetch(url)
+      .then(r => {
+        if(!r.ok) throw new Error("no grade");
+        return r.json();
+      })
+      .then(obj => {
+        const raw = String(obj.feedback || "");
+      // sanitize any HTML/JS
+        let clean = DOMPurify.sanitize(raw);
+
+      // look for a ```json … ``` block
+        const fenceRe = /```json\s*([\s\S]*?)```/m;
+        const m = clean.match(fenceRe);
+
+        let htmlBody = "";
+        if(m){
+          // text before the fence
+          const before = clean.slice(0, m.index).trim();
+          if(before){
+            htmlBody += `<div>${before.replace(/\n/g,"<br/>")}</div>`;
+          }
+          // attempt to parse & pretty-print
+          let inner = m[1].trim();
+          try {
+            const data = JSON.parse(inner);
+            const pretty = JSON.stringify(data, null, 2);
+            htmlBody += `<pre style="white-space:pre-wrap;word-wrap:break-word;">${pretty}</pre>`;
+          } catch(e) {
+            // fallback: raw JSON minus fences
+            htmlBody += `<pre style="white-space:pre-wrap;word-wrap:break-word;">${inner}</pre>`;
+          }
+        } else {
+          // no fence: just render the clean text
+          htmlBody = clean.replace(/\n/g,"<br/>");
+        }
+
+        box.innerHTML =
+          `<strong>Verdict:</strong> ${obj.verdict || "—"}<br/>
+           <strong>Score:</strong> ${obj.score ?? "—"}<hr/>
+           <div class="feedback-content">${htmlBody}</div>`;
+
+        // typeset any LaTeX in the "before" or elsewhere
+        return MathJax.typesetPromise([box]);
+      })
+      .catch(() => {
+        box.textContent = "No grade available.";
+      });
+  }
+
+  /* ——— review submit ——— */
+  document.getElementById("review-submit").addEventListener("click",()=>{
+    const status=document.getElementById("review-status");
+    const payload={
+      timestamp:new Date().toISOString(),
+      contest:val("contest"),year:val("year"),
+      problem:+val("prob"),student:val("student"),
+      rating:+val("rating")||null,
+      review:document.getElementById("review-text").value.trim()
+    };
+    if(!payload.contest||!payload.year||!payload.problem||!payload.student||!payload.rating){
+      status.textContent="Fill all fields"; status.style.color="red"; return;
+    }
+    fetch("/save_review",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    }).then(r=>r.json())
+      .then(res=>{
+        status.textContent=res.status==="ok"?"Saved!":"Error";
+        status.style.color=res.status==="ok"?"green":"red";
+        if(res.status==="ok"){
+          document.getElementById("review-text").value="";
+          sc("rating").value="";
+        }
+      }).catch(()=>{status.textContent="Network error";status.style.color="red";});
+  });
+
+  /* ——— comment bubble logic ——— */
+  (()=>{
+    const form=document.getElementById("comment-form"),
+          ta  =document.getElementById("comment-text"),
+          btnC=document.getElementById("comment-cancel"),
+          btnS=document.getElementById("comment-save"),
+          btnD=document.getElementById("comment-delete");
+    let activeRange=null, skip=false;
+
+    document.addEventListener("mouseup",()=>{
+      const sel=window.getSelection();
+      if(!sel.rangeCount||sel.isCollapsed) return;
+      const rng=sel.getRangeAt(0);
+      let node=rng.commonAncestorContainer;
+      if(node.nodeType!==1) node=node.parentElement;
+      if(!node.closest(".math-block")) return;
+
+      activeRange=rng.cloneRange();
+      const rect=activeRange.getBoundingClientRect();
+      const w=form.offsetWidth,h=form.offsetHeight;
+      Object.assign(form.style,{
+        top:`${Math.max(8,rect.top-h-6)}px`,
+        left:`${Math.min(window.innerWidth-w-8,rect.right+6)}px`,
+        display:"block"
+      });
+      skip=true;
+      ta.value=""; ta.focus();
+    });
+
+    btnC.onclick=()=>{form.style.display="none";window.getSelection().removeAllRanges();};
+    btnS.onclick=saveComment;
+    btnD.onclick=delComment;
+
+    function saveComment(){
+      const txt=ta.value.trim();
+      if(!txt||!activeRange) return;
+      const frag=activeRange.extractContents();
+      const span=document.createElement("span");
+      span.className="highlight"; span.dataset.comment=txt;
+      span.appendChild(frag);
+      activeRange.insertNode(span);
+      const icon=document.createElement("span");
+      icon.className="comment-icon"; icon.textContent="🗨️";
+      icon.style.marginLeft=".2em";
+      span.appendChild(icon);
+      typeset(span).then(()=>{});
+      form.style.display="none"; window.getSelection().removeAllRanges();
+      activeRange=null;
+    }
+    function delComment(){
+      const hl = form._currentHighlight;
+      if (!hl) return;
+      const parent = hl.parentNode;
+
+      const icon = hl.querySelector(".comment-icon");
+      if (icon) icon.remove();
+
+      Array.from(hl.childNodes).forEach(node => {
+        parent.insertBefore(node, hl);
+      });
+
+      parent.removeChild(hl);
+
+      form.style.display = "none";
+    }
+
+    document.body.addEventListener("click",e=>{
+      if(skip){skip=false;return;}
+      if(e.target.matches(".comment-icon")){
+        const hl=e.target.closest(".highlight");
+        const r=hl.getBoundingClientRect(),w=form.offsetWidth,h=form.offsetHeight;
+        ta.value=hl.dataset.comment||"";
+        Object.assign(form.style,{
+          top:`${Math.max(8,r.top-h-6)}px`,
+          left:`${Math.min(window.innerWidth-w-8,r.left+6)}px`,
+          display:"block"
+        });
+        form._currentHighlight=hl;
+        ta.focus();
+      }else if(!form.contains(e.target)){
+        form.style.display="none";
+      }
+    });
+  })();
+
+});  // DOMContentLoaded
+</script>
+</body>
+</html>

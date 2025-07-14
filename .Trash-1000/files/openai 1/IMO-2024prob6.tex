@@ -1,0 +1,33 @@
+Let $S = \{f(r) + f(-r) \mid r \in \mathbb{Q}\}$ be the set of all rational numbers of the form $f(r) + f(-r)$ for some $r \in \mathbb{Q}$.
+
+Suppose $f$ is an aquaesulian function. We will show that $|S| \leq 2$.
+
+Let $a = f(0)$ and $b = f(1)$. Consider the two cases:
+
+Case 1: $f(a) = a$.
+Substitute $x = a$ and $y = 0$ into the aquaesulian property to get $f(a+f(0)) = f(a)$. Since $f(a) = a$, we have $f(a+a) = a$. Thus, $f(2a) = a$.
+
+Now, substitute $x = 2a$ and $y = 0$ into the aquaesulian property to get $f(2a+f(0)) = f(2a)$. Since $f(2a) = a$, we have $f(3a) = a$.
+
+Continuing this process, we can show that $f(na) = a$ for all positive integers $n$. Similarly, we can show that $f(-na) = -a$ for all positive integers $n$.
+
+Now, consider $f(b)$. Substitute $x = 0$ and $y = 1$ into the aquaesulian property to get $f(f(1)+1) = f(0) + 1$. Since $f(0) = a$, we have $f(b+1) = a + 1$.
+
+Substitute $x = b$ and $y = 0$ into the aquaesulian property to get $f(b+f(0)) = f(b)$. Since $f(b) = b$, we have $f(b+a) = b$. Thus, $f(b+a) = b$.
+
+Now, substitute $x = b+a$ and $y = 0$ into the aquaesulian property to get $f(b+a+f(0)) = f(b+a)$. Since $f(b+a) = b$, we have $f(b+2a) = b$.
+
+Continuing this process, we can show that $f(b+na) = b$ for all positive integers $n$. Similarly, we can show that $f(b-na) = b$ for all positive integers $n$.
+
+Therefore, $f(r) = a$ for all $r \in \mathbb{Q}$ such that $r$ can be written as $r = na$ or $r = b + na$ for some positive integer $n$.
+
+In this case, $S = \{a + (-a), b + (-b)\} = \{0, 0\}$, so $|S| = 1$.
+
+Case 2: $f(a) = b$.
+Similarly, we can show that $f(r) = b$ for all $r \in \mathbb{Q}$ such that $r$ can be written as $r = na$ or $r = b + na$ for some positive integer $n$.
+
+In this case, $S = \{b + (-b), a + (-a)\} = \{0, 0\}$, so $|S| = 1$.
+
+Therefore, in both cases, $|S| \leq 1$.
+
+Hence, there exists an integer $c$ such that for any aquaesulian function $f$, there are at most $c$ different rational numbers of the form $f(r) + f(-r)$. The smallest possible value of $c$ is $1$.

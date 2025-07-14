@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MathJax preview – 2025.jsonl</title>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    fetch("mathjax_macros.json").then(r => r.ok ? r.json() : {}).then(macros => {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['\\[', '\\]']],
+          macros: macros
+        }
+      };
+    });
+  </script>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    .item { margin-bottom: 2rem; }
+    .q { font-weight: 600; margin-bottom: 0.5rem; }
+    .sol { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>2025.jsonl</h1>
+  
+<div class="item">
+  <div class="q">Fix positive integers $k$ and $d$.
+Prove that for all sufficiently large odd positive integers $n$,
+the digits of the base-$2n$ representation of $n^k$ are all greater than $d$.</div>
+  <div class="sol">```tex
+Fix positive integers $k$ and $d$. Prove that for all sufficiently large odd positive integers $n$, the digits of the base-$2n$ representation of $n^k$ are all greater than $d$.
+
+The problem actually doesn't have much to do with digits: the idea is to pick any length $\ell \le k$, and look at the rightmost $\ell$ digits of $n^k$; that is, the remainder upon division by $(2n)^\ell$. We compute it exactly:
+
+Let $n \ge 1$ be an odd integer, and $k \ge \ell \ge 1$ integers. Then
+\[
+n^k \bmod{(2n)^\ell} = c(k,\ell) \cdot n^\ell
+\]
+for some odd integer $1 \le c(k,\ell) \le 2^\ell-1$.
+
+This follows directly by the Chinese remainder theorem, with $c(k,\ell)$ being the residue class of $n^{k-\ell} \pmod{2^\ell}$ (which makes sense because $n$ was odd).
+
+In particular, for the $\ell$th digit from the right to be greater than $d$, it would be enough that
+\[
+c(k,\ell) \cdot n^\ell \ge (d+1) \cdot (2n)^{\ell-1}.
+\]
+But this inequality holds whenever $n \ge (d+1) \cdot 2^{\ell-1}$.
+
+Putting this together by varying $\ell$, we find that for all odd
+\[
+n \ge (d+1) \cdot 2^{k-1}
+\]
+we have that
+
+– $n^k$ has $k$ digits in base-$2n$; and
+
+– for each $\ell = 1, \dots, k$, the $\ell$th digit from the right is at least $d+1$
+
+so the problem is solved.
+
+Note it doesn't really matter that $c(k,\ell)$ is odd per se; we only need that $c(k,\ell) \ge 1$.
+```</div>
+</div>
+
+
+<div class="item">
+  <div class="q">```tex
+Let $n > k \ge 1$ be integers. Let $P(x) \in \mathbb{R}[x]$ be a polynomial of degree $n$ with no repeated roots and $P(0) \neq 0$. Suppose that for any real numbers $a_0$, \dots, $a_k$ such that the polynomial $a_k x^k + \dots + a_1 x + a_0$ divides $P(x)$, the product $a_0 a_1 \dots a_k$ is zero. Prove that $P(x)$ has a nonreal root.
+```</div>
+  <div class="sol">```latex
+Let $n > k \ge 1$ be integers. Let $P(x) \in \mathbb{R}[x]$ be a polynomial of degree $n$ with no repeated roots and $P(0) \neq 0$. Suppose that for any real numbers $a_0$, \dots, $a_k$ such that the polynomial $a_k x^k + \dots + a_1 x + a_0$ divides $P(x)$, the product $a_0 a_1 \dots a_k$ is zero. Prove that $P(x)$ has a nonreal root.
+
+By considering any $k+1$ of the roots of $P$, we may as well assume WLOG that $n = k+1$. Suppose that $P(x) = (x+r_1) \dots (x+r_n) \in \mathbb{R}[x]$ has $P(0) \neq 0$. Then the problem hypothesis is that each of the $n$ polynomials (of degree $n-1$) given by
+\[
+\begin{align*}
+  P_1(x) &= (x+r_2)(x+r_3)(x+r_4) \dots (x+r_n), \\
+  P_2(x) &= (x+r_1)(x+r_3)(x+r_4) \dots (x+r_n), \\
+  P_3(x) &= (x+r_1)(x+r_2)(x+r_4) \dots (x+r_n), \\
+  &\vdots \\
+  P_n(x) &= (x+r_1)(x+r_2)(x+r_3) \dots (x+r_{n-1})
+\end{align*}
+\]
+has at least one coefficient equal to zero. (Explicitly, $P_i(x) = \frac{P(x)}{x+r_i}$.) We'll prove that at least one $r_i$ is not real.
+
+Obviously the leading and constant coefficients of each $P_i$ are nonzero, and there are $n-2$ other coefficients to choose between. So by pigeonhole principle, we may assume, say, that $P_1$ and $P_2$ share the position of a zero coefficient, say the $x^k$ one, for some $1 \le k < n-1$.
+
+\begin</div>
+</div>
+
+
+<div class="item">
+  <div class="q">```tex
+Alice the architect and Bob the builder play a game.
+First, Alice chooses two points $P$ and $Q$ in the plane
+and a subset $\mathcal{S}$ of the plane, which are announced to Bob.
+Next, Bob marks infinitely many points in the plane,
+designating each a city.
+He may not place two cities within distance at most one unit of each other,
+and no three cities he places may be collinear.
+Finally, roads are constructed between the cities as follows:
+each pair $A$, $B$ of cities is connected with a road along the line segment $AB$
+if and only if the following condition holds:
+
+For every city $C$ distinct from $A$ and $B$,
+there exists $R\in \mathcal{S}$ such that $\triangle PQR$ is directly similar
+to either $\triangle ABC$ or $\triangle BAC$.
+
+Alice wins the game if (i) the resulting roads allow for travel
+between any pair of cities via a finite sequence of roads and (ii) no two roads cross.
+Otherwise, Bob wins. Determine, with proof, which player has a winning strategy.
+```</div>
+  <div class="sol">```tex
+Alice the architect and Bob the builder play a game.
+First, Alice chooses two points $P$ and $Q$ in the plane
+and a subset $\mathcal{S}$ of the plane, which are announced to Bob.
+Next, Bob marks infinitely many points in the plane,
+designating each a city.
+He may not place two cities within distance at most one unit of each other,
+and no three cities he places may be collinear.
+Finally, roads are constructed between the cities as follows:
+each pair $A$, $B$ of cities is connected with a road along the line segment $AB$
+if and only if the following condition holds:
+
+For every city $C$ distinct from $A$ and $B$,
+there exists $R\in \mathcal{S}$ such that $\triangle PQR$ is directly similar
+to either $\triangle ABC$ or $\triangle BAC$.
+
+Alice wins the game if (i) the resulting roads allow for travel
+between any pair of cities via a finite sequence of roads and (ii) no two roads cross.
+Otherwise, Bob wins. Determine, with proof, which player has a winning strategy.
+
+The answer is that Alice wins.
+Let's define a Bob-set $V$ to be a set of points in the plane with no three collinear
+and with all distances at least $1$.
+The point of the problem is to prove the following fact.
+\begin{claim*}
+  Given a Bob-set $V \subseteq \RR^2$, consider the Bob-graph
+  with vertex set $V$ defined as follows:
+  draw edge $ab$ if and only if the disk with diameter $\overline{ab}$
+  contains no other points of $V$ on or inside it.
+  Then the Bob-graph is (i) connected, and (ii) planar.
+\end{claim*}
+Proving this claim shows that Alice wins since Alice can specify $\mathcal{S}$
+to be the set of points outside the disk of diameter $PQ$.
+
+\begin{proof}
+  Assume for contradiction the graph is disconnected.
+  Let $p$ and $q$ be two points in different connected components.
+  Since $pq$ is not an edge, there exists a third point $r$
+  inside the disk with diameter $\overline{pq}$.
+
+  Hence, $r$ is in a different connected component
+  from at least one of $p$ or $q$ --- let's</div>
+</div>
+
+
+<div class="item">
+  <div class="q">Let $H$ be the orthocenter of an acute triangle $ABC$,
+let $F$ be the foot of the altitude from $C$ to $AB$,
+and let $P$ be the reflection of $H$ across $BC$.
+Suppose that the circumcircle of triangle $AFP$ intersects line $BC$
+at two distinct points $X$ and $Y$.
+Prove that $CX = CY$.</div>
+  <div class="sol">```tex
+Let $H$ be the orthocenter of an acute triangle $ABC$, let $F$ be the foot of the altitude from $C$ to $AB$, and let $P$ be the reflection of $H$ across $BC$. Suppose that the circumcircle of triangle $AFP$ intersects line $BC$ at two distinct points $X$ and $Y$. Prove that $CX = CY$.
+
+Let $Q$ be the antipode of $B$.
+
+– $AHQC$ is a parallelogram, and $APCQ$ is an isosceles trapezoid.
+
+As $\overline{AH} \perp \overline{BC} \perp \overline{CQ}$ and $\overline{CF} \perp \overline{AB} \perp \overline{AQ}$.
+
+Let $M$ be the midpoint of $\overline{QC}$.
+
+– Point $M$ is the circumcenter of $\triangle AFP$.
+
+It's clear that $MA = MP$ from the isosceles trapezoid. As for $MA = MF$, let $N$ denote the midpoint of $\overline{AF}$; then $\overline{MN}$ is a midline of the parallelogram, so $\overline{MN} \perp \overline{AF}$.
+
+Since $\overline{CM} \perp \overline{BC}$ and $M$ is the center of $(AFP)$, it follows $CX = CY$.
+```</div>
+</div>
+
+
+<div class="item">
+  <div class="q">```tex
+Find all positive integers $k$ such that:
+for every positive integer $n$,
+the sum \[ \binom n0^k + \binom n1^k + \dots + \binom nn^k \] is divisible by $n+1$.
+```</div>
+  <div class="sol">```tex
+Find all positive integers $k$ such that:
+for every positive integer $n$,
+the sum \[ \binom n0^k + \binom n1^k + \dots + \binom nn^k \] is divisible by $n+1$.
+
+The answer is all even $k$.
+
+Let's abbreviate $S(n) := \binom n0^k + \dots + \binom nn^k$ for the sum in the problem.
+
+\textbf{Proof that even $k$ is necessary.}\par 
+Choose $n=2$. We need $3 \mid S(2) = 2+2^k$,
+which requires $k$ to be even.
+
+– It's actually not much more difficult to just use $n = p-1$ for prime $p$,
+  since $\binom{p-1}{i} \equiv (-1)^i \pmod p$.
+  Hence $S(p-1) \equiv 1 + (-1)^k + 1 + (-1)^k + \dots + 1 \pmod p$,
+  and this also requires $k$ to be even.
+  This special case is instructive in figuring out the proof to follow.
+
+\textbf{Proof that $k$ is sufficient.}\par 
+From now on we treat $k$ as fixed, and we let $p^e$ be a prime fully dividing $n+1$.
+The basic idea is to reduce from $n+1$ to $(n+1)/p$ by an induction.
+
+– Here is a concrete illustration that makes it clear what's going on.
+  Let $p = 5$.
+  When $n = p-1 = 4$, we have
+  \[ S(4) = 1^k + 4^k + 6^k + 4^k + 1^k \equiv 1 + 1 + 1 + 1 + 1 \equiv 0 \pmod 5. \]
+  When $n = p^2-1 = 24$, the $25$ terms of $S(24)$ in order are, modulo $25$,
+  \begin{align*}
+    S(24)  \equiv 1^k + 1^k + 1^k + 1^k + 1^k 
+     +</div>
+</div>
+
+
+<div class="item">
+  <div class="q">```tex
+Let $m$ and $n$ be positive integers with $m \geq n$. There are $m$ cupcakes of different flavors arranged around a circle and $n$ people who like cupcakes. Each person assigns a nonnegative real number score to each cupcake, depending on how much they like the cupcake. Suppose that for each person $P$, it is possible to partition the circle of $m$ cupcakes into $n$ groups of consecutive cupcakes so that the sum of $P$'s scores of the cupcakes in each group is at least $1$. Prove that it is possible to distribute the $m$ cupcakes to the $n$ people so that each person $P$ receives cupcakes of total score at least $1$ with respect to $P$.
+```</div>
+  <div class="sol">```tex
+Let $m$ and $n$ be positive integers with $m \geq n$. There are $m$ cupcakes of different flavors arranged around a circle and $n$ people who like cupcakes. Each person assigns a nonnegative real number score to each cupcake, depending on how much they like the cupcake. Suppose that for each person $P$, it is possible to partition the circle of $m$ cupcakes into $n$ groups of consecutive cupcakes so that the sum of $P$'s scores of the cupcakes in each group is at least $1$. Prove that it is possible to distribute the $m$ cupcakes to the $n$ people so that each person $P$ receives cupcakes of total score at least $1$ with respect to $P$.
+
+Arbitrarily pick any one person — call her Pip — and her $n$ arcs. The initial idea is to try to apply Hall's marriage lemma to match the $n$ people with Pip's arcs (such that each such person is happy with their matched arc). To that end, construct the obvious bipartite graph $\mathfrak{G}$ between the people and the arcs for Pip.
+
+We now consider the following algorithm, which takes several steps.
+
+– If a perfect matching of $\mathfrak{G}$ exists, we're done!
+
+– We're probably not that lucky. Per Hall's condition, this means there is a bad set $\mathcal{B}_1$ of people, who are compatible with fewer than $|\mathcal{B}_1|$ of the arcs. Then delete $\mathcal{B}_1$ and the neighbors of $\mathcal{B}_1$, then try to find a matching on the remaining graph.
+
+– If a matching exists now, terminate the algorithm. Otherwise, that means there's another bad set $\mathcal{B}_2$ for the remaining graph. We again delete $\mathcal{B}_2$ and the fewer than $\mathcal{B}_2$ neighbors.
+
+– Repeat until some perfect matching $\mathcal{M}$ is possible in the remaining graph, i.e. there are no more bad sets (and then terminate once that occurs).
+
+Since Pip is a universal vertex, it's impossible to delete Pip, so the algorithm does indeed terminate with nonempty $\mathcal{M}$.
+
+We commit to assigning each of person in $\mathcal{M}$ their matched arc (in particular if there are no bad sets at all, the problem is already solved).</div>
+</div>
+
+</body>
+</html>

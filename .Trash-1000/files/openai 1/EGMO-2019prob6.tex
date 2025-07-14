@@ -1,0 +1,19 @@
+Let $n$ be the number of marked points. We will count $n$ in two different ways.
+
+First, we count the number of marked points using the two given conditions. 
+\begin{itemize}
+    \item For each chord, there are $2$ marked endpoints.
+    \item There are $\binom{2019}{2}$ intersection points of chords.
+    \item There are $2019$ endpoints of chords.
+\end{itemize}
+Therefore, the total number of marked points is $2 \cdot 2019 + \binom{2019}{2} + 2019 = 2019 + 2019^2 = 2019(1+2019)$.
+
+Second, we count the number of marked points using the following observation: each pair of chords intersects at most once. 
+\begin{itemize}
+    \item There are $\binom{2019}{2}$ pairs of chords.
+    \item Each pair of chords intersects at one point.
+    \item There are $2019$ endpoints of chords.
+\end{itemize}
+Therefore, the total number of marked points is $\binom{2019}{2} + 2019 = \frac{2019 \cdot 2018}{2} + 2019 = 2019(1009 + 1) = 2019(1010)$.
+
+Equating the two expressions for the total number of marked points, we have $2019(1+2019) = 2019(1010)$, which simplifies to $1+2019 = 1010$. This is a contradiction, so there is no circle that satisfies the given conditions.

@@ -1,0 +1,19 @@
+Let $S$ be the set of all integers that can be obtained by adding multiples of $a$ to the $N$ integers on the board.
+Let $T$ be the set of all integers that can be obtained by repeatedly dividing the $N$ integers on the board by $2$.
+Since $S$ is a set of integers and $T$ is a set of even integers, we have $S \subseteq T$.
+
+Let $m$ be the smallest integer in $S$.
+Since $m$ is in $S$, there exists an integer $k$ such that $m = n_1 + ka$ for some $n_1$ on the board.
+Since $m$ is the smallest integer in $S$, we have $m - a \notin S$.
+This implies that $m - a$ is not in the set of integers on the board, so $m - a$ must be an even number.
+Therefore, $m - a \in T$.
+Since $m - a$ is in $T$, Bob can divide $m - a$ by $2$ on his turn, resulting in $\frac{m - a}{2}$.
+Since $m$ is the smallest integer in $S$, we have $\frac{m - a}{2} \notin S$.
+This implies that $\frac{m - a}{2}$ is not in the set of integers on the board, so $\frac{m - a}{2}$ must be an even number.
+Therefore, $\frac{m - a}{2} \in T$.
+Continuing this process, we see that Bob can keep dividing by $2$ until he reaches an integer $m'$ such that $m' \in S$.
+At this point, Alice must add $a$ to $m'$, and the resulting number $m' + a$ will be in $S$.
+Since $m' + a$ is in $S$, Bob can keep dividing by $2$ until he reaches an integer $m''$ such that $m'' \in S$.
+This process will eventually lead to a cycle where the same integers in $S$ are repeated.
+
+Since $S$ is finite and Bob can force the game to end by repeatedly dividing by $2$ until a number in $S$ is reached, the game is guaranteed to end regardless of Alice's or Bob's moves.

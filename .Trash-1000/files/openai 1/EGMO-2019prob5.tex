@@ -1,0 +1,18 @@
+Let $S = a_1 + a_2 + \dots + a_n$. We will construct the $b_i$'s as follows:
+1. Let $r_1, r_2, \dots, r_n$ be the remainders of $a_1, a_2, \dots, a_n$ when divided by $n$, respectively.
+2. Let $c_1, c_2, \dots, c_n$ be integers such that $0 \le c_i < n$ and $c_i \neq c_j$ for $i \neq j$.
+3. Define $b_i = a_i + (c_i - r_i)$ for $i = 1, 2, \dots, n$.
+
+Now, we will show that these $b_i$'s satisfy the conditions:
+(a) Since $0 \le c_i < n$ and $a_i$ is a positive integer, we have $a_i \le b_i$ for all $i = 1, 2, \dots, n$.
+(b) The remainders of $b_1, b_2, \dots, b_n$ on division by $n$ are $c_1, c_2, \dots, c_n$, which are pairwise different by construction.
+(c) We have
+\begin{align*}
+b_1 + b_2 + \dots + b_n &= (a_1 + a_2 + \dots + a_n) + (c_1 + c_2 + \dots + c_n) - (r_1 + r_2 + \dots + r_n) \\
+&= S + n(c_1 + c_2 + \dots + c_n) - n(r_1 + r_2 + \dots + r_n) \\
+&\le S + n(n-1) - n(n-1) \quad (\text{since } 0 \le r_i, c_i < n) \\
+&= S.
+\end{align*}
+Therefore, $b_1 + b_2 + \dots + b_n \le S \le n \left( \frac{n - 1}{2} + \left\lfloor \frac{S}{n} \right\rfloor \right)$, as desired.
+
+Hence, the positive integers $b_1, b_2, \dots, b_n$ constructed in this way satisfy all three conditions.

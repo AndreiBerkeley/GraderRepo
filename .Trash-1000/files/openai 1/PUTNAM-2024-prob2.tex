@@ -1,0 +1,40 @@
+Let \( n \) be the degree of the polynomial \( p(x) \). We can write \( p(x) \) as
+\[
+p(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0,
+\]
+where \( a_n \neq 0 \).
+
+From the given equation, we have
+\[
+p(p(x)) - x = (p(x) - x)^2 q(x).
+\]
+
+Expanding both sides, we get
+\[
+(a_n p(x)^n + a_{n-1} p(x)^{n-1} + \cdots + a_1 p(x) + a_0) - x = (a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0 - x)^2 q(x).
+\]
+
+Comparing coefficients of \( x^n \) on both sides, we get
+\[
+a_n p(x)^n = a_n^2 x^{2n} q(x).
+\]
+
+Since \( a_n \neq 0 \), we must have \( p(x)^n = a_n x^{2n} q(x) \). This implies that \( n = 2 \) and \( p(x) = a_2 x^2 + a_1 x + a_0 \).
+
+Substitute \( p(x) = a_2 x^2 + a_1 x + a_0 \) into the given equation, we get
+\[
+(a_2(a_2 x^2 + a_1 x + a_0)^2 + a_1(a_2 x^2 + a_1 x + a_0) + a_0) - x = ((a_2 x^2 + a_1 x + a_0) - x)^2 q(x).
+\]
+
+Expanding both sides, we get
+\[
+(a_2^2 x^4 + 2a_1 a_2 x^3 + (a_1^2 + 2a_0 a_2) x^2 + (2a_0 a_1) x + a_0) - x = ((a_2 x^2 + a_1 x + a_0) - x)^2 q(x).
+\]
+
+Comparing coefficients of \( x^4 \), we get \( a_2^2 = 1 \), so \( a_2 = \pm 1 \).
+
+If \( a_2 = 1 \), then the polynomial \( p(x) = x^2 + a_1 x + a_0 \) satisfies the given equation.
+
+If \( a_2 = -1 \), then the polynomial \( p(x) = -x^2 + a_1 x + a_0 \) satisfies the given equation.
+
+Therefore, the real polynomials \( p(x) \) that satisfy the given equation are \( p(x) = x^2 + a_1 x + a_0 \) and \( p(x) = -x^2 + a_1 x + a_0 \), where \( a_0, a_1 \) are arbitrary real numbers.

@@ -1,0 +1,15 @@
+Let $D_n$ be the largest number of dominoes that can be placed on a $2n \times 2n$ board satisfying the given conditions. We will prove that $D_n = 2n^2 - n$.
+
+Consider the $2n \times 2n$ board. Color the cells of the board in an alternating pattern of black and white, like a chessboard. Since each domino covers two adjacent cells, one black and one white, the number of dominoes placed on the board must be half the number of cells on the board.
+
+Let $B_n$ be the number of black cells and $W_n$ be the number of white cells on the $2n \times 2n$ board. Since the board has $2n \times 2n = 4n^2$ cells, we have $B_n + W_n = 4n^2$.
+
+Now, consider the black cells. Each black cell has $2$ white cells adjacent to it. Since each domino covers one black and one white cell, each black cell contributes to the placement of $1$ domino. Therefore, the number of dominoes placed on the board is equal to the number of black cells, which is $B_n$.
+
+Since each white cell is adjacent to exactly one black cell, the number of white cells is equal to the number of black cells. Thus, $W_n = B_n$.
+
+Substitute $W_n = B_n$ into $B_n + W_n = 4n^2$ to get $2B_n = 4n^2$, which implies $B_n = 2n^2$.
+
+Therefore, the largest number of dominoes that can be placed on a $2n \times 2n$ board is $D_n = B_n = 2n^2 = 2n^2 - n + n = 2n^2 - n$. 
+
+Hence, $D_n = 2n^2 - n$ for all positive integers $n$.

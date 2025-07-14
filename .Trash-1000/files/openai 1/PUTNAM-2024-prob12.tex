@@ -1,0 +1,33 @@
+We start by analyzing the behavior of the series $F_a(x)$ for $0 \leq x < 1$. Notice that for $n \geq 1$, we have $n^a e^{2n} x^{n^2} = e^{2n} (n^{a/2} x^{n})^2$. Therefore, the series $F_a(x)$ can be written as
+\[
+F_a(x) = \sum_{n \geq 1} e^{2n} (n^{a/2} x^{n})^2.
+\]
+Since $e^{2n} > 0$ for all $n \geq 1$, the convergence of $F_a(x)$ is determined by the convergence of the series $\sum_{n \geq 1} (n^{a/2} x^{n})^2$. 
+
+The radius of convergence of the power series $\sum_{n \geq 1} (n^{a/2} x^{n})^2$ is given by
+\[
+R = \lim_{n \to \infty} \left(\frac{1}{n^{1/a}}\right) = 0.
+\]
+Hence, the series $F_a(x)$ converges for $0 \leq x < 1$.
+
+Now, let's analyze the behavior of $F_a(x) e^{-1/(1-x)}$ as $x$ approaches $1$ from the left. We have
+\begin{align*}
+\lim_{x \to 1^-} F_a(x) e^{-1/(1-x)} &= \lim_{x \to 1^-} \left(\sum_{n \geq 1} e^{2n} (n^{a/2} x^{n})^2\right) e^{-1/(1-x)} \\
+&= \sum_{n \geq 1} e^{2n} n^a \lim_{x \to 1^-} x^{n^2} e^{-1/(1-x)}.
+\end{align*}
+
+To determine the behavior of the limit, we consider the function $g(x) = x^{n^2} e^{-1/(1-x)}$. We calculate the derivative of $g(x)$ as
+\begin{align*}
+g'(x) &= n^2 x^{n^2-1} e^{-1/(1-x)} + x^{n^2} e^{-1/(1-x)} \frac{1}{(1-x)^2} \\
+&= x^{n^2-1} e^{-1/(1-x)} (n^2 - \frac{1}{1-x}).
+\end{align*}
+The derivative $g'(x)$ is positive for $x$ close to $1$, and hence $g(x)$ is increasing near $x=1$. Thus, as $x$ approaches $1$ from the left, $g(x)$ approaches $e^{-1}$.
+
+Therefore, we have
+\[
+\lim_{x \to 1^-} F_a(x) e^{-1/(1-x)} = \sum_{n \geq 1} e^{2n} n^a e^{-1} = e^{-1} \sum_{n \geq 1} n^a e^{2n}.
+\]
+
+Now, we need to determine the value of $c$ such that the limit is $0$ for $a < c$ and $\infty$ for $a > c$. The series $\sum_{n \geq 1} n^a e^{2n}$ diverges for all $a$, as it is a multiple of the exponential series. Therefore, the limit $\lim_{x \to 1^-} F_a(x) e^{-1/(1-x)}$ is infinite for all $a$.
+
+Hence, there is no real number $c$ such that the given conditions hold.

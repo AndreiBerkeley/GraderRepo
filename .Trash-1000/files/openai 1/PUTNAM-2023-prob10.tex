@@ -1,0 +1,17 @@
+Let's denote the function $f(t)$ as follows:
+$$f(t) = \begin{cases} 0 & \text{if } t < t_0, \\ i & \text{if } t_i \leq t < t_{i+1} \text{ for some } i \in \{0,1,\ldots,n-1\}, \\ n & \text{if } t \geq t_n. \end{cases}$$
+
+We are asked to find the value of the integral
+$$\int_{t_0}^{t_n} f(t) \, dt.$$
+
+Since $f(t)$ is a piecewise constant function, the integral can be computed by summing the areas of the rectangles formed by the function values over the intervals $[t_i, t_{i+1})$ for $i = 0, 1, \ldots, n-1$.
+
+The integral can be expressed as:
+\begin{align*}
+\int_{t_0}^{t_n} f(t) \, dt &= \sum_{i=0}^{n-1} \int_{t_i}^{t_{i+1}} f(t) \, dt \\
+&= \sum_{i=0}^{n-1} \int_{t_i}^{t_{i+1}} i \, dt \\
+&= \sum_{i=0}^{n-1} i(t_{i+1} - t_i) \\
+&= \sum_{i=0}^{n-1} i(t_{i+1} - t_i).
+\end{align*}
+
+Therefore, the value of the integral $\int_{t_0}^{t_n} f(t) \, dt$ is $\sum_{i=0}^{n-1} i(t_{i+1} - t_i)$.

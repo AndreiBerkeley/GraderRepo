@@ -1,0 +1,51 @@
+Let $f(x) = \tan x - x$. We know that $f(x)$ is continuous and differentiable for all $x \in \mathbb{R}$. We also know that $f(x)$ has infinitely many roots, since $\tan x$ has infinitely many periods in $(-\infty, \infty)$.
+
+Let $r_n$ be the $n$th smallest positive root of $f(x) = 0$. By the Mean Value Theorem, there exists a point $c_n$ between $r_n$ and $r_{n+1}$ such that
+\[
+f'(c_n) = \frac{f(r_{n+1}) - f(r_n)}{r_{n+1} - r_n}.
+\]
+Since $f(x) = \tan x - x$, we have $f'(x) = \sec^2 x - 1$. Therefore, we have
+\[
+f'(c_n) = \sec^2 c_n - 1 = \tan^2 c_n - 1 = \frac{1}{\cos^2 c_n} - 1 = \frac{\sin^2 c_n}{\cos^2 c_n} = \tan^2 c_n.
+\]
+Since $c_n$ is between $r_n$ and $r_{n+1}$, we have $0 < c_n - r_n < r_{n+1} - r_n$. Therefore, we can rewrite the above equation as
+\[
+f'(c_n) = \tan^2 c_n = \frac{f(r_{n+1}) - f(r_n)}{r_{n+1} - r_n} < \frac{1}{r_{n+1} - r_n}.
+\]
+Rearranging the above inequality gives
+\[
+r_{n+1} - r_n < \frac{1}{f'(c_n)} = \frac{1}{\tan^2 c_n} = \frac{1}{\tan^2(r_n + \theta)} < \frac{1}{\tan^2 r_n},
+\]
+where $0 < \theta < r_{n+1} - r_n$. Since $\tan x$ is increasing on $(0, \pi/2)$, we have $\tan^2 x$ is increasing on $(0, \pi/2)$. Therefore, $\tan^2(r_n + \theta) < \tan^2 r_n$. This implies that
+\[
+r_{n+1} - r_n < \frac{1}{\tan^2 r_n} = \frac{1}{r_n^2}.
+\]
+Similarly, we can show that
+\[
+r_{n+1} - r_n > \frac{1}{\tan^2(r_{n+1})} = \frac{1}{r_{n+1}^2}.
+\]
+Therefore, we have
+\[
+\frac{1}{r_{n+1}^2} < r_{n+1} - r_n < \frac{1}{r_n^2}.
+\]
+Multiplying through by $r_{n+1}r_n$ gives
+\[
+\frac{r_n}{r_{n+1}} < \frac{r_{n+1}}{r_n} - 1 < \frac{r_{n+1}}{r_n}.
+\]
+Since $r_n$ is the $n$th smallest positive root of $\tan x = x$, we have $r_n > n\pi$. Therefore, we can rewrite the above inequality as
+\[
+\frac{n\pi}{r_{n+1}} < \frac{r_{n+1}}{r_n} - 1 < \frac{r_{n+1}}{r_n}.
+\]
+Adding $1$ to all parts of the inequality gives
+\[
+\frac{n\pi}{r_{n+1}} + 1 < \frac{r_{n+1}}{r_n} < \frac{r_{n+1}}{r_n} + 1.
+\]
+Multiplying through by $r_n$ gives
+\[
+n\pi + r_n < r_{n+1} < r_n + r_{n+1}.
+\]
+Therefore, we have
+\[
+0 < r_{n+1} - r_n - \pi < r_{n+1} - r_n < \frac{1}{r_n^2} < \frac{1}{n^2\pi^2} = \frac{1}{(n^2+n)\pi}.
+\]
+This completes the proof.

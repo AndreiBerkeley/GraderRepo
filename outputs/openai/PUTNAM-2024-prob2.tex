@@ -1,0 +1,98 @@
+Answer:  No.  
+After at most three steps the quadrilaterals begin to repeat, so an
+infinite chain of pairwise non–congruent partners cannot exist.
+
+Complete argument  
+
+1.  Encoding the chain by a sequence of points  
+   Let  
+
+            \(Q_{0}=P _0P _1P _2P _3 ,\qquad   
+            Q_{1}=P _1P _2P _3P _4 ,\qquad   
+            Q_{2}=P _2P _3P _4P _5 ,\qquad \dots \)
+
+   be an arbitrary chain of partners, so that for every
+   \(k\ge 0\)
+
+            \(P _{k+4}\) is the reflection of \(P _k\) in the
+            perpendicular bisector of \(P _{k+1}P _{k+3}\).     (1)
+
+   Convexity of all quadrilaterals implies that the polygon
+   \(P _0P _1P _2\dots\) is strictly
+   convex and the points occur in this order around the polygon.
+
+2.  Three–periodicity of the successive edges  
+   Put  
+
+            \(d_k=\lvert P _kP _{k+1}\rvert\;\;(k\ge 0).\)
+
+   The reflection that appears in (1) interchanges  
+   \(P _{k+1}\) and \(P _{k+3}\); hence it carries the segment
+   \(P _kP _{k+1}\) on to the segment \(P _{k+4}P _{k+3}\).
+   Being an isometry, it preserves lengths, and therefore  
+
+            \(d_k=d_{k+3}\qquad(k\ge 0).\)                                (2)
+
+   Thus the infinite sequence \(d_0,d_1,d_2,d_3,\dots\)
+   assumes at most three different values:
+   \(d_0,d_1,d_2\).
+
+3.  Constancy of the fourth side  
+   Denote  
+
+            \(s_k=\lvert P _{k+3}P _k\rvert \)  (the side that closes
+   \(Q_k\)).  
+
+   Equation (1) shows that the reflection in the perpendicular
+   bisector of \(P _{k+1}P _{k+3}\) sends \(P _k\) to \(P _{k+4}\)
+   and \(P _{k+3}\) to \(P _{k+1}\); hence  
+
+            \(s_k=\lvert P _{k+3}P _k\rvert
+                =\lvert P _{k+1}P _{k+4}\rvert=s_{k+1}.\)
+
+   So  
+
+            \(s_k\equiv s\) is the same constant for every \(k\).     (3)
+
+4.  The quadrilateral \(Q_{k+3}\) has the same five metric data as
+    \(Q_k\)  
+
+   The four sides of \(Q_k=P _kP _{k+1}P _{k+2}P _{k+3}\) are  
+
+            \(d_k,\;d_{k+1},\;d_{k+2},\;s,\)
+
+   while the four sides of \(Q_{k+3}=P _{k+3}P _{k+4}P _{k+5}P _{k+6}\)
+   are, by (2) and (3),
+
+            \(d_{k+3}=d_k,\;d_{k+4}=d_{k+1},\;
+             d_{k+5}=d_{k+2},\;s_{k+3}=s.\)
+
+   Moreover the two quadrilaterals share the diagonal  
+   \(P _{k+1}P _{k+3}\); hence they also have a common diagonal length.
+   Consequently \(Q_{k}\) and \(Q_{k+3}\) possess the same
+   set of five lengths
+
+            \(d_k,\;d_{k+1},\;d_{k+2},\;s,\;\lvert P _{k+1}P _{k+3}\rvert .\)
+
+5.  These data determine a convex quadrilateral uniquely  
+   Given the five lengths just listed one constructs the triangle
+   \(P _kP _{k+1}P _{k+3}\) from the three sides
+   \(d_k,s,\lvert P _{k+1}P _{k+3}\rvert\);   
+   there is only one way (up to congruence) to attach the point
+   \(P _{k+2}\) because
+   the sides with lengths \(d_{k+1}\) and \(d_{k+2}\) must lie on
+   opposite sides of the diagonal \(P _{k+1}P _{k+3}\) in order to keep
+   the quadrilateral convex.
+   Hence the five lengths fix the quadrilateral up to a rigid motion.
+
+   Thus  
+
+            \(Q_{k+3}\cong Q_k\qquad(k\ge 0).\)                        (4)
+
+6.  End of the proof  
+   Relation (4) shows that only the three quadrilaterals
+   \(Q_0, Q_1, Q_2\) are possible up to congruence.
+   Therefore an infinite sequence in which every member is a partner
+   of the next must sooner or later repeat a congruence class,
+   which is forbidden by the statement of the problem.  
+   Consequently no such infinite sequence exists.

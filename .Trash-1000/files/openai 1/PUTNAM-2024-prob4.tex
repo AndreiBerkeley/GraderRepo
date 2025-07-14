@@ -1,0 +1,30 @@
+Let \( p > 5 \) be a prime and let \( a \) and \( r \) be integers such that \( 1 \leq r \leq p-1 \). We are given that the sequence \( 1,a,a^2,\dots,a^{p-5} \) can be rearranged to form a sequence \( b_0,b_1,b_2,\dots,b_{p-5} \) such that \( b_n-b_{n-1}-r \) is divisible by \( p \) for \( 1 \leq n \leq p-5 \).
+
+Since \( b_n-b_{n-1}-r \) is divisible by \( p \) for \( 1 \leq n \leq p-5 \), we have
+\[ b_n - b_{n-1} \equiv r \pmod{p} \]
+for \( 1 \leq n \leq p-5 \).
+
+Summing up these congruences for \( n = 1, 2, \ldots, p-5 \), we get
+\[ b_{p-5} - b_0 \equiv r(p-4) \pmod{p}. \]
+
+Since the sequence \( 1,a,a^2,\dots,a^{p-5} \) can be rearranged to form a sequence \( b_0,b_1,b_2,\dots,b_{p-5} \), the sequence \( b_0,b_1,b_2,\dots,b_{p-5} \) is a permutation of the sequence \( 1,a,a^2,\dots,a^{p-5} \). Therefore, the sequence \( b_0,b_1,b_2,\dots,b_{p-5} \) contains all residues modulo \( p \) except for \( 0 \) (since \( a^0 = 1 \)).
+
+This implies that the sum of the residues of \( b_0,b_1,b_2,\dots,b_{p-5} \) is congruent to the sum of the residues of \( 1,2,\dots,p-1 \) modulo \( p \). The sum of the residues of \( 1,2,\dots,p-1 \) modulo \( p \) is
+\[ 1 + 2 + \ldots + (p-1) = \frac{p(p-1)}{2} \equiv \frac{-1}{2} \pmod{p}. \]
+
+Since the sum of the residues of \( b_0,b_1,b_2,\dots,b_{p-5} \) is congruent to the sum of the residues of \( 1,2,\dots,p-1 \) modulo \( p \), we have
+\[ b_0 + b_1 + \ldots + b_{p-5} \equiv \frac{-1}{2} \pmod{p}. \]
+
+Since the sequence \( b_0,b_1,b_2,\dots,b_{p-5} \) is a permutation of the sequence \( 1,a,a^2,\dots,a^{p-5} \), the sum of the residues of \( b_0,b_1,b_2,\dots,b_{p-5} \) is congruent to the sum of the residues of \( 1,a,a^2,\dots,a^{p-5} \) modulo \( p \). The sum of the residues of \( 1,a,a^2,\dots,a^{p-5} \) modulo \( p \) is
+\[ 1 + a + a^2 + \ldots + a^{p-5} = \frac{a^{p-4}-1}{a-1} \equiv 0 \pmod{p} \]
+by the geometric series formula.
+
+Therefore, we have
+\[ b_0 + b_1 + \ldots + b_{p-5} \equiv 0 \pmod{p}. \]
+
+Combining the two congruences, we get
+\[ \frac{-1}{2} \equiv 0 \pmod{p}, \]
+which implies
+\[ p = 2. \]
+
+However, since \( p > 5 \), there are no primes \( p \) satisfying the given conditions.

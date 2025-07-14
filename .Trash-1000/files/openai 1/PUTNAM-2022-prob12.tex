@@ -1,0 +1,25 @@
+Let \( P(x,y) \) be the assertion that \( f(xf(y)) + f(yf(x)) = 1 + f(x+y) \).
+
+First, we will show that \( f \) is injective. Assume there exist \( a,b > 0 \) such that \( f(a) = f(b) \). Then, comparing \( P(a,y) \) and \( P(b,y) \) gives
+\[
+f(af(y)) + f(yf(a)) = 1 + f(a+y) \quad \text{and} \quad f(bf(y)) + f(yf(b)) = 1 + f(b+y).
+\]
+Since \( f(a) = f(b) \), we have \( f(af(y)) = f(bf(y)) \) and \( f(yf(a)) = f(yf(b)) \). Therefore, \( 1 + f(a+y) = 1 + f(b+y) \), which implies \( f(a+y) = f(b+y) \) for all \( y > 0 \). Setting \( y = 1 \) gives \( f(a+1) = f(b+1) \). By induction, we can show that \( f(a+n) = f(b+n) \) for all positive integers \( n \). Since \( f \) is continuous, this implies that \( f \) is constant on the interval \([a,+\infty)\). Similarly, \( f \) is constant on the interval \((0,a]\). Therefore, \( f \) is constant on \((0,+\infty)\), which contradicts the fact that \( f \) is strictly positive. Hence, \( f \) is injective.
+
+Next, we will show that \( f \) is strictly increasing. Assume there exist \( a,b > 0 \) such that \( a < b \) and \( f(a) > f(b) \). Then, comparing \( P(a,b) \) and \( P(b,a) \) gives
+\[
+f(af(b)) + f(bf(a)) = 1 + f(a+b) \quad \text{and} \quad f(bf(a)) + f(af(b)) = 1 + f(a+b).
+\]
+Since \( f \) is injective, we have \( af(b) = bf(a) \). Since \( a < b \), we have \( f(a) < f(b) \), which implies \( f(b) > f(a) \). Therefore, \( af(b) < bf(b) \), which contradicts \( af(b) = bf(a) \). Hence, \( f \) is strictly increasing.
+
+Now, let \( c = f(1) \). By \( P(1,1) \), we have
+\[
+f(c) + f(c) = 1 + f(2) \quad \Rightarrow \quad 2f(c) = 1 + f(2).
+\]
+Since \( f \) is strictly increasing, we have \( f(2) > f(1) = c \). Therefore, \( 2f(c) = 1 + f(2) > 1 + c \), which implies \( f(c) > \frac{1+c}{2} \). Since \( f \) is continuous, by the Intermediate Value Theorem, there exists \( d \) such that \( c < d < f(c) \) and \( f(d) = \frac{1+c}{2} \). Then, by \( P(d,1) \), we have
+\[
+f(df(1)) + f(f(d)) = 1 + f(d+1) \quad \Rightarrow \quad f(d\cdot c) + \frac{1+c}{2} = 1 + f(d+1).
+\]
+Since \( f(d) = \frac{1+c}{2} \), we have \( f(d+1) = f(d) = \frac{1+c}{2} \). Therefore, \( f(d\cdot c) = 1 \). Since \( f \) is strictly increasing, we have \( d\cdot c > 1 \), which implies \( d > \frac{1}{c} \). Since \( f \) is strictly increasing, we have \( f(d) > f\left(\frac{1}{c}\right) = \frac{1+c}{2} \), which contradicts \( f(d) = \frac{1+c}{2} \). Hence, there are no such functions \( f \).
+
+Therefore, the given functional equation has no solution.

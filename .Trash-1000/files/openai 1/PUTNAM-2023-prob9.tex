@@ -1,0 +1,19 @@
+Let \( E_n \) be the expected value of \( a(X_1, X_2, \dots, X_n) \). We will derive a recursive formula for \( E_n \) and solve it.
+
+Consider the last element \( X_n \) in the sequence. There are two cases to consider:
+
+1. If \( X_n \) is part of a zigzag sequence of length \( k \), then the expected value of \( a(X_1, X_2, \dots, X_n) \) is \( k \).
+2. If \( X_n \) is not part of any zigzag sequence, then the expected value of \( a(X_1, X_2, \dots, X_n) \) is \( E_{n-1} \).
+
+Let's calculate the probability of the first case happening. For \( X_n \) to be part of a zigzag sequence of length \( k \), there must exist an increasing sequence of integers \( i_1, i_2, \dots, i_k \) such that \( X_{i_1}, X_{i_2}, \dots, X_{i_k} \) is zigzag and \( i_k = n \). The probability of this happening is the probability that \( X_n \) is the largest element in the zigzag sequence, multiplied by the probability that the rest of the elements form a zigzag sequence of length \( k-1 \).
+
+The probability that \( X_n \) is the largest element in the zigzag sequence is \( \frac{1}{n} \) since all elements are chosen independently and uniformly. The probability that the rest of the elements form a zigzag sequence of length \( k-1 \) is \( E_{n-k} \) (since the last element of the zigzag sequence is at position \( n \) and there are \( k-1 \) elements before it). Therefore, the probability of the first case happening is \( \frac{1}{n} \cdot E_{n-k} \).
+
+The probability of the second case happening is \( 1 - \frac{1}{n} \sum_{k=1}^{n-1} E_{n-k} \) (since it's the complement of the first case).
+
+Putting it all together, we have the recursive formula:
+\[ E_n = \frac{1}{n} \sum_{k=1}^{n-1} E_{n-k} + 1 - \frac{1}{n} \sum_{k=1}^{n-1} E_{n-k} \]
+Simplifying, we get:
+\[ E_n = 1 + \frac{1}{n} \sum_{k=1}^{n-1} E_{n-k} \]
+
+Now, we can calculate \( E_2, E_3, E_4, \dots \) using this recursive formula to find the expected value of \( a(X_1, X_2, \dots, X_n) \) for \( n \geq 2 \).

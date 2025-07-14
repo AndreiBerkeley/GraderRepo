@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"The student has submitted a solution to a completely different problem.\",\n  \"score\": 0,\n  \"feedback\": \"The submitted text provides a detailed solution to a problem asking for values of a parameter 'a' such that 'if $x^2 - 2ax + 4 \\\\le 5$, then $0 \\\\le x \\\\le 5$'. However, this is not the problem that was posed. The problem given was to find all real numbers $\\\\alpha$ such that the sum $\\\\sum_{k=1}^n \\\\lfloor k\\\\alpha \\\\rfloor$ is divisible by $n$ for all positive integers $n$. Because your submission does not address the given problem in any way, it cannot be awarded any points. Please be sure to read the problem statement carefully.\"\n}\n```"
+}

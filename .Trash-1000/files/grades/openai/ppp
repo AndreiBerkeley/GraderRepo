@@ -1,0 +1,43 @@
+import glob, os, re
+
+files = sorted(
+    glob.glob("PUTNAM-2023-*.tex"),
+    key=lambda fn: (
+        fn.split("-")[2][0],                # 'a' vs 'b'
+        int(re.search(r"-(?:A|B)(\d+)\.tex$", fn).group(1))
+    )
+)
+
+for i, old in enumerate(files, start=1):
+    # insert "prob" before the numeric index
+    new = f"PUTNAM-2023-prob{i}.tex"
+    print(f"Renaming {old!r} → {new!r}")
+    os.rename(old, new)
+
+files2 = sorted(
+    glob.glob("PUTNAM-2022-*.tex"),
+    key=lambda fn: (
+        fn.split("-")[2][0],                # 'a' vs 'b'
+        int(re.search(r"-(?:A|B)(\d+)\.tex$", fn).group(1))
+    )
+)
+
+for i, old in enumerate(files2, start=1):
+    # insert "prob" before the numeric index
+    new = f"PUTNAM-2022-prob{i}.tex"
+    print(f"Renaming {old!r} → {new!r}")
+    os.rename(old, new)
+
+files1 = sorted(
+    glob.glob("PUTNAM-2024-*.tex"),
+    key=lambda fn: (
+        fn.split("-")[2][0],                # 'a' vs 'b'
+        int(re.search(r"-(?:A|B)(\d+)\.tex$", fn).group(1))
+    )
+)
+
+for i, old in enumerate(files1, start=1):
+    # insert "prob" before the numeric index
+    new = f"PUTNAM-2024-prob{i}.tex"
+    print(f"Renaming {old!r} → {new!r}")
+    os.rename(old, new)

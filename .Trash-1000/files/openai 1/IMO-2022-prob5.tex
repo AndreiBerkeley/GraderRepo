@@ -1,0 +1,34 @@
+First, we note that if \( b = 1 \), then the equation becomes \( a^p = 2 + p \). Since \( p \) is prime and greater than 2, we have \( a^p \) is odd, which implies that \( a \) is odd. However, if \( a \) is odd, then \( a^p \) is also odd, which contradicts the fact that \( 2 + p \) is even. Therefore, \( b \) cannot be 1.
+
+Next, we consider the case where \( b = 2 \). The equation becomes \( a^p = 2! + p = 2 + p \). Since \( p \) is prime and greater than 2, we have \( a^p \) is odd, which implies that \( a \) is odd. However, if \( a \) is odd, then \( a^p \) is also odd, which contradicts the fact that \( 2 + p \) is even. Therefore, \( b \) cannot be 2.
+
+Now, we consider the case where \( b \geq 3 \). We rewrite the equation as
+\[ a^p = b! + p. \]
+
+Since \( p \) is prime, we have \( p \) does not divide \( b! \). Therefore, \( p \) divides \( a^p \), which implies that \( p \) divides \( a \) by Fermat's Little Theorem. Let \( a = kp \) for some positive integer \( k \).
+
+Substitute \( a = kp \) into the equation, we get
+\[ (kp)^p = b! + p. \]
+
+Expanding the left-hand side using the binomial theorem, we have
+\[ k^p p^p = b! + p. \]
+
+Since \( b! \) is divisible by all positive integers less than or equal to \( b \), we have \( b! + p \equiv 1 \pmod{p} \). Therefore, \( k^p \equiv 1 \pmod{p} \).
+
+By Fermat's Little Theorem, we have \( k^{p-1} \equiv 1 \pmod{p} \). Since \( p \) is prime, \( p-1 \) is not divisible by \( p \), which implies that \( k \equiv 1 \pmod{p} \).
+
+Thus, we have \( a = kp = p + mp \) for some positive integer \( m \). Substitute this back into the original equation, we get
+\[ (p + mp)^p = b! + p. \]
+
+Expanding the left-hand side using the binomial theorem, we have
+\[ p^p + \binom{p}{1}mp^{p-1} + \binom{p}{2}m^2p^{p-2} + \ldots + m^p p^p = b! + p. \]
+
+Since \( b! \) is divisible by all positive integers less than or equal to \( b \), we have
+\[ p^p + \binom{p}{1}mp^{p-1} \equiv 1 \pmod{p}. \]
+
+This implies that
+\[ p^p \equiv 1 \pmod{p}. \]
+
+By Fermat's Little Theorem, we have \( p^{p-1} \equiv 1 \pmod{p} \). Since \( p \) is prime, \( p-1 \) is not divisible by \( p \), which implies that \( p \equiv 1 \pmod{p} \). This is only possible if \( p = 1 \).
+
+Therefore, the only solution to the given equation is \( (a,b,p) = (2,2,2) \).

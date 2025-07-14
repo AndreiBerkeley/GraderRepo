@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Contest Problem Viewer</title>
+
+  <!-- 1) MathJax configuration -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']],
+      },
+      options: {
+        skipHtmlTags: ['script','noscript','style','textarea','pre']
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- 2) Styles -->
+  <style>
+    /* —— Reset & Layout —— */
+    html, body { height:100%; margin:0; }
+    body { font-family:sans-serif; padding:1em; box-sizing:border-box; }
+    select, button, textarea { margin:0.3em; }
+    #viewer { display:flex; gap:1em; height:calc(100vh - 180px); }
+    .pane { flex:1; overflow-y:auto; padding:0.5em; border:1px solid #ddd; background:#fafafa; }
+    #left-pane   { flex:2; }
+    #middle-pane { flex:1.5; }
+    #right-pane  { flex:1; }
+    .math-block  { margin:1em 0; }
+
+    /* —— Comment Form Styles —— */
+    #comment-form {
+      display:none; position:absolute; z-index:10000;
+      background:#fff; border:1px solid #ccc; border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:0.5em;
+      max-width:240px;
+    }
+    #comment-form::before {
+      content:""; position:absolute; top:-8px; left:1em;
+      border:8px solid transparent; border-bottom-color:#ccc;
+    }
+    #comment-form::after {
+      content:""; position:absolute; top:-6px; left:1em;
+      border:6px solid transparent; border-bottom-color:#fff;
+    }
+
+    /* —— Native selection color —— */
+    ::selection { background:#b3d4fc; color:inherit; }
+
+    /* —— Force text selection in the math block —— */
+    .math-block, .math-block * {
+      pointer-events: auto !important;
+      user-select:     text   !important;
+      -webkit-user-select: text !important;
+      -moz-user-select:    text !important;
+      -ms-user-select:     text !important;
+    }
+
+    /* —— Highlight styling —— */
+    .highlight {
+      display:inline-block !important;
+      line-height:normal !important;
+      padding:0.2em 0.3em !important;
+      background:rgba(255,235,59,0.7) !important;
+      border-radius:0.2em !important;
+      box-decoration-break:clone;
+      -webkit-box-decoration-break:clone;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contest Problem Viewer</h1>
+
+  <!-- Controls -->
+  Contest: <select id="select-contest"></select>
+  Year:    <select id="select-year"></select>
+  Problem: <select id="select-prob"></select>
+  Student: <select id="select-student" style="display:none"></select>
+
+  <!-- Panes -->
+  <div id="viewer">
+    <div id="left-pane" class="pane">
+      <div id="problem"></div><hr/><div id="solution"></div>
+    </div>
+    <div id="middle-pane" class="pane">
+      <div id="draft"></div>
+    </div>
+    <div id="right-pane" class="pane">
+      <h2>Grade</h2>
+      <div id="grade-content" class="math-block">
+        Select a problem & student to see the grade.
+      </div>
+    </div>
+  </div>
+
+  <!-- Comment Form -->
+  <div id="comment-form">
+    <textarea id="comment-text" rows="3" placeholder="Add a comment…" style="width:100%"></textarea>
+    <div style="text-align:right; margin-top:4px">
+      <button id="comment-cancel">Cancel</button>
+      <button id="comment-save">Comment</button>
+    </div>
+  </div>
+
+  <!-- Rate & Review -->
+  <div style="margin-top:1em">
+    <h3>Rate &amp; Review</h3>
+    Rating:
+    <select id="select-rating">
+      <option value="">--</option><option>1</option><option>2</option><option>3</option>
+      <option>4</option><option>5</option>
+    </select><br/>
+    <textarea id="review-text" rows="4" style="width:100%;" placeholder="Your review…"></textarea><br/>
+    <button id="review-submit">Submit Review</button>
+    <span id="review-status" style="margin-left:1em;"></span>
+  </div>
+
+  <!-- Mark.js -->
+  <script src="https://cdn.jsdelivr.net/npm/mark.js/dist/mark.min.js"></script>
+
+  <!-- Main Script -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ——— State & Indices ———
+    let dataIndex = {}, studentsIndex = {};
+    const sc = document.getElementById("select-contest"),
+          sy = document.getElementById("select-year"),
+          sp = document.getElementById("select-prob"),
+          ss = document.getElementById("select-student");
+
+    // — Helpers —————
+    function val(id){ return document.getElementById("select-"+id).value; }
+    function forceSelect(){
+      document.querySelectorAll(".math-block, .math-block *")
+        .forEach(el=>{
+          el.style.pointerEvents="auto"; el.style.userSelect="text";
+        });
+    }
+    function renderMath(html, id){
+      document.getElementById(id).innerHTML = html;
+      MathJax.typesetPromise().then(forceSelect);
+    }
+    function selectDefaultStudent(){
+      const o = [...ss.options].find(o=>o.value.toUpperCase()==="OPENAI");
+      if(o){ ss.value=o.value; ss.dispatchEvent(new Event("change")); }
+    }
+    function loadGrade(){
+      const gradeDiv = document.getElementById("grade-content");
+      const c=val("contest"), y=val("year"), p=val("prob"), s=val("student");
+      if(!c||!y||!p||!s){
+        gradeDiv.textContent="Select a problem & student to see the grade.";
+        return;
+      }
+      const pid = `${c.toUpperCase()}-${y}-prob${p}`;
+      const url = `/outputs/grades/${s.toLowerCase()}/${pid}.tex`;
+      fetch(url)
+        .then(r => r.ok ? r.text() : Promise.reject())
+        .then(tex => {
+          // inject raw TeX so MathJax can render it
+          gradeDiv.innerHTML = tex;
+          // re-typeset the grade container
+          return MathJax.typesetPromise([gradeDiv]);
+        })
+        .catch(_ => {
+          gradeDiv.textContent = "No grade available.";
+        });
+    }
+
+    // — Fetch Indices —————
+    fetch("/api/index_data").then(r=>r.json()).then(d=>{
+      dataIndex=d; sc.innerHTML="<option>--</option>";
+      Object.keys(d).forEach(c=> sc.append(new Option(c.toUpperCase(), c)));
+      if(sc.options.length>1){ sc.selectedIndex=1; sc.dispatchEvent(new Event("change")); }
+    });
+    fetch("/api/index_students").then(r=>r.json()).then(d=>studentsIndex=d);
+
+    // — Dropdown Chains —————
+    sc.addEventListener("change", ()=>{
+      const yrs = dataIndex[val("contest")]||{};
+      sy.innerHTML="<option>--</option>";
+      Object.keys(yrs).forEach(y=> sy.append(new Option(y,y)));
+      if(sy.options.length>1){ sy.selectedIndex=1; sy.dispatchEvent(new Event("change")); }
+    });
+
+    sy.addEventListener("change", ()=>{
+      const cnt = (dataIndex[val("contest")]||{})[val("year")]||0;
+      sp.innerHTML="<option>--</option>";
+      for(let i=1;i<=cnt;i++) sp.append(new Option(i,i));
+      if(sp.options.length>1){ sp.selectedIndex=1; sp.dispatchEvent(new Event("change")); }
+      // students
+      ss.innerHTML="<option>--</option>";
+      Object.entries(studentsIndex).forEach(([std,arr])=>{
+        if(arr.some(e=> e.contest===val("contest") && e.year===val("year") && e.problem===+val("prob")))
+          ss.append(new Option(std.toUpperCase(),std));
+      });
+      ss.style.display = ss.options.length>1 ? "inline":"none";
+      selectDefaultStudent();
+    });
+
+    // — Problem → render & grade —————
+    sp.addEventListener("change", ()=>{
+      if(!val("contest")||!val("year")||!val("prob")) return;
+      fetch(`/data/${val("contest")}/${val("year")}.cleaned.jsonl`)
+        .then(r=>r.text())
+        .then(txt=>{
+          const obj = JSON.parse(txt.split("\n")[+val("prob")-1]);
+          renderMath(`<h2>Problem ${val("prob")}</h2><div class="math-block">${obj.content}</div>`, "problem");
+          renderMath(`<h2>Solution</h2><div class="math-block">${obj.solution||""}</div>`, "solution");
+        })
+        .then(()=> {
+          // if student already selected → load draft & grade
+          if(val("student")) ss.dispatchEvent(new Event("change"));
+          loadGrade();
+        })
+        .catch(console.error);
+    });
+
+    // — Student → load draft & grade —————
+    ss.addEventListener("change", ()=>{
+      const draftDiv = document.getElementById("draft");
+      if(!val("contest")||!val("year")||!val("prob")||!val("student")){
+        draftDiv.innerHTML="No draft."; loadGrade(); return;
+      }
+      const url = `/outputs/${val("student")}/${val("contest")}-${val("year")}-prob${val("prob")}.tex`;
+      fetch(url).then(r=>r.ok?r.text():"No draft.")
+        .then(raw=>{
+          // strip preamble & escape
+          const lines = raw.split("\n").filter(l=>
+            !l.match(/^\\(?:documentclass|usepackage|begin|end|section)/)
+          );
+          let rebuilt="", inMath=false;
+          lines.join("\n").split(/(\\\[|\\\]|\$\$)/g).forEach(chunk=>{
+            if(chunk==="\\["||chunk==="$$"){ rebuilt+=chunk; inMath=true; }
+            else if(chunk==="\\]"||chunk==="$$"){ rebuilt+=chunk; inMath=false; }
+            else if(inMath) rebuilt+=chunk;
+            else rebuilt+=chunk.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+          });
+          draftDiv.innerHTML = `<h2>Draft by ${val("student").toUpperCase()}</h2>
+                                <div class="math-block">${rebuilt}</div>`;
+          return MathJax.typesetPromise([draftDiv.querySelector(".math-block")]);
+        })
+        .then(forceSelect)
+        .catch(console.error);
+      loadGrade();
+    });
+
+    // — Rate & Review —————
+    document.getElementById("review-submit").addEventListener("click", ()=>{
+      const statusEl = document.getElementById("review-status");
+      const payload = {
+        timestamp:new Date().toISOString(),
+        contest: val("contest"),
+        year:    val("year"),
+        problem: +val("prob"),
+        student: val("student"),
+        rating:  +val("rating"),
+        review:  document.getElementById("review-text").value.trim()
+      };
+      if(!payload.contest||!payload.year||!payload.problem||!payload.student||!payload.rating){
+        statusEl.textContent="Fill all fields"; statusEl.style.color="red"; return;
+      }
+      fetch("/save_review",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      })
+      .then(r=>r.json())
+      .then(resp=>{
+        statusEl.textContent = resp.status==="ok"?"Review saved!":"Save error.";
+        statusEl.style.color   = resp.status==="ok"?"green":"red";
+        if(resp.status==="ok"){
+          document.getElementById("review-text").value="";
+          document.getElementById("review-rating").value="";
+        }
+      })
+      .catch(_=>{
+        statusEl.textContent="Network error"; statusEl.style.color="red";
+      });
+    });
+
+    // — Initial MathJax selectability —
+    MathJax.typesetPromise().then(forceSelect);
+  }); // end DOMContentLoaded
+
+
+  // — Commenting logic — single block after Mark.js is loaded
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const commentForm = document.getElementById("comment-form");
+    const textarea    = document.getElementById("comment-text");
+    const cancelBtn   = document.getElementById("comment-cancel");
+    const saveBtn     = document.getElementById("comment-save");
+    let   activeRange = null, skipClick=false;
+
+    function ensureSelect(){
+      document.querySelectorAll(".math-block, .math-block *")
+        .forEach(el=>el.style.userSelect="text");
+    }
+
+    // 1) Show comment form on selection
+    document.addEventListener("mouseup", ()=>{
+      const sel = window.getSelection();
+      if(!sel.rangeCount||sel.isCollapsed) return;
+      const range = sel.getRangeAt(0);
+      let c=range.commonAncestorContainer;
+      if(c.nodeType!==1) c=c.parentElement;
+      if(!c.closest(".math-block")) return;
+      activeRange = range.cloneRange();
+
+      // position form
+      const r = activeRange.getClientRects()[0];
+      if(!r) return;
+      const formWidth  = commentForm.offsetWidth;
+      const formHeight = commentForm.offsetHeight;
+      Object.assign(commentForm.style,{
+        position:"fixed",
+        display:"block",
+        top:  `${Math.max(8, r.top - formHeight - 6)}px`,
+        left: `${Math.min(window.innerWidth - formWidth - 8, r.right + 6)}px`,
+      });
+      skipClick = true;
+      textarea.value=""; textarea.focus();
+    });
+
+    // 2) Cancel hides form (skip the stray click)
+    cancelBtn.addEventListener("click", ()=>{
+      if(skipClick){ skipClick=false; return; }
+      commentForm.style.display="none";
+      window.getSelection().removeAllRanges();
+    });
+
+    // 3) Save wraps and annotates
+    saveBtn.addEventListener("click", () => {
+      const comment = textarea.value.trim();
+      if (!comment || !activeRange) return;
+
+      // Extract exactly the contents of the activeRange
+      const range = activeRange.cloneRange();
+      const fragment = range.extractContents();
+
+  // Create our wrapper span
+      const span = document.createElement("span");
+      span.className = "highlight";
+      span.dataset.comment = comment;
+
+      // Put the selected nodes inside it
+      span.appendChild(fragment);
+      range.insertNode(span);
+
+      // Force MathJax to re-render just this span
+      MathJax.typesetPromise([span]).then(() => {
+        ensureSelect();
+
+        // Add your comment‐icon
+        const icon = document.createElement("span");
+        icon.className = "comment-icon";
+        icon.textContent = "🗨️";
+        icon.style.margin = "0 0 0 .2em";
+        span.appendChild(icon);
+      });
+
+      // Clean up
+      commentForm.style.display = "none";
+      window.getSelection().removeAllRanges();
+      activeRange = null;
+    });
+
+    // 4) Click outside hides form
+    document.addEventListener("click", e=>{
+      if(skipClick){ skipClick=false; return; }
+      if(!commentForm.contains(e.target)){
+        commentForm.style.display="none";
+      }
+    });
+    document.body.addEventListener("click", e => {
+      if (!e.target.matches(".comment-icon")) return;
+
+      const highlight = e.target.closest(".highlight");
+      const rect      = highlight.getBoundingClientRect();
+
+      textarea.value = highlight.dataset.comment || "";
+
+      const formW = commentForm.offsetWidth;
+      const formH = commentForm.offsetHeight;
+      commentForm.style.display = "block";
+      commentForm.style.position = "fixed";
+      commentForm.style.top =  `${Math.max(8, rect.top - formH - 6)}px`;
+      commentForm.style.left= `${Math.min(window.innerWidth - formW - 8, rect.left + 6)}px`;
+
+      commentForm._currentHighlight = highlight;
+      textarea.focus();
+    });
+    // 5b) Save edited comment
+    document.body.addEventListener("click", e => {
+      if (!e.target.matches("#comment-save")) return;
+
+      const highlight = commentForm._currentHighlight;
+      if (!highlight) return;
+
+      const newText = textarea.value.trim();
+      highlight.dataset.comment = newText;
+
+      commentForm.style.display = "none";
+    });
+    // 5c) Delete comment (client-side only)
+    document.body.addEventListener("click", e => {
+      if (!e.target.matches("#comment-delete")) return;
+
+      const highlight = commentForm._currentHighlight;
+      if (!highlight) return;
+
+      const parent = highlight.parentNode;
+      while (highlight.firstChild) {
+        parent.insertBefore(highlight.firstChild, highlight);
+      }
+      parent.removeChild(highlight);
+
+      commentForm.style.display = "none";
+    });
+
+  });
+  </script>
+</body>
+</html>

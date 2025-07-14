@@ -1,0 +1,23 @@
+Let $s_{i,j}$ be the score assigned by person $i$ to cupcake $j$.  
+Let $S_i$ be the total score assigned by person $i$ to all cupcakes.  
+Since each person assigns a nonnegative real number score to each cupcake, we have $s_{i,j} \geq 0$ for all $i$ and $j$.  
+Given that for each person $P$, it is possible to partition the circle of $m$ cupcakes into $n$ groups of consecutive cupcakes so that the sum of $P$'s scores of the cupcakes in each group is at least $1$, we have
+\begin{align*} \sum_{j=1}^{m} s_{i,j} &= \sum_{k=1}^{n} \left(\sum_{j \in G_k} s_{i,j}\right) \geq n \end{align*}
+where $G_k$ is the set of cupcakes in the $k$-th group assigned to person $i$.
+
+Now, we will show that it is possible to distribute the cupcakes to the $n$ people so that each person $P$ receives cupcakes of total score at least $1$ with respect to $P$.  
+Let $S = \sum_{j=1}^{m} \sum_{i=1}^{n} s_{i,j}$.  
+Since each person assigns a nonnegative real number score to each cupcake, we have $S \geq 0$.  
+Consider the following algorithm to distribute the cupcakes:
+1. For each cupcake $j$, calculate $w_j = \sum_{i=1}^{n} s_{i,j}$.
+2. Sort the cupcakes in non-increasing order of $w_j$.
+3. Distribute the cupcakes one by one to the $n$ people in the order of the sorted list.
+4. When distributing cupcake $j$, assign it to the person $i$ such that $s_{i,j}$ is the largest among the remaining unassigned cupcakes for person $i$.
+
+Let $S_i'$ be the total score assigned to person $i$ using this algorithm.  
+Since we sorted the cupcakes in non-increasing order of $w_j$, we have $w_1 \geq w_2 \geq \ldots \geq w_m$.  
+Thus, for each person $i$, we have
+\begin{align*} S_i' &= \sum_{j=1}^{m} s_{i,j} \geq \sum_{j=1}^{m} \frac{s_{i,j}}{w_j} \cdot w_j = \sum_{j=1}^{m} \frac{s_{i,j}}{w_j} \cdot \sum_{j=1}^{m} w_j \\ &\geq \left(\sum_{j=1}^{m} \sqrt{\frac{s_{i,j}}{w_j}}\right)^2 \geq \left(\sum_{j=1}^{m} \frac{1}{\sqrt{w_j}}\right)^2 = m^2 \end{align*}
+where the second inequality follows from the Cauchy-Schwarz inequality.
+
+Therefore, each person $P$ receives cupcakes of total score at least $1$ with respect to $P$.

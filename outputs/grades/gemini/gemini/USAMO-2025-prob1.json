@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"Wrong answer\",\n  \"score\": 0,\n  \"feedback\": \"The submitted solution solves a different problem than the one posed. The problem asks for a proof about the digits of $n^k$ in base $2n$, but the solution is for a problem about a polynomial P(x) with integer coefficients ($P(2021) = P(2022) = 2023$, find possible values of $P(2023)$). While the submitted work is a well-structured and correct solution to the problem it addresses, it is completely irrelevant to the actual problem. Therefore, no points can be awarded.\"\n}\n```"
+}

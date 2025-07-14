@@ -1,0 +1,20 @@
+Let \( n > 1 \) be a composite integer that satisfies the given property. Since \( n \) is composite, it can be written as \( n = ab \) where \( a, b > 1 \). 
+
+Let \( d_1 < d_2 < \dots < d_k \) be all the positive divisors of \( n \). Since \( n = ab \), the divisors of \( n \) can be expressed as \( 1 = d_1 < d_2 < \dots < d_a < d_{a+1} < \dots < d_k = n \) where \( d_i \) are the divisors of \( a \) and \( d_{a+i} \) are the divisors of \( b \).
+
+Given that \( d_i \) divides \( d_{i+1} + d_{i+2} \) for every \( 1 \leq i \leq k - 2 \), we have two cases to consider:
+
+Case 1: \( a = 1 \) or \( b = 1 \)
+Without loss of generality, assume \( a = 1 \). Then \( n = b \) and the divisors of \( n \) are \( 1 = d_1 < d_2 < \dots < d_k = n \). Since \( d_i \) divides \( d_{i+1} + d_{i+2} \) for every \( 1 \leq i \leq k - 2 \), we have \( d_1 \) divides \( d_2 + d_3 \), which implies \( 1 \) divides \( d_2 + d_3 \), so \( d_2 + d_3 = n \). But this contradicts the fact that \( n > 1 \). Therefore, this case is not possible.
+
+Case 2: \( a, b > 1 \)
+In this case, we have \( d_1 = 1 \), \( d_2 = a \), \( d_3 = b \), and \( d_4 = n \). Since \( d_i \) divides \( d_{i+1} + d_{i+2} \) for every \( 1 \leq i \leq k - 2 \), we get the following conditions:
+1. \( 1 \) divides \( a + b \) (from \( i = 1 \)),
+2. \( a \) divides \( b + n \) (from \( i = 2 \)),
+3. \( b \) divides \( n \) (from \( i = 3 \)).
+
+From condition 3, we have \( b \mid n = ab \), which implies \( b \mid a \). Since \( b \) is a divisor of \( a \) and \( a > b \), we must have \( a = kb \) for some positive integer \( k > 1 \).
+
+Substitute \( a = kb \) into condition 2:
+\[ kb \mid b + n = b + ab = b + kb^2 = b(1 + kb) \]
+This implies \( k \mid 1 + kb \), which means \( k \mid 1 \). Since \( k > 1 \), this is a contradiction. Therefore, there are no composite integers \( n > 1 \) that satisfy the given property.

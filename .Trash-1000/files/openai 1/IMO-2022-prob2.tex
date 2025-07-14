@@ -1,0 +1,14 @@
+Let $P(x,y)$ be the assertion $xf(y) + yf(x) \leq 2$.
+
+From $P(1,1)$, we have $f(1)^2 \leq 1$. Since $f$ is a function from positive reals to positive reals, we have $f(1) \leq 1$.
+
+Now, from $P(x,1)$, we have $xf(1) + f(x) \leq 2$. Since $f(1) \leq 1$, we have $f(x) \leq 2 - x$ for all $x \in \mathbb{R}^+$.
+
+Now, let's show that $f(x) \geq 2 - x$ for all $x \in \mathbb{R}^+$. Assume there exists $a \in \mathbb{R}^+$ such that $f(a) < 2 - a$. Then, for $x = a$ and $y = \frac{2-a}{2-f(a)}$, we have
+\begin{align*}
+af\left(\frac{2-a}{2-f(a)}\right) + \frac{2-a}{2-f(a)}f(a) &\leq 2 \\
+af\left(\frac{2-a}{2-f(a)}\right) + \frac{2-a}{2-f(a)}f(a) &< 2,
+\end{align*}
+which contradicts the fact that there is exactly one $y$ satisfying the inequality for each $x$. Hence, $f(x) \geq 2 - x$ for all $x \in \mathbb{R}^+$.
+
+Therefore, the only function satisfying the given condition is $f(x) = 2 - x$ for all $x \in \mathbb{R}^+$.

@@ -1,0 +1,28 @@
+import glob, os, re
+
+for old in glob.glob("PUTNAM-2023-*.tex"):
+    m = re.match(r"(PUTNAM-2023-)(\d+)\.tex$", old)
+    if not m:
+        continue
+    contest_prefix, num = m.groups()
+    new = f"{contest_prefix}prob{num}.tex"
+    print(f"Renaming {old!r} → {new!r}")
+    os.rename(old, new)
+
+for old in glob.glob("PUTNAM-2024-*.tex"):
+    m = re.match(r"(PUTNAM-2024-)(\d+)\.tex$", old)
+    if not m:
+        continue
+    contest_prefix, num = m.groups()
+    new = f"{contest_prefix}prob{num}.tex"
+    print(f"Renaming {old!r} → {new!r}")
+    os.rename(old, new)
+
+for old in glob.glob("PUTNAM-2022-*.tex"):
+    m = re.match(r"(PUTNAM-2022-)(\d+)\.tex$", old)
+    if not m:
+        continue
+    contest_prefix, num = m.groups()
+    new = f"{contest_prefix}prob{num}.tex"
+    print(f"Renaming {old!r} → {new!r}")
+    os.rename(old, new)

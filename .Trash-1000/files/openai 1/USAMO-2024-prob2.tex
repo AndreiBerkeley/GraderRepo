@@ -1,0 +1,5 @@
+Let $n$ be the smallest possible number of elements which are in at least $50$ sets. We will show that $n=100$.
+
+Consider the case where $n=99$. Let $A$ be the set of elements that are in at least $50$ sets. Since $|A|=99$, there exists a set $S_i$ such that $|S_i \cap A| \geq 50$. Let $T = \{S_i\}$. Then, $|T|=1$ and $|S_i \cap A| \geq 50$, which contradicts the given condition that the size of the intersection of the sets in $T$ is a multiple of $|T|$.
+
+Therefore, $n \geq 100$. To show that $n=100$ is achievable, consider the following construction: Let $S_i = \{i, i+1, i+2, \ldots, i+99\}$ for $i=1,2,\ldots,100$. It is easy to see that the intersection of any non-empty subset of $\{S_1, S_2, \ldots, S_{100}\}$ has size $100$ and is a multiple of the size of the subset. Thus, the smallest possible number of elements which are in at least $50$ sets is $\boxed{100}$.

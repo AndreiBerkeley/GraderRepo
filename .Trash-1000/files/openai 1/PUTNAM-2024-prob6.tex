@@ -1,0 +1,26 @@
+We first rewrite the given equation as
+\[
+\frac{1-3x-\sqrt{1-14x+9x^2}}{4} = \frac{1-3x-\sqrt{(1-3x)^2}}{4} = \frac{1-3x-|1-3x|}{4}.
+\]
+Now, we can rewrite $c_k$ as
+\[
+c_k = \frac{1}{4} \left(1-3x-|1-3x|\right)x^k.
+\]
+For $x\in[0,1/3]$, we have $1-3x\geq 0$, so $c_k = \frac{1}{4}(1-3x)(1-x^k)$. For $x\in(1/3,1]$, we have $1-3x<0$, so $c_k = \frac{1}{4}(1-3x)(1+x^k)$. 
+
+Now, we can write the matrix $A$ as
+\[
+A = \begin{pmatrix}
+c_1 & c_2 & c_3 & \cdots & c_n \\
+c_2 & c_3 & c_4 & \cdots & c_{n+1} \\
+c_3 & c_4 & c_5 & \cdots & c_{n+2} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+c_n & c_{n+1} & c_{n+2} & \cdots & c_{2n-1}
+\end{pmatrix}.
+\]
+We can now compute the determinant of $A$ by expanding along the first row:
+\begin{align*}
+\text{det}(A) &= c_1 \text{det}(A_{11}) - c_2 \text{det}(A_{12}) + c_3 \text{det}(A_{13}) - \cdots + (-1)^{n+1}c_n \text{det}(A_{1n}) \\
+&= c_1 \begin{vmatrix} c_3 & c_4 & \cdots & c_n \\ c_4 & c_5 & \cdots & c_{n+1} \\ \vdots & \vdots & \ddots & \vdots \\ c_n & c_{n+1} & \cdots & c_{2n-1} \end{vmatrix} - c_2 \begin{vmatrix} c_2 & c_4 & \cdots & c_n \\ c_3 & c_5 & \cdots & c_{n+1} \\ \vdots & \vdots & \ddots & \vdots \\ c_n & c_{n+2} & \cdots & c_{2n-1} \end{vmatrix} + \cdots + (-1)^{n+1}c_n \begin{vmatrix} c_2 & c_3 & \cdots & c_{n-1} \\ c_3 & c_4 & \cdots & c_n \\ \vdots & \vdots & \ddots & \vdots \\ c_{n-1} & c_n & \cdots & c_{2n-2} \end{vmatrix}.
+\end{align*}
+Now, we can substitute the expressions for $c_k$ in the above determinants and simplify to get the final answer.

@@ -1,0 +1,5 @@
+{
+  "verdict": "INCORRECT",
+  "score": 0,
+  "feedback": "Student claims the minimum number of attempts is 2023, whereas the correct answer is 3. Their ‘lower-bound’ argument mis-models Turbo’s possibilities (it only considers staying in one column and ignores horizontal moves), so the bound 2023 is invalid. No substantial correct progress towards the true solution is present."
+}

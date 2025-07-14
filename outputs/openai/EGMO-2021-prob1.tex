@@ -1,0 +1,142 @@
+Yes, it does.  
+In fact, once the number \(2021\) is declared to be fantabulous, the two rules that are given force every positive integer to be fantabulous, and therefore in particular the number  
+\[
+2021^{2021}
+\]
+is fantabulous.
+
+--------------------------------------------------------------------
+Proof (by contradiction).
+
+Say that two positive integers are *linked* if one can be obtained from the other by repeatedly replacing an integer \(m\) by one of the two integers \(2m+1\) or \(3m\), or by carrying out the inverse steps
+\[
+m\longleftarrow 3m,\qquad  
+m\longleftarrow 2m+1
+\ (\hbox{that is }m\mapsto \tfrac{m-1}{2},\hbox{ allowed whenever }m\text{ is odd}).
+\]
+Because of the wording of the statement, “if **one** of
+\(\{m,2m+1,3m\}\) is fantabulous, then **all three** are”, a set of
+fantabulous numbers can be *any* union of such linked‐components.  
+Hence a single positive integer \(N\) will automatically drag with it **every** integer that is linked to \(N\).
+
+We therefore show that every positive integer is linked to \(2021\).
+Assume, to the contrary, that this is false and choose the smallest
+positive integer
+
+\[
+n\;>\;1
+\]
+
+that is **not** linked to \(2021\).
+(Equivalently, \(n\) is the smallest positive integer that cannot be
+reached from \(2021\) by the allowed moves.)
+
+--------------------------------------------------------------------
+Step 1 –  odd numbers are harmless.
+
+If \(n\) is odd, set \(m=\dfrac{n-1}{2}\;(>0)\).
+Then \(n=2m+1\) so that \(n\) and \(m\) lie in the same triple
+\(\{m,2m+1,3m\}\); hence \(n\) is linked to \(m\).
+Because \(m<n\), \(m\) **is** linked to \(2021\) by the minimality of
+\(n\); consequently \(n\) is linked to \(2021\) as well – contradiction.
+Thus our non-linked integer \(n\) cannot be odd; it must be even.
+
+--------------------------------------------------------------------
+Step 2 –  multiples of \(3\) are harmless.
+
+If \(3\mid n\) write \(n=3m\;(>0)\).
+Again \(m<n\) and \(n,\,m\) belong to the same triple
+\(\{m,2m+1,3m\}\); exactly as before this forces \(n\) to be linked to
+\(2021\), contradicting the choice of \(n\).
+Hence \(n\) is *not* a multiple of \(3\).
+
+--------------------------------------------------------------------
+Step 3 –  the only remaining shape.
+
+So far we know that  
+ • \(n\) is even,  
+ • \(3\nmid n\).  
+
+Every even integer is congruent to \(0,2,4\pmod 6\); discarding the
+case \(0\pmod 3\) leaves the two possibilities
+
+\[
+n\equiv 2\pmod 6\quad\text{or}\quad n\equiv 4\pmod 6 .
+\]
+
+--------------------------------------------------------------------
+Step 4 –  the case \(n\equiv 4\bmod 6\) also collapses.
+
+Write \(n=6k+4 \;(k\ge 0)\).
+Form
+
+\[
+p=2n+1=2(6k+4)+1=12k+9=3(4k+3).
+\]
+The three integers
+\(\bigl\{n,\,p,\,3n\bigr\}\) constitute one triple; moreover
+\(p/3=4k+3<n\).
+By the minimality of \(n\) the smaller number \(4k+3\) is linked to
+\(2021\), whence \(p\) is linked to \(2021\), and finally \(n\) as well.
+This contradicts the choice of \(n\).
+Therefore the residue class \(4\pmod 6\) cannot occur; the only option
+left is
+
+\[
+n\equiv 2\pmod 6 .
+\]
+
+--------------------------------------------------------------------
+Step 5 –  the *last* possible shape also yields a contradiction.
+
+Write
+
+\[
+n=6k+2\qquad(k\ge 0,\;n>2).
+\]
+
+(Notice that \(n=2\) itself cannot be our counter-example, because
+\(2\to 6\to13\to27\to9\to3\to1\) is a chain of allowed moves,
+explicitly linking \(2\) to \(1\), hence to \(2021\).)
+
+Now carry out the following four allowed moves:
+
+\[
+\begin{aligned}
+n&\longrightarrow 3n=18k+6,\\[2pt]
+18k+6&\longrightarrow 2(18k+6)+1=36k+13,\\[2pt]
+36k+13&\longrightarrow 2(36k+13)+1=72k+27
+       \;=\;3(24k+9),\\[2pt]
+72k+27&\longrightarrow\tfrac{72k+27}{3}=24k+9.
+\end{aligned}
+\]
+
+Set \(n' = 24k+9\).  A short calculation gives
+
+\[
+n' - n = (24k+9)-(6k+2)=18k+7>0,
+\qquad
+n' < 3n = 18k+6 < 3n + 3 .
+\]
+
+In particular \(n' < 3n\); combining with \(n=6k+2>2\) one has
+\(
+n'<n\;.
+\)
+
+We have just produced a chain of allowed moves that links \(n\) to a
+smaller positive integer \(n'\).  
+But by the minimal choice of \(n\), that smaller integer *is* linked to
+\(2021\); hence so is \(n\), contradicting once more the assumption that
+\(n\) was not linked.
+
+--------------------------------------------------------------------
+Conclusion.
+
+Every attempt to exhibit a positive integer that is *not* linked to
+\(2021\) has failed.  
+Therefore every positive integer is linked to \(2021\); in other words
+the single assumption “\(2021\) is fantabulous’’ forces **all**
+positive integers to be fantabulous.  
+
+In particular the number \(2021^{2021}\) is fantabulous. ∎

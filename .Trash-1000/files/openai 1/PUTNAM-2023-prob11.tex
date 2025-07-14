@@ -1,0 +1,11 @@
+Let \( n \) be a positive integer with the given property. We will show that \( n \) must be a power of 2.
+
+Let \( p \) be an odd prime dividing \( n \). Since \( p \) divides \( n \), there exists an integer \( a \) such that \( n = ap \). Since \( p \) is odd, all integers relatively prime to \( p \) are also relatively prime to \( n\). Thus, for any integer \( m \) relatively prime to \( n \), there exists a permutation \( \pi \) such that \( \pi(\pi(k)) \equiv mk \pmod{n} \) for all \( k \in \{1,2,\dots,n\} \).
+
+Let \( m = 1 \). Then, we have \( \pi(\pi(k)) \equiv k \pmod{n} \) for all \( k \in \{1,2,\dots,n\} \). In particular, this implies that \( \pi(\pi(p)) \equiv p \pmod{n} \). Since \( n = ap \), we have \( \pi(\pi(p)) \equiv p \pmod{p} \). This implies that \( \pi(\pi(p)) \equiv p \pmod{p} \) for all permutations \( \pi \). However, since \( p \) is odd, the only possible value for \( \pi(\pi(p)) \) modulo \( p \) is \( p \) itself. This means that \( \pi(p) = p \) for all permutations \( \pi \).
+
+Now, consider the permutation \( \pi \) such that \( \pi(p) = p \). Since \( \pi(\pi(k)) \equiv k \pmod{n} \) for all \( k \in \{1,2,\dots,n\} \), we have \( \pi(\pi(p)) \equiv p \pmod{n} \). This implies that \( \pi(p) \equiv p \pmod{n} \), which gives \( p \equiv p \pmod{n} \), or equivalently, \( n \mid p - p = 0 \). This contradicts the assumption that \( n \) is a positive integer.
+
+Therefore, the only possible values for \( n \) are powers of 2. To show that all powers of 2 satisfy the given property, let \( n = 2^k \) for some non-negative integer \( k \). Let \( m \) be an integer relatively prime to \( n \). Consider the permutation \( \pi \) defined by \( \pi(i) = 2i \) for \( 1 \leq i \leq 2^{k-1} \) and \( \pi(i) = 2i - 2^{k} \) for \( 2^{k-1} < i \leq 2^{k} \). It can be verified that this permutation satisfies the given property for all \( m \) relatively prime to \( n \).
+
+Therefore, the positive integers \( n \) satisfying the given property are precisely the powers of 2.

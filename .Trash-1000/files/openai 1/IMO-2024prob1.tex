@@ -1,0 +1,13 @@
+Let $S_n = \left\lfloor \alpha \right\rfloor + \left\lfloor 2 \alpha \right\rfloor + \left\lfloor 3 \alpha \right\rfloor + \dots + \left\lfloor n \alpha \right\rfloor$. We will show that $S_n$ is divisible by $n$ if and only if $\alpha$ is an integer.
+
+First, suppose $\alpha$ is an integer. Then, for any positive integer $k$, we have $\left\lfloor k\alpha \right\rfloor = k\alpha$, so
+\[
+S_n = \left\lfloor \alpha \right\rfloor + 2\left\lfloor \alpha \right\rfloor + 3\left\lfloor \alpha \right\rfloor + \dots + n\left\lfloor \alpha \right\rfloor = \left(\left\lfloor \alpha \right\rfloor + 2\left\lfloor \alpha \right\rfloor + 3\left\lfloor \alpha \right\rfloor + \dots + n\left\lfloor \alpha \right\rfloor\right) = n\left\lfloor \alpha \right\rfloor\left(1+2+\dots+n\right) = \frac{n(n+1)}{2}\left\lfloor \alpha \right\rfloor.
+\]
+Since $\frac{n(n+1)}{2}$ is divisible by $n$ for all positive integers $n$, $S_n$ is divisible by $n$ for all positive integers $n$ when $\alpha$ is an integer.
+
+Now, suppose $\alpha$ is not an integer. Let $m = \left\lfloor \alpha \right\rfloor$. Then, $m \leq \alpha < m+1$. Consider the term $\left\lfloor (m+1)\alpha \right\rfloor$. Since $m \leq \alpha < m+1$, we have $m+1 \leq (m+1)\alpha < m+2$. This implies $\left\lfloor (m+1)\alpha \right\rfloor = m+1$. Therefore, $S_{m+1} = m + 2m + 3m + \dots + (m+1)m = (m+1)m\left(\frac{m+1}{2}\right) = \frac{(m+1)m^2}{2}$.
+
+Since $\frac{(m+1)m^2}{2}$ is not divisible by $m+1$, $S_{m+1}$ is not divisible by $m+1$. Hence, if $\alpha$ is not an integer, there exists a positive integer $n = m+1$ such that $S_n$ is not divisible by $n$.
+
+Therefore, the real numbers $\alpha$ for which $S_n$ is divisible by $n$ for every positive integer $n$ are the integers.

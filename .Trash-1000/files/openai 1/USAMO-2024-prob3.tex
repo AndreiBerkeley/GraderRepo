@@ -1,0 +1,12 @@
+Let $A$ be the area of the $n$-gon. Since the $n$-gon can be divided into $n-2$ triangles, each color must have a total area of $A/(n-2)$. 
+
+Let $x_i$ be the area of the $i$-th triangle, and let $c_i$ be the color of the $i$-th triangle. We have the following system of equations:
+\begin{align*}
+\sum_{i=1}^{n-2} x_i &= A, \\
+\sum_{i=1}^{n-2} x_i &= (n-2)\cdot \frac{A}{n-2} = A, \\
+\sum_{i=1}^{n-2} x_i &= m\cdot \frac{A}{m} = A.
+\end{align*}
+
+Thus, the total area of the $n$-gon must be $A = m\cdot \frac{A}{m} = n\cdot \frac{A}{n-2}$. This implies that $m = n-2$.
+
+Therefore, such a triangulation and coloring is possible if and only if $m = n-2$.

@@ -1,0 +1,16 @@
+Let $d_1, d_2, d_3$ be the common differences of the arithmetic progressions $\{x_1, x_2, x_3\}, \{x_2, x_3, x_4\}, \{x_3, x_4, x_5\}$, respectively. Since the sequences are distinct, we have $d_1 \neq 0, d_2 \neq 0, d_3 \neq 0$. 
+
+We have the following equations:
+\begin{align*}
+x_2 - x_1 &= d_1, \\
+x_3 - x_2 &= d_1 = d_2, \\
+x_4 - x_3 &= d_2 = d_3.
+\end{align*}
+Adding the above equations gives $x_4 - x_1 = d_1 + d_2 + d_3 = 2d_1 + d_2$. Similarly, adding the equations $x_{n-1} - x_n = d_{n-1}$ and $x_n - x_1 = d_n$ gives $x_{n-1} - x_1 = d_{n-1} + d_n$.
+
+Since $\{x_{n-1}, x_n, x_1\}$ forms an arithmetic progression, we have $x_{n-1} - x_1 = x_n - x_{n-1}$. Substituting the expressions for $x_{n-1} - x_1$ and $x_n - x_{n-1}$, we get
+$$2d_1 + d_2 = d_{n-1} + d_n.$$
+
+Since $d_1 = d_2 = d_3$, we have $d_{n-1} + d_n = 3d_1$. Since $n \geq 4$, we have $n-1 \geq 3$, and thus $d_{n-1} + d_n$ is a sum of two positive integers that is at least $3$. This implies that $d_1 = d_2 = d_3 = 1$.
+
+Therefore, the common difference of each arithmetic progression is $1$. This implies that the sequence $x_1, x_2, \ldots, x_n$ is a cyclic permutation of the integers $1, 2, \ldots, n$. It is easy to see that this sequence works for all $n \geq 4$. Thus, the integers $n$ that satisfy the given conditions are $n \geq 4$.

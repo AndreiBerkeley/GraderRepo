@@ -1,0 +1,5 @@
+{
+  "verdict": "ERROR",
+  "score": 0,
+  "feedback": "Could not parse model output:\n```json\n{\n  \"verdict\": \"The student submitted a solution to a completely different problem.\",\n  \"score\": 0,\n  \"feedback\": \"The submitted text is a well-structured and detailed solution to a geometry problem, demonstrating a good understanding of concepts like homothety and properties of triangles. \\n\\nHowever, the assigned problem is an algebra question about a functional equation for a function f from the rational numbers to the rational numbers. The provided solution does not address any aspect of the given problem. It does not mention the function f, its 'aquaesulian' property, or the expression f(r) + f(-r). \\n\\nBecause the submission solves a different problem, it makes no progress towards the stated goal of the actual problem. Therefore, it receives a score of 0. This appears to be a case of the student solving the wrong problem by mistake.\"\n}\n```"
+}

@@ -1,0 +1,20 @@
+Let's first analyze the behavior of $a_{n,k}$ for a fixed $n$ as $k$ varies from $0$ to $n$. 
+
+For $k=0$, we have $a_{n,0}=1$.
+
+For $k\geq 1$, let's consider the possible cases:
+1. If $m_{n,k} > a_{n,k}$, then $a_{n,k+1} = a_{n,k} + 1$.
+2. If $m_{n,k} = a_{n,k}$, then $a_{n,k+1} = a_{n,k}$.
+3. If $m_{n,k} < a_{n,k}$, then $a_{n,k+1} = a_{n,k} - 1$.
+
+From the above rules, we can see that $a_{n,k}$ can only change by $1$ at each step. This means $a_{n,k}$ can take values $1, 2, \ldots, n$.
+
+Now, let's calculate the expected value $E(n)$ of $a_{n,n}$:
+Let $X_k$ be the random variable representing $a_{n,k}$.
+Then, we have $E(X_{k+1} \mid X_k = x) = \frac{x}{n} \cdot (x-1) + \frac{1}{n} \cdot x + \frac{n-x}{n} \cdot (x+1) = x$.
+
+Therefore, by the tower property of conditional expectation, we have $E(X_n) = E(E(X_n \mid X_{n-1})) = E(X_{n-1}) = \ldots = E(X_1) = E(X_0) = 1$.
+
+Hence, $E(n) = 1$ for all $n$.
+
+Finally, we have $\lim_{n\to \infty} \frac{E(n)}{n} = \lim_{n\to \infty} \frac{1}{n} = 0$.

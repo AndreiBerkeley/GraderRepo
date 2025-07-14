@@ -1,0 +1,17 @@
+Let's consider the sequence modulo \(2^{2020}\). We have
+\[
+2a_{n+2} \equiv a_{n+1} + 4a_n \pmod{2^{2020}}.
+\]
+Since \(2^{2020}\) divides \(2a_{n+2} - a_{n+1} - 4a_n\), we have
+\[
+2^{2020} \mid 2a_{n+2} - a_{n+1} - 4a_n.
+\]
+This implies that
+\[
+2^{2021} \mid 2^2a_{n+2} - 2a_{n+1} - 4a_n.
+\]
+Adding this to the original equation gives
+\[
+2^{2021} \mid 3a_{n+1} \quad \text{for } n = 0, 1, 2, \dots, 3028.
+\]
+Since \(3\) and \(2^{2021}\) are coprime, we must have \(2^{2021} \mid a_{n+1}\) for all \(n = 0, 1, 2, \dots, 3028\). In particular, \(2^{2021} \mid a_1\), which means that \(a_1\) is divisible by \(2^{2020}\). Thus, we have shown that at least one of the numbers \(a_0, a_1, a_2, \dots, a_{3030}\) is divisible by \(2^{2020}\).

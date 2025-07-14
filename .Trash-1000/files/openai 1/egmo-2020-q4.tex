@@ -1,0 +1,11 @@
+Let's consider a fresh permutation of the integers \(1, 2, \dots, n\). We can extend this permutation to a fresh permutation of the integers \(1, 2, \dots, n+1\) by inserting the number \(n+1\) in one of the \(n+1\) possible positions in the permutation. 
+
+If we insert \(n+1\) at the end of the permutation, the resulting permutation is fresh because it does not contain any increasing subsequence of length \(n\). 
+
+If we insert \(n+1\) at the beginning of the permutation, the resulting permutation is also fresh because the first \(n\) numbers in the permutation are now \(2, 3, \dots, n+1\) in some order, and there is no increasing subsequence of length \(n\) in these numbers.
+
+If we insert \(n+1\) in any other position, we need to check that the resulting permutation is still fresh. Suppose we insert \(n+1\) between two numbers \(a\) and \(b\) in the permutation. Since the original permutation was fresh, there is no increasing subsequence of length \(n\) in the first \(n\) numbers. If we insert \(n+1\) between \(a\) and \(b\), we create a new increasing subsequence of length \(n\) if and only if \(a < n+1 < b\). Since the original permutation was fresh, we know that \(a \geq n\) and \(b \geq n+2\). Therefore, the only way to create a new increasing subsequence of length \(n\) by inserting \(n+1\) between \(a\) and \(b\) is if \(a = n\) and \(b = n+2\). In this case, the subsequence \(n, n+1, n+2\) is formed, which is not allowed in a fresh permutation. Hence, the resulting permutation is still fresh.
+
+Therefore, we have shown that by inserting \(n+1\) into a fresh permutation of the integers \(1, 2, \dots, n\), we obtain at least \(n\) fresh permutations of the integers \(1, 2, \dots, n+1\). This implies that \(f_{n+1} \geq n \cdot f_n\).
+
+Since we have shown that \(f_{n+1} \geq n \cdot f_n\) for all \(n \geq 3\), the proof is complete.

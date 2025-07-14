@@ -1,0 +1,5 @@
+{
+  "verdict": "CORRECT",
+  "score": 7,
+  "feedback": "Argument follows the official one: gives an upper bound S(m)=∑⌊m/k⌋<2m ln m, defines b(m)=S(m)-⌊√S(m)⌋², shows b(m)<2√(2m ln m); by pigeonhole with M=10^{15} finds an a that occurs >10^6 times, and turns each occurrence into a distinct (m,n) solution since S(m)-a is a perfect square. All steps are valid, constants adequate, no logical gaps. Full credit."
+}

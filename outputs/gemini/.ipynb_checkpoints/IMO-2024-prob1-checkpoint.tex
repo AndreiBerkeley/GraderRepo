@@ -1,0 +1,82 @@
+An expert solution to a competitive math problem.
+
+The problem asks for the values of the parameter $a$ for which the following statement is true:
+"if $f(x) \le 5$, then $0 \le x \le 5$", where $f(x) = x^2 - 2ax + 4$.
+
+Let's break down the problem and solve it step-by-step.
+
+### Step 1: Translating the Logical Statement
+
+The given statement is a logical implication of the form "if $P$, then $Q$".
+Let $P(x)$ be the predicate $f(x) \le 5$.
+Let $Q(x)$ be the predicate $0 \le x \le 5$.
+
+The problem states that for a given $a$, the implication $P(x) \implies Q(x)$ must be true for all real numbers $x$.
+In formal logic, this is written as: $\forall x \in \mathbb{R}, (P(x) \implies Q(x))$.
+
+This universal implication is true if and only if the set of all $x$ for which $P(x)$ is true is a subset of the set of all $x$ for which $Q(x)$ is true.
+Let $S_P = \{x \in \mathbb{R} \mid f(x) \le 5\}$ and $S_Q = \{x \in \mathbb{R} \mid 0 \le x \le 5\}$.
+The problem is to find all values of $a$ such that $S_P \subseteq S_Q$.
+
+### Step 2: Determining the Sets $S_P$ and $S_Q$
+
+First, let's find the set $S_P$ by solving the inequality $f(x) \le 5$:
+$x^2 - 2ax + 4 \le 5$
+$x^2 - 2ax - 1 \le 0$
+
+To solve this quadratic inequality, we find the roots of the equation $g(x) = x^2 - 2ax - 1 = 0$. The discriminant of this quadratic is:
+$\Delta = (-2a)^2 - 4(1)(-1) = 4a^2 + 4 = 4(a^2 + 1)$.
+Since $a^2 \ge 0$ for any real $a$, we have $a^2+1 \ge 1$, and thus $\Delta = 4(a^2+1) > 0$ for all $a \in \mathbb{R}$.
+This means the quadratic equation $x^2 - 2ax - 1 = 0$ always has two distinct real roots. Using the quadratic formula, the roots are:
+$x = \frac{-(-2a) \pm \sqrt{4a^2+4}}{2(1)} = \frac{2a \pm 2\sqrt{a^2+1}}{2} = a \pm \sqrt{a^2+1}$.
+
+Let the roots be $x_1 = a - \sqrt{a^2+1}$ and $x_2 = a + \sqrt{a^2+1}$.
+Since the parabola $y = x^2 - 2ax - 1$ opens upwards, the inequality $x^2 - 2ax - 1 \le 0$ is satisfied for $x$ values between the roots (inclusive).
+So, the set $S_P$ is the closed interval $[x_1, x_2]$:
+$S_P = [a - \sqrt{a^2+1}, a + \sqrt{a^2+1}]$.
+
+The set $S_Q$ is defined by the inequality $0 \le x \le 5$, which is simply the closed interval:
+$S_Q = [0, 5]$.
+
+### Step 3: Applying the Subset Condition
+
+We need to find all values of $a$ for which $S_P \subseteq S_Q$.
+This means we need $[a - \sqrt{a^2+1}, a + \sqrt{a^2+1}] \subseteq [0, 5]$.
+
+For a non-empty interval $[c, d]$ to be a subset of an interval $[e, f]$, two conditions must be met:
+1. $c \ge e$
+2. $d \le f$
+
+In our case, this translates to:
+1. $a - \sqrt{a^2+1} \ge 0$
+2. $a + \sqrt{a^2+1} \le 5$
+
+### Step 4: Analyzing the Conditions
+
+Let's analyze the first inequality:
+$a - \sqrt{a^2+1} \ge 0$
+This can be rewritten as $a \ge \sqrt{a^2+1}$.
+
+For this inequality to hold, $a$ must be non-negative, since the right side, $\sqrt{a^2+1}$, is always positive. So, we must have $a \ge 0$.
+Since both sides of the inequality are non-negative (assuming $a \ge 0$), we can square both sides without changing the direction of the inequality:
+$a^2 \ge (\sqrt{a^2+1})^2$
+$a^2 \ge a^2 + 1$
+$0 \ge 1$
+
+This is a contradiction. Therefore, there are no real values of $a$ that satisfy the first inequality.
+
+Alternatively, we can analyze the expression $x_1 = a - \sqrt{a^2+1}$. For any real number $a$, we know that $a^2+1 > a^2$. Since the square root function is strictly increasing for non-negative inputs, $\sqrt{a^2+1} > \sqrt{a^2} = |a|$.
+This leads to $a - \sqrt{a^2+1} < a - |a|$.
+- If $a \ge 0$, then $|a|=a$, so $a - |a| = 0$. Thus, $a - \sqrt{a^2+1} < 0$.
+- If $a < 0$, then $|a|=-a$, so $a - |a| = a - (-a) = 2a < 0$. Thus, $a - \sqrt{a^2+1} < 2a < 0$.
+In all cases, for any real value of $a$, the lower bound of the interval $S_P$ is strictly negative: $a - \sqrt{a^2+1} < 0$.
+
+The set $S_Q = [0, 5]$ contains only non-negative numbers. Since $S_P$ always contains negative numbers (e.g., its lower bound $x_1$), $S_P$ cannot be a subset of $S_Q$.
+
+The only case where the implication could hold is if the premise is never true, i.e., $S_P$ is the empty set. But we have shown that the discriminant $\Delta = 4(a^2+1)$ is always positive, so $S_P$ is never empty.
+
+### Conclusion
+
+The condition that "if $f(x) \le 5$, then $0 \le x \le 5$" is true for all $x$ requires the set of solutions to $f(x) \le 5$ to be a subset of the interval $[0, 5]$. We have shown that the set of solutions to $f(x) \le 5$ is the interval $[a - \sqrt{a^2+1}, a + \sqrt{a^2+1}]$, which always contains negative numbers regardless of the value of $a$. The interval $[0, 5]$ contains no negative numbers. Therefore, the subset condition can never be satisfied.
+
+Thus, there are no values of $a$ for which the given statement is true. The set of such values of $a$ is the empty set.

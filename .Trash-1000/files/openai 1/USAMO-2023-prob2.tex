@@ -1,0 +1,17 @@
+Let $P(x,y)$ be the assertion $f(xy+f(x)) = xf(y) + 2$.
+
+$P(1,y)$ gives $f(y+f(1)) = f(y) + 2$ for all $y>0$. Thus, $f(y) = f(y+f(1))-2$ for all $y>0$.
+
+$P(x,1)$ gives $f(x+f(x)) = xf(1) + 2$ for all $x>0$. Thus, $f(x) = f(x+f(x))-xf(1)-2$ for all $x>0$.
+
+Combining the two results, we have $f(y) = f(y+f(1))-2 = f(y+f(y+f(y)))-yf(1)-2$ for all $y>0$.
+
+Let $a = f(1)$, then $f(y) = f(y+a)-2 = f(y+f(y+a))-ay-2$ for all $y>0$.
+
+Assume $f(x) = f(x+a)$ for some $x>0$. Then, $f(x) = f(x+a) = f(x+f(x+a))-a(x)-2 = f(x)-ax-2$, which implies $a=0$. Therefore, $f(x) = f(x+a)$ for all $x>0$ if and only if $a=0$.
+
+Thus, $f(x) = f(x+a)$ for all $x>0$ if and only if $a=0$. This implies $f(x) = f(x+a) = f(x)$ for all $x>0$, which means $f$ is a constant function.
+
+Substitute $f(x) = c$ into the original equation, we get $c = cx + 2$ for all $x>0$, which implies $c=2$.
+
+Therefore, the only solution to the functional equation is $f(x) = 2$ for all $x>0$.

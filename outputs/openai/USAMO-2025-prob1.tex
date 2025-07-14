@@ -1,0 +1,106 @@
+Let  
+
+                     n^k = a_0 + a_1(2n)+a_2(2n)^2+\dots + a_t(2n)^t ,
+   
+be the (ordinary) base–$2n$ expansion of $n^{k}$;  
+thus $0\le a_i\le 2n-1$ and $t\le k$ (because $n^{k}<(2n)^k$).
+
+Goal.  Show that for every fixed pair of positive integers $k,d$ there is
+an odd integer $N=N(k,d)$ such that 
+
+                       a_i > d   for every i ,         (1)
+
+whenever $n\ge N$ is odd.
+
+--------------------------------------------------------------------
+1.  A convenient expression for the $i$-th digit
+--------------------------------------------------------------------
+
+For $i\ge 0$ write
+
+                 q_i := ⌊ n^{k-i}/2^{\,i} ⌋ .                       (2)
+
+Because dividing by $(2n)^i$ lowers the exponent of $n$ by $i$ and
+introduces a factor $2^{-i}$, one has  
+
+                 n^{k} / (2n)^i = n^{k-i}/2^{\,i} = q_i + β_i,
+                 
+where $0\le β_i<1$.  Consequently  
+
+                 a_i ≡ q_i  (mod 2n) ,              0≤a_i≤2n-1.     (3)
+
+So to obtain a **lower** bound for $a_i$ it is enough to bound $q_i$
+from below, because when we reduce $q_i$ modulo $2n$ we never obtain a
+negative number.
+
+--------------------------------------------------------------------
+2.  A lower bound for q_i
+--------------------------------------------------------------------
+
+Since $n$ is odd, $n^{k-i}$ is also odd, whence  
+
+                 n^{k-i}= n·r                         (r odd).      (4)
+
+Rewrite $r$ in base $2$ collecting exactly $i$ powers of $2$:
+
+                 r = 2^{\,i} s + t ,           0 < t < 2^{\,i},  t odd.  (5)
+
+Insert (5) into $n^{k-i}=n r$ and divide by $2^{\,i}$:
+
+     n^{k-i}/2^{\,i} = n s + (n t)/2^{\,i}.                       (6)
+
+Because $t<2^{\,i}$, the fraction $(n t)/2^{\,i}$ is **strictly less
+than $n$**, and its integer part is
+
+              b_i := ⌊ (n t)/2^{\,i} ⌋            with 0 ≤ b_i < n.  (7)
+
+Equation (6) becomes
+
+              q_i = n s + b_i .                                    (8)
+
+Reducing (8) modulo $2n$ we keep at most one multiple of $n$:
+
+       q_i  ≡                b_i            (mod 2n)  if s even,
+       q_i  ≡     n +        b_i            (mod 2n)  if s odd.
+
+Either way, since $0\le b_i<n$, we always have
+
+                     a_i  ≥  b_i .                                  (9)
+
+But from (7) and $t\ge 1$ we get the simple estimate
+
+                     b_i  ≥  ⌊ n / 2^{\,i} ⌋ .                      (10)
+
+Combining (9) and (10) we have proven
+
+          a_i ≥ ⌊ n / 2^{\,i} ⌋      for every 0≤i≤t≤k.            (11)
+
+--------------------------------------------------------------------
+3.  Finishing the proof
+--------------------------------------------------------------------
+
+The right–hand side of (11) is **decreasing** in $i$.  Hence
+
+      a_i ≥ ⌊ n / 2^{\,k} ⌋     for every digit a_i.               (12)
+
+Choose  
+
+                 N = 2^{\,k}(d+1)+1 ,   N odd.                     (13)
+
+For every odd integer $n\ge N$ we have  
+
+                 ⌊ n / 2^{\,k} ⌋  ≥  d+1 .                         (14)
+
+Substituting (14) into (12) gives $a_i>d$ for every $i$, i.e. (1)
+holds.  Therefore all digits of the base–$2n$ representation of
+$n^{k}$ exceed the prescribed constant $d$ once $n$ is any odd integer
+larger than $N(k,d)=2^{\,k}(d+1)+1$.
+
+--------------------------------------------------------------------
+4.  Conclusion
+--------------------------------------------------------------------
+
+For every fixed pair of positive integers $k$ and $d$ there exists an
+odd integer $N=N(k,d)$ (explicitly, $N=2^{\,k}(d+1)+1$) such that for
+every odd $n\ge N$ **each digit of $n^{k}$ written in base $2n$ is
+strictly larger than $d$**.  This completes the proof.

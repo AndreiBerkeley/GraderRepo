@@ -1,0 +1,7 @@
+Let's consider a Japanese triangle with $n$ rows. We will show that the greatest $k$ such that there is a ninja path containing at least $k$ red circles is $k = \left\lceil \frac{n}{2} \right\rceil$.
+
+First, observe that in any ninja path, the number of red circles must be at most $\left\lceil \frac{n}{2} \right\rceil$. This is because in each row, there is at most one red circle, and there are a total of $1 + 2 + \dots + n = \frac{n(n+1)}{2}$ circles in the triangle. Therefore, there are at most $\left\lceil \frac{n}{2} \right\rceil$ red circles in any ninja path.
+
+Next, we will construct a ninja path that contains $\left\lceil \frac{n}{2} \right\rceil$ red circles. We can achieve this by selecting the red circles in the first $\left\lceil \frac{n}{2} \right\rceil$ rows of the Japanese triangle. Specifically, we choose the red circle in the $i$th row for $1 \leq i \leq \left\lceil \frac{n}{2} \right\rceil$. This ninja path will contain $\left\lceil \frac{n}{2} \right\rceil$ red circles, as desired.
+
+Therefore, the greatest $k$ such that in each Japanese triangle there is a ninja path containing at least $k$ red circles is $k = \left\lceil \frac{n}{2} \right\rceil$.

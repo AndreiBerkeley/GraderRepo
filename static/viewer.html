@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="utf-8"/>
 <title>Contest Problem Viewer</title>
+<link rel="icon" href="/static/favicon.ico">
 
 <!-- ——— MathJax ——— -->
 <script>
@@ -63,16 +65,29 @@
 Contest <select id="select-contest"></select>
 Year <select id="select-year"></select>
 Problem <select id="select-prob"></select>
-Student <select id="select-student" style="display:none"></select>
-Grader <select id="select-grader" style="display:none"></select>
+Generator <select id="select-student" style="display:none"></select>
+Evaluator <select id="select-grader" style="display:none"></select>
 
 <div id="viewer">
   <div id="left-pane"   class="pane"><div id="problem"></div><hr/><div id="solution"></div></div>
   <div id="middle-pane" class="pane"><div id="draft"></div></div>
   <div id="right-pane"  class="pane">
-      <h2>Grade</h2>
+      <h2 id = "evaluation-title">Evaluation</h2>
       <div id="grade-content" class="math-block">Select a problem, student &amp; grader.</div>
   </div>
+</div>
+
+<div style="margin-top:0.5em">
+  <strong>Mode:</strong>
+  <label><input type="radio" name="mode" value="step" checked> Step-by-step</label>
+  <label style="margin-left:1em"><input type="radio" name="mode" value="normal"> Normal</label>
+</div>
+
+<div style="margin-top:0.5em">
+  <label>
+    <strong>Annotator:</strong>
+    <input type="text" id="annotator-name" placeholder="Your name…" style="width:10em">
+  </label>
 </div>
 
 <!-- comment bubble -->
@@ -90,7 +105,8 @@ Grader <select id="select-grader" style="display:none"></select>
   <h3>Rate &amp; Review</h3>
   Rating <select id="select-rating">
     <option value="">--</option><option>1</option><option>2</option>
-    <option>3</option><option>4</option><option>5</option>
+    <option>3</option><option>4</option><option>5</option><option>6</option>
+    <option>7</option>
   </select><br/>
   <textarea id="review-text" rows="4" style="width:100%" placeholder="Your review…"></textarea><br/>
   <button id="review-submit">Submit Review</button>
@@ -218,8 +234,15 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(raw=>{
         // very naive TeX strip
         const lines=raw.split("\n").filter(l=>!/^\\(documentclass|usepackage|begin|end)/.test(l));
-        const safe = lines.join("\n").replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
-        draftDiv.innerHTML=`<h2>Draft by ${s.toUpperCase()}</h2><div class="math-block">${safe}</div>`;
+        let safe = lines.join("\n").replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
+        safe = safe.replace(/\r\n|\r|\n/g, "<br/>");
+
+        draftDiv.innerHTML = `
+          <h2>Generation by ${s.toUpperCase()}</h2>
+          <div class="math-block">
+            ${safe}
+          </div>
+         `;
         return typeset(draftDiv.querySelector(".math-block"));
       });
 
@@ -294,16 +317,21 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         } else {
           // no fence: just render the clean text
-          htmlBody = clean.replace(/\n/g,"<br/>");
+          htmlBody = clean
+            .split(/\n\s*\n+/)
+            .map(para => para.replace(/\n/g, "<br/>"))
+            .join("<br/><br/>");
         }
-
+        const titleEl = document.getElementById("evaluation-title");
+        titleEl.textContent = grd ? `Evaluation ${grd.toUpperCase()}` 
+                          : `Evaluation`;
         box.innerHTML =
           `<strong>Verdict:</strong> ${obj.verdict || "—"}<br/>
            <strong>Score:</strong> ${obj.score ?? "—"}<hr/>
            <div class="feedback-content">${htmlBody}</div>`;
 
         // typeset any LaTeX in the "before" or elsewhere
-        return MathJax.typesetPromise([box]);
+        return MathJax.typesetPromise();
       })
       .catch(() => {
         box.textContent = "No grade available.";
@@ -313,13 +341,23 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ——— review submit ——— */
   document.getElementById("review-submit").addEventListener("click",()=>{
     const status=document.getElementById("review-status");
+    const annotator = document.getElementById("annotator-name").value.trim();
+    const mode = document.querySelector('input[name="mode"]:checked').value;
     const payload={
       timestamp:new Date().toISOString(),
       contest:val("contest"),year:val("year"),
-      problem:+val("prob"),student:val("student"),
-      rating:+val("rating")||null,
+      problem:+val("prob"),generator:val("student"),
+      evaluator: val("grader")||null,
+      mode: mode,
+      annotator: annotator,
+      rating: +val("rating")||null,
       review:document.getElementById("review-text").value.trim()
     };
+    if (!payload.annotator) {
+      status.textContent = "Please enter your name";
+      status.style.color = "red";
+      return;
+    }
     if(!payload.contest||!payload.year||!payload.problem||!payload.student||!payload.rating){
       status.textContent="Fill all fields"; status.style.color="red"; return;
     }

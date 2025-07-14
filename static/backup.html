@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Contest Problem Viewer</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* Reset */
+    html, body { height: 100%; margin: 0; }
+    body { font-family: sans-serif; padding: 1em; box-sizing: border-box; }
+    select, button, textarea { margin: 0.3em; }
+
+    /* Three‐column layout */
+    #viewer { display: flex; gap: 1em; height: calc(100vh - 180px); }
+    .pane {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.5em;
+      border: 1px solid #ddd;
+      background: #fafafa;
+    }
+    #left-pane   { flex: 2; }
+    #middle-pane { flex: 1.5; }
+    #right-pane  { flex: 1; }
+
+    /* Math blocks */
+    .math-block { margin: 1em 0; }
+
+    /* Comment highlights */
+    .highlight {
+      background: rgba(255,235,59,0.7);
+      padding: 0 0.1em;
+      /* wrap multi-line highlights cleanly */
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      line-height: 1.2;
+    }
+
+    /* Comment form & tooltip */
+    #comment-form {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 8px;
+      z-index: 10000;
+    }
+    #comment-tooltip {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 8px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10001;
+      max-width: 200px;
+      word-wrap: break-word;
+    }
+
+    /* Restore native blue drag‐selection everywhere */
+    ::selection {
+      background: #b3d4fc;
+      color: inherit;
+    }
+
+    /* Force all panes (including MathJax output) to allow selection */
+    body, .pane, .pane *, .math-block *, mjx-container[jax] * {
+      -webkit-user-select: text !important;
+      -moz-user-select:    text !important;
+      -ms-user-select:     text !important;
+      user-select:         text !important;
+    }
+  </style>
+
+</head>
+<body>
+  <h1>Contest Problem Viewer</h1>
+  Contest:
+  <select id="select-contest"></select>
+  Year:
+  <select id="select-year"></select>
+  Problem:
+  <select id="select-prob"></select>
+  Student:
+  <select id="select-student" style="display:none"></select>
+
+  <div id="viewer">
+    <div id="left-pane" class="pane">
+      <div id="problem"></div><hr/><div id="solution"></div>
+    </div>
+    <div id="middle-pane" class="pane"><div id="draft"></div></div>
+    <div id="right-pane" class="pane"></div>
+  </div>
+
+  <div id="review-container" style="margin-top:1em;">
+    <h3>Rate &amp; Review</h3>
+    Rating:
+    <select id="review-rating">
+      <option value="">--</option><option>1</option><option>2</option>
+      <option>3</option><option>4</option><option>5</option>
+    </select><br/>
+    <textarea id="review-text" rows="4" style="width:100%;" placeholder="Your review…"></textarea><br/>
+    <button id="review-submit">Submit Review</button>
+    <span id="review-status" style="margin-left:1em;color:green"></span>
+  </div>
+
+  <div id="comment-form">
+    <textarea id="comment-text" style="width:200px;height:60px" placeholder="Add comment…"></textarea>
+    <div style="text-align:right;margin-top:4px">
+      <button id="comment-cancel">Cancel</button>
+      <button id="comment-save">Comment</button>
+    </div>
+  </div>
+  <div id="comment-tooltip"></div>
+
+  <script>
+  // State
+  var dataIndex = {}, studentsIndex = {};
+
+  // Refresh students on year-change only
+  function refreshStudents() {
+    var c = document.getElementById('select-contest').value;
+    var y = document.getElementById('select-year').value;
+    var p = document.getElementById('select-prob').value;
+    var ss = document.getElementById('select-student');
+    ss.innerHTML = '<option value="">--</option>';
+    Object.entries(studentsIndex).forEach(function(pair){
+      var std = pair[0], entries = pair[1];
+      if (entries.some(function(e){
+        return e.contest===c && e.year===y && e.problem===Number(p);
+      })) {
+        ss.append(new Option(std.toUpperCase(), std));
+      }
+    });
+    ss.style.display = ss.options.length>1 ? 'inline' : 'none';
+  }
+
+  // Populate Contest → Year → Problem
+  fetch('/api/index_data')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      dataIndex = d;
+      var sc = document.getElementById('select-contest');
+      sc.innerHTML = '<option value="">--</option>';
+      Object.keys(d).forEach(function(c){
+        sc.append(new Option(c.toUpperCase(), c));
+      });
+      if (sc.options.length>1) {
+        sc.selectedIndex = 1;
+        sc.dispatchEvent(new Event('change'));
+      }
+    });
+
+  // Populate student index
+  fetch('/api/index_students')
+    .then(function(r){ return r.json(); })
+    .then(function(d){ studentsIndex = d; });
+
+  // Contest → Year
+  document.getElementById('select-contest').addEventListener('change', function(){
+    var yrs = dataIndex[this.value]||{};
+    var sy = document.getElementById('select-year');
+    sy.innerHTML = '<option>--</option>';
+    Object.keys(yrs).forEach(function(y){ sy.append(new Option(y,y)); });
+    if (sy.options.length>1) {
+      sy.selectedIndex=1; sy.dispatchEvent(new Event('change'));
+    }
+  });
+
+  // Year → Problem + refresh students
+  document.getElementById('select-year').addEventListener('change', function(){
+    var c = document.getElementById('select-contest').value;
+    var y = this.value;
+    var cnt = (dataIndex[c]||{})[y]||0;
+    var sp = document.getElementById('select-prob');
+    sp.innerHTML = '<option>--</option>';
+    for (var i=1; i<=cnt; i++) sp.append(new Option(i,i));
+    if (sp.options.length>1) {
+      sp.selectedIndex=1; sp.dispatchEvent(new Event('change'));
+    }
+    refreshStudents();
+  });
+
+  // Problem → load official then re-fire student if set
+  document.getElementById('select-prob').addEventListener('change', function(){
+    var c = document.getElementById('select-contest').value;
+    var y = document.getElementById('select-year').value;
+    var p = this.value;
+    if (!c||!y||!p) return;
+    fetch('/data/'+c+'/'+y+'.cleaned.jsonl')
+      .then(function(r){ return r.text(); })
+      .then(function(txt){
+        var idx = Number(p)-1;
+        var obj = JSON.parse(txt.split('\n')[idx]);
+        renderMathPlusAsy(
+          '<h2>Problem '+p+'</h2>'
+          +'<div class="math-block">'+obj.content+'</div>',
+          'problem'
+        );
+        renderMathPlusAsy(
+          '<h2>Solution</h2>'
+          +'<div class="math-block">'+(obj.solution||'')+'</div>',
+          'solution'
+        );
+      })
+      .then(function(){
+        var std = document.getElementById('select-student').value;
+        if (std) {
+          document.getElementById('select-student')
+                  .dispatchEvent(new Event('change'));
+        }
+      });
+  });
+
+  // Student → load & typeset draft
+  document.getElementById('select-student').addEventListener('change', function(){
+    var std = this.value;
+    var c   = document.getElementById('select-contest').value;
+    var y   = document.getElementById('select-year').value;
+    var p   = document.getElementById('select-prob').value;
+    var out = document.getElementById('draft');
+    if (!std||!c||!y||!p) {
+      out.innerHTML = '';
+      return;
+    }
+    var fn = c+'-'+y+'-prob'+p+'.tex';
+    fetch('/outputs/'+std+'/'+fn)
+      .then(function(r){ return r.ok ? r.text() : 'No draft.'; })
+      .then(function(raw){
+        var lines = raw.split('\n').filter(function(line){
+          return line.indexOf('\\documentclass')   !== 0
+              && line.indexOf('\\usepackage')      !== 0
+              && line.indexOf('\\begin{document}') !== 0
+              && line.indexOf('\\end{document}')   !== 0
+              && line.indexOf('\\section*')        !== 0;
+        });
+        var cleaned = lines.join('\n');
+        var parts = cleaned.split(/(\\\[|\\\]|\\\$\$|\\\$\\\$)/g);
+
+        var rebuilt = '', inMath = false;
+        for (var i = 0; i < parts.length; i++) {
+          var chunk = parts[i];
+          if (chunk === '\\[' || chunk === '\\]' || chunk === '$$' ) {
+            rebuilt += chunk;
+            inMath = !inMath;
+          } else if (inMath) {
+            rebuilt += chunk;
+          } else {
+            rebuilt += chunk
+              .replace(/&/g,'&amp;')
+              .replace(/</g,'&lt;')
+              .replace(/>/g,'&gt;');
+          }
+        }
+        out.innerHTML =
+          '<h2>Draft by ' + std.toUpperCase() + '</h2>' +
+          '<div class="math-block">' + rebuilt + '</div>';
+        MathJax.typesetPromise([ out.querySelector('.math-block') ]);
+      });
+  });
+
+  // Helper: render MathJax + compile Asy
+  function renderMathPlusAsy(html, elementId){
+    var ctr = document.getElementById(elementId);
+    ctr.innerHTML = html;
+    MathJax.typesetPromise().then(function(){
+      var codes = ctr.querySelectorAll('code.language-asy');
+      for (var i=0; i<codes.length; i++){
+        (function(codeEl){
+          fetch('/compile_asy', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({code:codeEl.textContent})
+          })
+          .then(function(r){ return r.json(); })
+          .then(function(d){
+            var img = document.createElement('img');
+            img.src = d.svg; img.alt = 'Diagram';
+            codeEl.parentNode.replaceWith(img);
+          });
+        })(codes[i]);
+      }
+    });
+  }
+
+  var currentRange = null;
+  var form    = document.getElementById('comment-form');
+  var textarea= document.getElementById('comment-text');
+  var tooltip = document.getElementById('comment-tooltip');
+
+  // 1) Show comment form when user selects inside a math-block in the middle pane
+  var midPane = document.getElementById('middle-pane');
+  midPane.addEventListener('mouseup', function(e){
+    var sel = window.getSelection();
+    if (sel.isCollapsed) return;
+    var range = sel.getRangeAt(0);
+
+    // NEW: just ensure we’re in the student pane
+    if (!range.commonAncestorContainer.closest('#middle-pane')) return;
+
+    currentRange = range.cloneRange();
+    var rect = range.getBoundingClientRect();
+    form.style.top     = (rect.bottom + window.scrollY + 5) + 'px';
+    form.style.left    = (rect.left   + window.scrollX)       + 'px';
+    form.style.display = 'block';
+    textarea.value     = '';
+    textarea.focus();
+  });
+
+  // 2) Cancel button hides the form
+  document.getElementById('comment-cancel').addEventListener('click', function(){
+    form.style.display = 'none';
+    currentRange = null;
+    window.getSelection().removeAllRanges();
+  });
+
+  // 3) Save comment: wrap the selected range in a <span class="highlight">
+  document.getElementById('comment-save').addEventListener('click', function(){
+    var comment = textarea.value.trim();
+    if (!comment || !currentRange) return;
+
+    var range = currentRange.cloneRange();
+
+    // 1) Expand the start to the very start of its text node
+    if (range.startContainer.nodeType === Node.TEXT_NODE) {
+      range.setStart(range.startContainer, 0);
+    }
+    // 2) Expand the end to the very end of its text node
+    if (range.endContainer.nodeType === Node.TEXT_NODE) {
+      range.setEnd(range.endContainer, range.endContainer.length);
+    }
+
+    // 3) Extract the fully normalized contents
+    var frag = range.extractContents();
+
+    // 4) Create the highlight span & re-insert
+    var span = document.createElement('span');
+    span.className = 'highlight';
+    span.title     = comment;
+    span.appendChild(frag);
+    range.insertNode(span);
+
+    // 5) Clean up selection & hide form
+    form.style.display = 'none';
+    currentRange = null;
+    window.getSelection().removeAllRanges();
+  });
+
+
+
+  // 4) Clicking an existing highlight shows the tooltip
+  document.body.addEventListener('click', function(e){
+    if (e.target.classList.contains('highlight')) {
+      tooltip.textContent = e.target.title || '';
+      var r = e.target.getBoundingClientRect();
+      tooltip.style.top     = (r.bottom + window.scrollY + 5) + 'px';
+      tooltip.style.left    = (r.left   + window.scrollX)       + 'px';
+      tooltip.style.display = 'block';
+    } else {
+      tooltip.style.display = 'none';
+    }
+  });
+
+
+  // ─── Rate & Review submission logic ────────────────────────────────────────
+  document.getElementById('review-submit').addEventListener('click', function(){
+    var contest = document.getElementById('select-contest').value;
+    var year    = document.getElementById('select-year').value;
+    var prob    = document.getElementById('select-prob').value;
+    var student = document.getElementById('select-student').value;
+    var rating  = document.getElementById('review-rating').value;
+    var text    = document.getElementById('review-text').value.trim();
+    var status  = document.getElementById('review-status');
+
+    if (!contest || !year || !prob || !student) {
+      status.textContent = 'Please pick contest/year/problem/student.';
+      status.style.color = 'red';
+      return;
+    }
+    if (!rating) {
+      status.textContent = 'Please select a rating.';
+      status.style.color = 'red';
+      return;
+    }
+
+    var payload = {
+      timestamp: new Date().toISOString(),
+      contest:   contest,
+      year:      year,
+      problem:   Number(prob),
+      student:   student,
+      rating:    Number(rating),
+      review:    text
+    };
+
+    fetch('/save_review', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(resp){
+      if (resp.status === 'ok') {
+        status.textContent = 'Review saved!';
+        status.style.color = 'green';
+        // clear form
+        document.getElementById('review-rating').value = '';
+        document.getElementById('review-text').value   = '';
+      } else {
+        status.textContent = 'Error saving review.';
+        status.style.color = 'red';
+      }
+    })
+    .catch(function(){
+      status.textContent = 'Network error.';
+      status.style.color = 'red';
+    });
+  });
+  document.body.addEventListener('click', function(e){
+    if (e.target.classList.contains('highlight')) {
+      tooltip.textContent = e.target.title || '';
+      var r = e.target.getBoundingClientRect();
+      tooltip.style.top     = (r.bottom + window.scrollY + 5) + 'px';
+      tooltip.style.left    = (r.left   + window.scrollX)       + 'px';
+      tooltip.style.display = 'block';
+    } else {
+      tooltip.style.display = 'none';
+    }
+  });
+  // only listen for selections *inside* the student pane:
+  var midPane = document.getElementById('middle-pane');
+  midPane.addEventListener('mouseup', function(e){
+    var sel = window.getSelection();
+    if (sel.isCollapsed) return;                // no selection
+    var range = sel.getRangeAt(0);
+    // make sure it’s inside YOUR math-block
+    if (!range.commonAncestorContainer.closest ||
+        !range.commonAncestorContainer.closest('.math-block')
+    ) return;
+
+    // show the form
+    currentRange = range.cloneRange();
+    var rect = range.getBoundingClientRect();
+    form.style.top     = (rect.bottom + window.scrollY + 5) + 'px';
+    form.style.left    = (rect.left   + window.scrollX)       + 'px';
+    form.style.display = 'block';
+    textarea.value     = '';
+    textarea.focus();
+  });
+
+  </script>
+</body></html>

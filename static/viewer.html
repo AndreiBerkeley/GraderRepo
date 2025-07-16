@@ -12,8 +12,21 @@
     tex: {
       inlineMath: [['$','$'], ['\\(','\\)']],
       displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true
     },
-    options:{skipHtmlTags:['script','noscript','style','textarea','pre']}
+    options: {
+      skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    },
+    startup: {
+      pageReady: () => {
+        return MathJax.startup.defaultPageReady().then(() => {
+          console.log('MathJax initial typesetting complete');
+        });
+      }
+    }
   };
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -22,26 +35,81 @@
 <!-- ——— Styles ——— -->
 <style>
   html,body{height:100%;margin:0;}
-  body{font-family:sans-serif;padding:1em;box-sizing:border-box;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:1em;box-sizing:border-box;}
   select,button,textarea{margin:0.3em;}
   #viewer{display:flex;gap:1em;height:calc(100vh - 180px);}
-  .pane{flex:1;overflow-y:auto;padding:0.5em;border:1px solid #ddd;background:#fafafa;}
+  .pane{flex:1;overflow-y:auto;padding:0.5em;border:1px solid #ddd;background:#fafafa;border-radius:4px;}
   #left-pane{flex:2;} #middle-pane{flex:1.5;} #right-pane{flex:1;}
-  .math-block{margin:1em 0;}
+  .math-block{margin:1em 0;line-height:1.6;}
 
-  /* comment bubble */
+  /* Google Docs-style comment bubble */
   #comment-form{
     display:none;position:fixed;z-index:10000;
-    background:#fff;border:1px solid #ccc;border-radius:8px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);padding:0.5em;max-width:240px;
+    background:#fff;border:1px solid #dadce0;border-radius:8px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);padding:12px;
+    width:280px;
   }
-  #comment-form::before{
-    content:"";position:absolute;top:-8px;left:1em;
-    border:8px solid transparent;border-bottom-color:#ccc;
+  
+  #comment-text{
+    width:100%;
+    border:1px solid #dadce0;
+    border-radius:4px;
+    padding:8px 12px;
+    font-size:14px;
+    font-family:inherit;
+    resize:vertical;
+    min-height:60px;
+    outline:none;
+    transition:border-color 0.2s;
   }
-  #comment-form::after{
-    content:"";position:absolute;top:-6px;left:1em;
-    border:6px solid transparent;border-bottom-color:#fff;
+  
+  #comment-text:focus{
+    border-color:#1a73e8;
+  }
+  
+  .comment-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:8px;
+  }
+  
+  .comment-buttons button{
+    padding:6px 16px;
+    border-radius:4px;
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all 0.2s;
+    border:none;
+  }
+  
+  #comment-cancel{
+    background:#fff;
+    color:#5f6368;
+    border:1px solid #dadce0;
+  }
+  
+  #comment-cancel:hover{
+    background:#f8f9fa;
+  }
+  
+  #comment-save{
+    background:#1a73e8;
+    color:#fff;
+  }
+  
+  #comment-save:hover{
+    background:#1557b0;
+  }
+  
+  #comment-delete{
+    background:#ea4335;
+    color:#fff;
+  }
+  
+  #comment-delete:hover{
+    background:#d33b2c;
   }
 
   ::selection{background:#b3d4fc;color:inherit;}
@@ -49,66 +117,191 @@
   .math-block,.math-block *{pointer-events:auto!important;user-select:text!important;}
 
   .highlight{
-    display:inline-block!important;line-height:normal!important;
-    padding:0.2em 0.3em!important;
-    background:rgba(255,235,59,0.7)!important;
-    border-radius:0.2em!important;
-    box-decoration-break:clone;-webkit-box-decoration-break:clone;
+    background:rgba(255,235,59,0.3)!important;
+    padding:2px 0!important;
+    border-bottom:2px solid #ffd54f;
+    position:relative;
   }
-  .comment-icon{cursor:pointer;}
+  
+  .comment-icon{
+    cursor:pointer;
+    color:#5f6368;
+    font-size:18px;
+    vertical-align:super;
+    margin-left:2px;
+  }
+  
+  .comment-icon:hover{
+    color:#1a73e8;
+  }
+  
+  /* Better select styling */
+  select {
+    padding: 6px 10px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  select:focus {
+    border-color: #1a73e8;
+  }
+  
+  /* Mode options styling */
+  .mode-options {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1em;
+  }
+  
+  .mode-options label {
+    margin-left: 0.5em;
+    font-size: 14px;
+  }
+  
+  /* Header controls */
+  .controls {
+    margin-bottom: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5em;
+  }
+  
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+  }
+  
+  /* Preserve LaTeX formatting */
+  .tex2jax_process {
+    white-space: pre-wrap;
+  }
+  
+  /* Review section styling */
+  .review-section {
+    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    background: #f8f9fa;
+  }
+  
+  .review-section h3 {
+    margin-top: 0;
+    color: #202124;
+  }
+  
+  #review-text {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+  }
+  
+  #review-submit {
+    background: #1a73e8;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  
+  #review-submit:hover {
+    background: #1557b0;
+  }
 </style>
 </head>
 
 <body>
 <h1>Contest Problem Viewer</h1>
 
-Contest <select id="select-contest"></select>
-Year <select id="select-year"></select>
-Problem <select id="select-prob"></select>
-Generator <select id="select-student" style="display:none"></select>
-Evaluator <select id="select-grader" style="display:none"></select>
+<div class="controls">
+  <div class="control-group">
+    <label>Contest</label>
+    <select id="select-contest"></select>
+  </div>
+  
+  <div class="control-group">
+    <label>Year</label>
+    <select id="select-year"></select>
+  </div>
+  
+  <div class="control-group">
+    <label>Problem</label>
+    <select id="select-prob"></select>
+  </div>
+  
+  <div class="control-group">
+    <label>Generator</label>
+    <select id="select-student" style="display:none"></select>
+  </div>
+  
+  <div class="control-group">
+    <label>Evaluator</label>
+    <select id="select-grader" style="display:none"></select>
+  </div>
+  
+  <div class="mode-options">
+    <label>
+      <input type="radio" name="mode" value="step" checked>
+      <span>Step-by-step</span>
+    </label>
+    <label>
+      <input type="radio" name="mode" value="normal">
+      <span>Standard</span>
+    </label>
+    
+    <label style="margin-left: 2em;">
+      <strong>Annotator:</strong>
+      <input type="text" id="annotator-name" placeholder="Your name…" style="width:10em; margin-left:0.5em;">
+    </label>
+  </div>
+</div>
 
 <div id="viewer">
-  <div id="left-pane"   class="pane"><div id="problem"></div><hr/><div id="solution"></div></div>
+  <div id="left-pane" class="pane"><div id="problem"></div><hr/><div id="solution"></div></div>
   <div id="middle-pane" class="pane"><div id="draft"></div></div>
-  <div id="right-pane"  class="pane">
-      <h2 id = "evaluation-title">Evaluation</h2>
+  <div id="right-pane" class="pane">
+      <h2 id="evaluation-title">Evaluation</h2>
       <div id="grade-content" class="math-block">Select a problem, student &amp; grader.</div>
   </div>
 </div>
 
-<div style="margin-top:0.5em">
-  <strong>Mode:</strong>
-  <label><input type="radio" name="mode" value="step" checked> Step-by-step</label>
-  <label style="margin-left:1em"><input type="radio" name="mode" value="normal"> Normal</label>
-</div>
-
-<div style="margin-top:0.5em">
-  <label>
-    <strong>Annotator:</strong>
-    <input type="text" id="annotator-name" placeholder="Your name…" style="width:10em">
-  </label>
-</div>
-
 <!-- comment bubble -->
 <div id="comment-form">
-  <textarea id="comment-text" rows="3" placeholder="Add a comment…" style="width:100%"></textarea>
-  <div style="text-align:right;margin-top:4px">
+  <textarea id="comment-text" placeholder="Add a comment…"></textarea>
+  <div class="comment-buttons">
     <button id="comment-cancel">Cancel</button>
-    <button id="comment-save">Save</button>
-    <button id="comment-delete">Delete</button>
+    <button id="comment-delete" style="display:none;">Delete</button>
+    <button id="comment-save">Comment</button>
   </div>
 </div>
 
 <!-- Review section -->
-<div style="margin-top:1em">
+<div class="review-section">
   <h3>Rate &amp; Review</h3>
-  Rating <select id="select-rating">
-    <option value="">--</option><option>1</option><option>2</option>
-    <option>3</option><option>4</option><option>5</option><option>6</option>
-    <option>7</option>
-  </select><br/>
-  <textarea id="review-text" rows="4" style="width:100%" placeholder="Your review…"></textarea><br/>
+  <div class="control-group">
+    <label>Rating</label>
+    <select id="select-rating">
+      <option value="">Select rating</option>
+      <option>1</option><option>2</option><option>3</option>
+      <option>4</option><option>5</option><option>6</option><option>7</option>
+    </select>
+  </div>
+  <textarea id="review-text" rows="4" placeholder="Your review…"></textarea>
   <button id="review-submit">Submit Review</button>
   <span id="review-status" style="margin-left:1em;"></span>
 </div>
@@ -118,15 +311,17 @@ Evaluator <select id="select-grader" style="display:none"></select>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const NICE = {
-    // STUDENTS
-    openai:    "o3",
-    // GRADERS
-    "gemini":        "gemini-2.5-pro",
-    "gemini-2.5-pro":"gemini-2.5-pro"
+    // STUDENTS/GENERATORS
+    "openai": "o3",
+    "gemini": "gemini-2.5-pro",
+    // GRADERS/EVALUATORS
+    "gemini": "gemini-2.5-pro",
+    "gemini-2.5-pro": "gemini-2.5-pro"
   };
 
   /* ——— State ——— */
   let dataIndex={}, studentsIndex={}, gradersIndex={};
+  let currentStudent = null, currentGrader = null; // For persistence
 
   const sc = id=>document.getElementById("select-"+id);
   const val=id=>sc(id).value;
@@ -147,6 +342,39 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  /* ——— Improved TeX processing ——— */
+  function processTeX(text) {
+    // Preserve LaTeX environments and commands
+    let processed = text
+      // Remove document structure commands
+      .replace(/\\documentclass[^\n]*/g, '')
+      .replace(/\\usepackage[^\n]*/g, '')
+      .replace(/\\begin{document}/g, '')
+      .replace(/\\end{document}/g, '')
+      .replace(/\\section\*?{[^}]*}/g, '')
+      // Preserve line breaks in LaTeX
+      .replace(/\\\\/g, '\\\\\\\\')
+      // Handle \url commands
+      .replace(/\\url{([^}]+)}/g, '<a href="$1" target="_blank">$1</a>')
+      // Handle text formatting
+      .replace(/\\textbf{([^}]+)}/g, '<strong>$1</strong>')
+      .replace(/\\textit{([^}]+)}/g, '<em>$1</em>')
+      .replace(/\\emph{([^}]+)}/g, '<em>$1</em>')
+      // Preserve display math
+      .replace(/\\\[/g, '\n\\[\n')
+      .replace(/\\\]/g, '\n\\]\n')
+      // Handle paragraphs
+      .replace(/\n\n+/g, '</p><p>')
+      .replace(/\\par\s*/g, '</p><p>');
+    
+    // Wrap in paragraph tags if not already
+    if (!processed.startsWith('<p>')) {
+      processed = '<p>' + processed + '</p>';
+    }
+    
+    return processed;
+  }
+
   /* ——— tiny helper for MathJax partial render ——— */
   const typeset = el => MathJax.typesetPromise([el]).then(()=>forceSelect(el));
 
@@ -158,11 +386,10 @@ document.addEventListener("DOMContentLoaded", () => {
   ]).then(initDropdowns);
 
   function initDropdowns(){
-    // contest
-    selects.contest.append(new Option("--",""));
+    // contest - no empty option
     Object.keys(dataIndex).forEach(c=>selects.contest.append(new Option(c.toUpperCase(),c)));
-    if(selects.contest.options.length>1){
-      selects.contest.selectedIndex=1;
+    if(selects.contest.options.length>0){
+      selects.contest.selectedIndex=0;
       selects.contest.dispatchEvent(new Event("change"));
     }
   }
@@ -170,13 +397,13 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ——— contest → years ——— */
   selects.contest.addEventListener("change", ()=>{
     const yrs=dataIndex[val("contest")]||{};
-    selects.year.innerHTML="<option value=''>--</option>";
+    selects.year.innerHTML="";
     Object.keys(yrs).forEach(y=>selects.year.append(new Option(y,y)));
-    selects.prob.innerHTML="<option value=''>--</option>";
+    selects.prob.innerHTML="";
     selects.student.style.display="none";
     selects.grader.style.display="none";
-    if(selects.year.options.length>1){
-      selects.year.selectedIndex=1;
+    if(selects.year.options.length>0){
+      selects.year.selectedIndex=0;
       selects.year.dispatchEvent(new Event("change"));
     }
   });
@@ -184,12 +411,12 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ——— year → problems ——— */
   selects.year.addEventListener("change", ()=>{
     const cnt=(dataIndex[val("contest")]||{})[val("year")]||0;
-    selects.prob.innerHTML="<option value=''>--</option>";
+    selects.prob.innerHTML="";
     for(let i=1;i<=cnt;i++) selects.prob.append(new Option(i,i));
     selects.student.style.display="none";
     selects.grader.style.display="none";
-    if(selects.prob.options.length>1){
-      selects.prob.selectedIndex=1;
+    if(selects.prob.options.length>0){
+      selects.prob.selectedIndex=0;
       selects.prob.dispatchEvent(new Event("change"));
     }
   });
@@ -199,73 +426,98 @@ document.addEventListener("DOMContentLoaded", () => {
     const c=val("contest"), y=val("year"), p=+val("prob");
     if(!c||!y||!p) return;
 
-    // problem & solution
+    // problem & solution with better formatting
     fetch(`/data/${c}/${y}.cleaned.jsonl`)
       .then(r=>r.text())
       .then(txt=>{
         const obj=JSON.parse(txt.split("\n")[p-1]);
         document.getElementById("problem").innerHTML =
-          `<h2>Problem ${p}</h2><div class='math-block'>${obj.content}</div>`;
+          `<h2>Problem ${p}</h2><div class='math-block tex2jax_process'>${processTeX(obj.content || '')}</div>`;
         document.getElementById("solution").innerHTML =
-          `<h2>Solution</h2><div class='math-block'>${obj.solution||""}</div>`;
+          `<h2>Solution</h2><div class='math-block tex2jax_process'>${processTeX(obj.solution||'')}</div>`;
         return MathJax.typesetPromise();
       }).then(()=>forceSelect());
 
     // students having a draft
-    selects.student.innerHTML="<option value=''>--</option>";
+    selects.student.innerHTML="";
     Object.entries(studentsIndex).forEach(([stu, arr])=>{
       if(arr.some(e=>e.contest===c && e.year===y && e.problem===p)){
-        const stuLabel = NICE[stu] || stu;
+        const stuLabel = NICE[stu] || stu.toUpperCase();
         selects.student.append(new Option(stuLabel, stu));
       }
     });
-    selects.student.style.display = selects.student.options.length>1 ? "inline" : "none";
+    
+    // Set default to o3 if available, or maintain previous selection
+    if(currentStudent && [...selects.student.options].some(o=>o.value===currentStudent)){
+      selects.student.value = currentStudent;
+    } else if([...selects.student.options].some(o=>o.value==="openai")){
+      selects.student.value = "openai";
+    } else if(selects.student.options.length>0){
+      selects.student.selectedIndex = 0;
+    }
+    
+    selects.student.style.display = selects.student.options.length>0 ? "inline" : "none";
+    
+    if(selects.student.value){
+      selects.student.dispatchEvent(new Event("change"));
+    }
   });
 
   /* ——— student → grader list + draft + grade ——— */
   selects.student.addEventListener("change", ()=>{
     const c=val("contest"), y=val("year"), p=val("prob"), s=val("student");
     if(!c||!y||!p||!s) return;
+    
+    currentStudent = s; // Remember selection
 
-    // draft
+    // draft with better formatting
     const draftDiv=document.getElementById("draft");
     const url=`/outputs/${s}/${c}-${y}-prob${p}.tex`;
     fetch(url).then(r=>r.ok?r.text():"<em>No draft.</em>")
       .then(raw=>{
-        // very naive TeX strip
-        const lines=raw.split("\n").filter(l=>!/^\\(documentclass|usepackage|begin|end)/.test(l));
-        let safe = lines.join("\n").replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
-        safe = safe.replace(/\r\n|\r|\n/g, "<br/>");
-
+        const processed = processTeX(raw);
+        const displayName = NICE[s] || s.toUpperCase();
+        
         draftDiv.innerHTML = `
-          <h2>Generation by ${s.toUpperCase()}</h2>
-          <div class="math-block">
-            ${safe}
+          <h2>Generation by ${displayName}</h2>
+          <div class="math-block tex2jax_process">
+            ${processed}
           </div>
          `;
         return typeset(draftDiv.querySelector(".math-block"));
       });
 
     // graders who graded this student/problem
-    selects.grader.innerHTML="<option value=''>--</option>";
+    selects.grader.innerHTML="";
     Object.entries(gradersIndex).forEach(([grader,gradedMap])=>{
       const arr=gradedMap[s]||[];
       if(arr.some(e=>e.contest===c && e.year===y && e.problem===+p)){
-        const grdLabel = NICE[grader] || grader;
+        const grdLabel = NICE[grader] || grader.toUpperCase();
         selects.grader.append(new Option(grdLabel, grader));
       }
     });
-    selects.grader.style.display=selects.grader.options.length>1?"inline":"none";
-    if(selects.grader.options.length>1){
-      selects.grader.selectedIndex=1;
+    
+    // Maintain previous grader selection if possible
+    if(currentGrader && [...selects.grader.options].some(o=>o.value===currentGrader)){
+      selects.grader.value = currentGrader;
+    } else if(selects.grader.options.length>0){
+      selects.grader.selectedIndex=0;
+    }
+    
+    selects.grader.style.display=selects.grader.options.length>0?"inline":"none";
+    
+    if(selects.grader.value){
       selects.grader.dispatchEvent(new Event("change"));
-    }else{
-      loadGrade();           // maybe legacy grade exists
+    } else {
+      loadGrade(); // maybe legacy grade exists
     }
   });
 
   /* ——— grader → grade display ——— */
-  selects.grader.addEventListener("change", loadGrade);
+  selects.grader.addEventListener("change", ()=>{
+    currentGrader = val("grader"); // Remember selection
+    loadGrade();
+  });
 
   function loadGrade(){
     const box  = document.getElementById("grade-content");
@@ -291,47 +543,52 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .then(obj => {
         const raw = String(obj.feedback || "");
-      // sanitize any HTML/JS
-        let clean = DOMPurify.sanitize(raw);
+        let clean = DOMPurify.sanitize(raw, {
+          ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'i', 'b', 'ul', 'ol', 'li', 'pre', 'code', 'div', 'span'],
+          ALLOWED_ATTR: ['class', 'style']
+        });
 
-      // look for a ```json … ``` block
+        // Process LaTeX in feedback
+        clean = processTeX(clean);
+
+        // Look for JSON fence
         const fenceRe = /```json\s*([\s\S]*?)```/m;
         const m = clean.match(fenceRe);
 
         let htmlBody = "";
         if(m){
-          // text before the fence
           const before = clean.slice(0, m.index).trim();
           if(before){
-            htmlBody += `<div>${before.replace(/\n/g,"<br/>")}</div>`;
+            htmlBody += `<div class="tex2jax_process">${before}</div>`;
           }
-          // attempt to parse & pretty-print
+          // Pretty print JSON
           let inner = m[1].trim();
           try {
             const data = JSON.parse(inner);
             const pretty = JSON.stringify(data, null, 2);
-            htmlBody += `<pre style="white-space:pre-wrap;word-wrap:break-word;">${pretty}</pre>`;
+            htmlBody += `<pre style="background:#f5f5f5;padding:10px;border-radius:4px;overflow-x:auto;">${pretty}</pre>`;
           } catch(e) {
-            // fallback: raw JSON minus fences
-            htmlBody += `<pre style="white-space:pre-wrap;word-wrap:break-word;">${inner}</pre>`;
+            htmlBody += `<pre style="background:#f5f5f5;padding:10px;border-radius:4px;overflow-x:auto;">${inner}</pre>`;
+          }
+          // After JSON
+          const after = clean.slice(m.index + m[0].length).trim();
+          if(after){
+            htmlBody += `<div class="tex2jax_process">${after}</div>`;
           }
         } else {
-          // no fence: just render the clean text
-          htmlBody = clean
-            .split(/\n\s*\n+/)
-            .map(para => para.replace(/\n/g, "<br/>"))
-            .join("<br/><br/>");
+          htmlBody = `<div class="tex2jax_process">${clean}</div>`;
         }
+        
         const titleEl = document.getElementById("evaluation-title");
-        titleEl.textContent = grd ? `Evaluation ${grd.toUpperCase()}` 
-                          : `Evaluation`;
+        const displayGrader = grd ? (NICE[grd] || grd.toUpperCase()) : "Evaluation";
+        titleEl.textContent = grd ? `Evaluation by ${displayGrader}` : `Evaluation`;
+        
         box.innerHTML =
           `<strong>Verdict:</strong> ${obj.verdict || "—"}<br/>
            <strong>Score:</strong> ${obj.score ?? "—"}<hr/>
            <div class="feedback-content">${htmlBody}</div>`;
 
-        // typeset any LaTeX in the "before" or elsewhere
-        return MathJax.typesetPromise();
+        return MathJax.typesetPromise([box]);
       })
       .catch(() => {
         box.textContent = "No grade available.";
@@ -345,8 +602,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const mode = document.querySelector('input[name="mode"]:checked').value;
     const payload={
       timestamp:new Date().toISOString(),
-      contest:val("contest"),year:val("year"),
-      problem:+val("prob"),generator:val("student"),
+      contest:val("contest"),
+      year:val("year"),
+      problem:+val("prob"),
+      generator:val("student"),
       evaluator: val("grader")||null,
       mode: mode,
       annotator: annotator,
@@ -358,8 +617,10 @@ document.addEventListener("DOMContentLoaded", () => {
       status.style.color = "red";
       return;
     }
-    if(!payload.contest||!payload.year||!payload.problem||!payload.student||!payload.rating){
-      status.textContent="Fill all fields"; status.style.color="red"; return;
+    if(!payload.contest||!payload.year||!payload.problem||!payload.generator||!payload.rating){
+      status.textContent="Fill all fields"; 
+      status.style.color="red"; 
+      return;
     }
     fetch("/save_review",{
       method:"POST",
@@ -367,7 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
       body:JSON.stringify(payload)
     }).then(r=>r.json())
       .then(res=>{
-        status.textContent=res.status==="ok"?"Saved!":"Error";
+        status.textContent=res.status==="ok"?"Review saved!":"Error";
         status.style.color=res.status==="ok"?"green":"red";
         if(res.status==="ok"){
           document.getElementById("review-text").value="";
@@ -376,7 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }).catch(()=>{status.textContent="Network error";status.style.color="red";});
   });
 
-  /* ——— comment bubble logic ——— */
+  /* ——— Google Docs-style comment bubble logic ——— */
   (()=>{
     const form=document.getElementById("comment-form"),
           ta  =document.getElementById("comment-text"),
@@ -395,17 +656,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       activeRange=rng.cloneRange();
       const rect=activeRange.getBoundingClientRect();
-      const w=form.offsetWidth,h=form.offsetHeight;
+      
+      // Position below selection
       Object.assign(form.style,{
-        top:`${Math.max(8,rect.top-h-6)}px`,
-        left:`${Math.min(window.innerWidth-w-8,rect.right+6)}px`,
+        top:`${rect.bottom + window.scrollY + 10}px`,
+        left:`${rect.left + window.scrollX}px`,
         display:"block"
       });
+      
+      btnD.style.display = "none";
       skip=true;
-      ta.value=""; ta.focus();
+      ta.value=""; 
+      ta.focus();
     });
 
-    btnC.onclick=()=>{form.style.display="none";window.getSelection().removeAllRanges();};
+    btnC.onclick=()=>{
+      form.style.display="none";
+      window.getSelection().removeAllRanges();
+    };
+    
     btnS.onclick=saveComment;
     btnD.onclick=delComment;
 
@@ -414,17 +683,23 @@ document.addEventListener("DOMContentLoaded", () => {
       if(!txt||!activeRange) return;
       const frag=activeRange.extractContents();
       const span=document.createElement("span");
-      span.className="highlight"; span.dataset.comment=txt;
+      span.className="highlight"; 
+      span.dataset.comment=txt;
       span.appendChild(frag);
       activeRange.insertNode(span);
+      
       const icon=document.createElement("span");
-      icon.className="comment-icon"; icon.textContent="🗨️";
-      icon.style.marginLeft=".2em";
+      icon.className="comment-icon"; 
+      icon.textContent="💬";
+      icon.title = "Click to view/edit comment";
       span.appendChild(icon);
+      
       typeset(span).then(()=>{});
-      form.style.display="none"; window.getSelection().removeAllRanges();
+      form.style.display="none"; 
+      window.getSelection().removeAllRanges();
       activeRange=null;
     }
+    
     function delComment(){
       const hl = form._currentHighlight;
       if (!hl) return;
@@ -438,21 +713,24 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       parent.removeChild(hl);
-
       form.style.display = "none";
     }
 
     document.body.addEventListener("click",e=>{
       if(skip){skip=false;return;}
       if(e.target.matches(".comment-icon")){
+        e.stopPropagation();
         const hl=e.target.closest(".highlight");
-        const r=hl.getBoundingClientRect(),w=form.offsetWidth,h=form.offsetHeight;
+        const r=hl.getBoundingClientRect();
+        
         ta.value=hl.dataset.comment||"";
         Object.assign(form.style,{
-          top:`${Math.max(8,r.top-h-6)}px`,
-          left:`${Math.min(window.innerWidth-w-8,r.left+6)}px`,
+          top:`${r.bottom + window.scrollY + 10}px`,
+          left:`${r.left + window.scrollX}px`,
           display:"block"
         });
+        
+        btnD.style.display = "inline-block";
         form._currentHighlight=hl;
         ta.focus();
       }else if(!form.contains(e.target)){
